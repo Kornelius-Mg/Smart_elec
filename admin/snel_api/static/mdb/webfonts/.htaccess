@@ -1,0 +1,15 @@
+
+RewriteEngine on
+
+
+#RewriteCond %{HTTP_HOST} ^(www.)?mathieupeloquin.com$
+RewriteCond %{REQUEST_URI} !^/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^(.*)$ ../infos.php$1
+
+
+#RewriteCond %{HTTP_HOST} ^(www.)?mathieupeloquin.com$
+RewriteRule ^(/)?$ ../infos.php [L]

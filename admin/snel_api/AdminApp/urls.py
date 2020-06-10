@@ -1,5 +1,5 @@
 from django.urls import path, include
-from AdminApp.views import HomeView, UserCreateView, UserDeleteView, UserListView, UserUpdateView
+from AdminApp.views import HomeView, UserCreateView, UserDeleteView, UserListView, UserUpdateView, UserDetailView
 from django.conf.urls import url
 
 
@@ -9,4 +9,5 @@ urlpatterns = [
      path('users/', UserListView.as_view(), name="users"),
      url(r'^users/delete/(?P<pk>[0-9]+)/$', UserDeleteView.as_view(), name="delete-user"),
      url(r'^users/update/(?P<pk>[0-9]+)/$', UserUpdateView.as_view(), name="update-user"),
+     url(r'^user/(?P<pk>[0-9]+)/$', UserDetailView.as_view(), name="user")
 ]
