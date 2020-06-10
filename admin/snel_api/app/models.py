@@ -6,7 +6,6 @@ class Utilisateur(models.Model):
     nom = models.CharField(max_length=45)
     postnom = models.CharField(max_length=45)
     prenom = models.CharField(max_length=45)
-    login = models.CharField(max_length=45)
     psw = models.CharField(max_length=40)
     telephone = models.CharField(max_length=20)
 
