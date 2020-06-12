@@ -34,6 +34,7 @@
                         <fieldset>
                             <h5>Etes-vous sur de vouloir supprimer cet élément?</h5>
                           <form method="post" action="">
+                            {% csrf_token %}
                               <p>Une fois executée, cette action est irreversible</p>
                             <div class="row">
                                 <div class="form-group">

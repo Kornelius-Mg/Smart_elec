@@ -4,9 +4,9 @@ from .serializers import *
 
 # Create your views here.
 
-class AchatViewsSet(viewsets.ModelViewSet):
-    serializer_class = AchatSerializer
-    queryset = Achat.objects.all()
+class AbonnementViewsSet(viewsets.ModelViewSet):
+    serializer_class = AbonnementSerializer
+    queryset = Abonnement.objects.all()
     permission_classes = (permissions.AllowAny,)
 
 class UtilisateurViewsSet(viewsets.ModelViewSet):

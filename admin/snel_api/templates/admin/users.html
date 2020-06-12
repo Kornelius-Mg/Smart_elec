@@ -67,9 +67,11 @@
 														<td>{{user.prenom}}</td>
                                                         <td>{{user.telephone}}</td>
                                                         <td>
-                                                            <a href={% url "user" user.id %} class="btn btn-primary btn-sm">Details</a>
-                                                            <a href={% url "update-user" user.id %} class="btn btn-success btn-sm">Modifier</a>
-                                                            <a href={% url "delete-user" user.id %} class="btn btn-danger btn-sm">Supprimer</a>
+															<div class="btn-group-toggle">
+																<a href={% url "user" user.id %} class="btn btn-primary btn-sm">Details</a>
+                                                            	<a href={% url "update-user" user.id %} class="btn btn-success btn-sm">Modifier</a>
+                                                            	<a href={% url "delete-user" user.id %} class="btn btn-danger btn-sm">Supprimer</a>
+															</div>
                                                         </td>
                                                     </tr>
                                                     {% endfor %}

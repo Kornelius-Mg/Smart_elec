@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView, DetailView
+from django.shortcuts import render, redirect
+from django.db.models import Q
+from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView, DetailView, FormView, View
 from app.models import *
-from AdminApp.forms import UtilisateurForm
+from AdminApp.forms import UtilisateurForm, CreateAppartForm
 
 # Create your views here.
 
@@ -14,7 +15,7 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context["utilisateurs"] = Utilisateur.objects.all()
-        context["achats"] = Achat.objects.order_by("-date_heure")
+        context["Abonnements"] = Abonnement.objects.order_by("-date_heure")
         context["transferts"] = TransfertCredit.objects.order_by("-date_heure")
         context["compteurs"] = Compteur.objects.all()
         context["details"] = Details_Compteur.objects.all()
@@ -60,3 +61,62 @@ class UserDetailView(DetailView):
     model = Utilisateur
     template_name='admin/user.html'
     context_object_name = "user"
+
+    def get(self, request, *args, **kwargs):
+        request.session["user"] = kwargs["pk"]
+        return super(UserDetailView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        context["apparts"] = self.object.appartement_set.all()
+        context["nb_apparts"] = len(context["apparts"])
+        return context
+
+
+class AdresseCreateView(CreateView):
+    model = Adresse
+    template_name = "admin/create-appart.html"
+    fields = ("pays", "province", "ville", "commune", "quartier", "avenue", "numero")
+    success_url = "/admin-snel/apparts/new"
+
+    def get(self, request,  *args, **kwargs):
+        return super(AdresseCreateView, self).get(request, *args, **kwargs)
+
+class AppartementCreateView(View):
+    def get(self, request, *args, **kwargs):
+        adresse = list(Adresse.objects.all())[-1]
+        appart = Appartement(utilisateur=Utilisateur.objects.get(id=request.session["user"]), adresse=adresse)
+        appart.save()
+        return redirect("/admin-snel/user/%s"%request.session["user"])
+
+    def post(self, request, *args, **kwargs):
+        return HttpResponse('POST request!')
+
+class AdresseDeleteView(DeleteView):
+    model = Adresse
+    template_name = "whats-up.html"
+
+    def get(self, request, *args, **kwargs):
+        AdresseDeleteView.success_url = "/admin-snel/user/%s"%request.session["user"]
+        return super(AdresseDeleteView, self).get(request, *args, **kwargs)
+
+class AdresseUpdateView(UpdateView):
+    model = Adresse
+    template_name = "admin/update-appart.html"
+    fields = ("pays", "province", "ville", "commune", "quartier", "avenue", "numero")
+    
+    def get(self, request, *args, **kwargs):
+        AdresseUpdateView.success_url = "/admin-snel/user/" + request.session["user"]
+        return super(AdresseUpdateView, self).get(request, *args, **kwargs)
+
+
+class CompteurListView(ListView):
+    model = Compteur
+    template_name = "admin/compteurs.html"
+    context_object_name = "compteurs"
+    
+    def get(self, request, **kwargs):
+        cle = kwargs["pk"]
+        CompteurListView.queryset = Appartement.objects.get(id=cle).compteur_set.all()
+        return super(CompteurListView, self).get(request, **kwargs)
+

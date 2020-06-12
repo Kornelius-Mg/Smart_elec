@@ -25,7 +25,7 @@ router.register(r'users',UtilisateurViewsSet)
 router.register(r'appartement',AppartementViewsSet)
 router.register(r'compteur',CompteurViewsSet)
 router.register(r'details-compteur', DetailsCompteurViewsSet)
-router.register(r'achat', AchatViewsSet)
+router.register(r'Abonnement', AbonnementViewsSet)
 router.register(r'transfert', TransfertViewsSet)
 router.register(r'adresse', AdresseViewsSet)
 
@@ -37,3 +37,4 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('admin-snel/', include('AdminApp.urls'))
 ]
+

@@ -2,9 +2,9 @@ from rest_framework import serializers
 from .models import *
 
 
-class AchatSerializer(serializers.ModelSerializer):
+class AbonnementSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Achat
+        model = Abonnement
         exclude = ()
     
 class UtilisateurSerializer(serializers.ModelSerializer):

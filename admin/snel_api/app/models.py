@@ -8,6 +8,7 @@ class Utilisateur(models.Model):
     prenom = models.CharField(max_length=45)
     psw = models.CharField(max_length=40)
     telephone = models.CharField(max_length=20)
+    avatar = models.ImageField(upload_to="medias/img/", default="medias/img/avatar.jpg")
 
     def __str__(self):
         return "%s %s %s - %s"%(self.nom, self.postnom, self.prenom, self.telephone)
@@ -31,14 +32,14 @@ class Adresse(models.Model):
         return "%s C. %s Q. %s Av. %s  N°%s"%(self.ville, self.commune, self.quartier, self.avenue, self.numero) 
 
 class Appartement(models.Model):
-    id_utilisateur = models.ForeignKey(Utilisateur, on_delete=models.DO_NOTHING)
-    id_adresse = models.OneToOneField(Adresse, on_delete=models.CASCADE)
+    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.DO_NOTHING)
+    adresse = models.OneToOneField(Adresse, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '%s %s'%(self.id_utilisateur, self.id_adresse)
+        return '%s %s'%(self.utilisateur, self.adresse)
 
     def __unicode__(self):
-        return '%s %s'%(self.id_utilisateur, self.id_adresse)
+        return '%s %s'%(self.utilisateur, self.adresse)
 
 class Classes(models.Model):
     designation = models.IntegerField(choices=((0, "CLASSE 1"), (1, "CLASSE 2"), (3, "CLASSE 3")))
@@ -48,11 +49,19 @@ class Classes(models.Model):
     def __str__(self):
         return "%s - %.2f"%(self.designation, self.puissance_max)
 
+class Transformateur(models.Model):
+    localisation = models.CharField(max_length=45)
+    p_max = models.FloatField()
+    q_max = models.FloatField()
+
+    def __str__(self):
+        return "%s %f VA"%(self.localisation, self.p_max)
+
 class Compteur(models.Model):
-    id_appart = models.ForeignKey(Appartement, on_delete=models.DO_NOTHING)
     modele = models.IntegerField(choices=((0, "Monophasé"), (1, "Biphasé"), (2, "Triphasé")))
     credit = models.FloatField()
-    classe = models.ForeignKey(Classes, on_delete=models.DO_NOTHING)
+    transformateur = models.ForeignKey(Transformateur, on_delete=models.DO_NOTHING, null=True, default=None)
+    appartement = models.ForeignKey(Appartement, on_delete=models.DO_NOTHING)
     i_phase1 = models.FloatField()
     i_phase2 = models.FloatField()
     i_phase3 = models.FloatField()
@@ -68,13 +77,13 @@ class Compteur(models.Model):
     global_state = models.IntegerField(choices=((0, "OFF"), (1, "ON")))
 
     def __str__(self):
-        return '%s %s'%(self.id_appart, self.modele)
+        return '%s %s'%(self.appartement, self.modele)
 
     def __unicode__(self):
-        return '%s %s'%(self.id_appart, self.modele)
+        return '%s %s'%(self.appartement, self.modele)
 
 class Details_Compteur(models.Model):
-    id_compteur = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING)
+    compteur = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING)
     credit = models.FloatField()
     instant = models.DateTimeField(auto_now=True)
     i_phase1 = models.FloatField()
@@ -91,21 +100,19 @@ class Details_Compteur(models.Model):
     q_phase3 = models.FloatField()
     etat = models.CharField(max_length=45)
 
-class Achat(models.Model):
-    date_heure = models.DateTimeField(verbose_name="Date et heure de l'achat", auto_now=True)
-    id_compteur = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING)
+class Abonnement(models.Model):
+    date_heure = models.DateTimeField(verbose_name="Date et heure de l'Abonnement", auto_now=True)
+    compteur = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING)
     montant = models.FloatField()
     classe = models.ForeignKey(Classes, on_delete=models.DO_NOTHING)
     qte_energie = models.FloatField()
+    etat = models.IntegerField(choices=((0, "En cours"), (1, "Terminé")))
  
 class TransfertCredit(models.Model):
-    idExp = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING, related_name="expediteur")
-    idDest = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING, related_name="destinataire")
+    expeditaire = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING, related_name="expediteur")
+    destinataire = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING, related_name="destinataire")
     date_heure = models.DateTimeField(verbose_name="Date et heure du transfert", auto_now=True)
     qteTransfert = models.FloatField()
 
     def __str__(self):
-        return "%s >> %s %s %s"%(self.idExp, self.idDest, self.qteTransfert, self.date_heure)
-
-    def __unicode__(self):
-        return "%s >> %s %s %s"%(self.idExp, self.idDest, self.qteTransfert, self.date_heure)
+        return "%s >> %s %s %s"%(self.expeditaire, self.destinataire, self.qteTransfert, self.date_heure)
