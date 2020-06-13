@@ -62,6 +62,7 @@ class Compteur(models.Model):
     credit = models.FloatField()
     transformateur = models.ForeignKey(Transformateur, on_delete=models.DO_NOTHING, null=True, default=None)
     appartement = models.ForeignKey(Appartement, on_delete=models.DO_NOTHING)
+    active_class = models.IntegerField(choices = ((0, "Domestique"), (1, "Semi-industriel"), (2, "Industriel")), default=0)
     i_phase1 = models.FloatField()
     i_phase2 = models.FloatField()
     i_phase3 = models.FloatField()
@@ -81,6 +82,12 @@ class Compteur(models.Model):
 
     def __unicode__(self):
         return '%s %s'%(self.appartement, self.modele)
+
+class Balance(models.Model):
+    balance1 = models.FloatField()
+    balance2 = models.FloatField()
+    balance3 = models.FloatField()
+    compteur = models.OneToOneField(Compteur, on_delete=models.CASCADE)
 
 class Details_Compteur(models.Model):
     compteur = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING)
