@@ -12,6 +12,9 @@
                         <div class="pull-left">
                             <h4 class="panel-title txt-dark">Transformateurs</h4>
                         </div>
+                        <div class="pull-right">
+                            <a href={% url "new-transfo" %} class="btn btn-primary">Enregistrer un transfo</a>
+                        </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-wrapper collapse in">
@@ -21,8 +24,8 @@
                                     <table id="myTable1" class="table table-hover display  pb-30" >
                                         <thead>
                                             <tr>
-                                                <th>Localisation</th>
-                                                <th>Puisaance active</th>
+                                                <th>Designation</th>
+                                                <th>Puissance active</th>
                                                 <th>Puissance reactive</th>
                                                 <th>etat</th>
                                                 <th>Actions</th>
@@ -31,7 +34,7 @@
                                         <tfoot>
                                             <tr>
                                                 <th>Localisation</th>
-                                                <th>Puisaance active</th>
+                                                <th>Puissance active</th>
                                                 <th>Puissance reactive</th>
                                                 <th>etat</th>
                                                 <th>Actions</th>
@@ -40,21 +43,21 @@
                                         <tbody>
                                             {% for transfo in transfos %}  
                                             <tr>
-                                                <td>{{transfo.localisation}}</td>
+                                                <td>{{transfo.designation}}</td>
                                                 <td>{{transfo.p_max}}</td>
                                                 <td>{{transfo.q_max}}</td>
                                                 <td>
-                                                    {% if compteur.global_state == 'ON' %}
-                                                        <a class="btn btn-success btn-sm">ON</a>
+                                                    {% if transfo.global_state == 'ON' %}
+                                                        <a class="btn btn-success btn-xs">ON</a>
                                                     {% else %}
-                                                    <a class="btn btn-danger brn-sm">OFF</a>
+                                                    <a class="btn btn-danger brn-xs">OFF</a>
                                                     {% endif %}  
                                                 </td>
                                                 <td>
                                                     <div class="btn-group-toggle">
                                                         <a href="" title="Details"><i class="ti ti-plus  mr-10"></i></a>
-                                                        <a href="" user.id %} title="Editer"><i class="ti ti-pencil  mr-10"></i></a>
-                                                        <a href="" title="Supprimer"><i class="ti ti-trash"></i></a>
+                                                        <a href={% url "update-transfo" transfo.id %} user.id %} title="Editer"><i class="ti ti-pencil  mr-10"></i></a>
+                                                        <a href={% url "delete-transfo" transfo.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>

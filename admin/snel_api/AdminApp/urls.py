@@ -26,7 +26,10 @@ urlpatterns = [
      url(r'^compteurs/(?P<pk>[0-9]+)/$', CompteurListView.as_view(), name="compteurs"),
 
      # urls pour transfos
-     url(r'^transfos/$', TransformateurListView.as_view(), name="transfos")
+     url(r'^transfos/$', TransformateurListView.as_view(), name="transfos"),
+     url(r'^transfos/new/$', TransformateurCreateView.as_view(), name="new-transfo"),
+     url(r'^transfos/update/(?P<pk>[0-9]+)/$', TransformateurUpdateView.as_view(), name="update-transfo"),
+     url(r'^transfos/delete/(?P<pk>[0-9]+)/$', TransformateurDeleteView.as_view(), name="delete-transfo"),
 ]
 
 # urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

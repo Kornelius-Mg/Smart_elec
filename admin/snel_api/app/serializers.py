@@ -24,7 +24,7 @@ class CompteurSerializer(serializers.ModelSerializer):
 
 class DetailsCompteurSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Details_Compteur
+        model = DetailsCompteur
         exclude = ()
 
 class TransfertSerializer(serializers.ModelSerializer):

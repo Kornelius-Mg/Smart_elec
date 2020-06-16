@@ -50,7 +50,7 @@ class Classes(models.Model):
         return "%s - %.2f"%(self.designation, self.puissance_max)
 
 class Transformateur(models.Model):
-    localisation = models.CharField(max_length=45)
+    designation = models.CharField(max_length=45)
     p_max = models.FloatField()
     q_max = models.FloatField()
     global_state = models.IntegerField(choices = ((0,'OFF'), (1, "ON")), default=0)
@@ -90,9 +90,9 @@ class Balance(models.Model):
     balance3 = models.FloatField()
     compteur = models.OneToOneField(Compteur, on_delete=models.CASCADE)
 
-class Details_Compteur(models.Model):
-    compteur = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING)
-    credit = models.FloatField()
+class Detail(models.Model):
+    class Meta:
+        abstract = True
     instant = models.DateTimeField(auto_now=True)
     i_phase1 = models.FloatField(default=0)
     i_phase2 = models.FloatField(default=0)
@@ -107,6 +107,10 @@ class Details_Compteur(models.Model):
     q_phase2 = models.FloatField(default=0)
     q_phase3 = models.FloatField(default=0)
     etat = models.CharField(max_length=45)
+
+class DetailsCompteur(Detail):
+    compteur = models.ForeignKey(Compteur, on_delete=models.CASCADE)
+    
 
 class Abonnement(models.Model):
     date_heure = models.DateTimeField(verbose_name="Date et heure de l'Abonnement", auto_now=True)
@@ -124,3 +128,6 @@ class TransfertCredit(models.Model):
 
     def __str__(self):
         return "%s >> %s %s %s"%(self.expeditaire, self.destinataire, self.qteTransfert, self.date_heure)
+
+class DetailsTransfo(Detail):
+    transformateur = models.ForeignKey(Transformateur, on_delete=models.CASCADE)

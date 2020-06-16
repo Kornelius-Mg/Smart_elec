@@ -26,7 +26,7 @@ class CompteurViewsSet(viewsets.ModelViewSet):
 
 class DetailsCompteurViewsSet(viewsets.ModelViewSet):
     serializer_class = DetailsCompteurSerializer
-    queryset = Details_Compteur.objects.all()
+    queryset = DetailsCompteur.objects.all()
     permission_classes = (permissions.AllowAny, )
 
 class TransfertViewsSet(viewsets.ModelViewSet):

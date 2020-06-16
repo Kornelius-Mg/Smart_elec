@@ -18,7 +18,7 @@ class HomeView(TemplateView):
         context["Abonnements"] = Abonnement.objects.order_by("-date_heure")
         context["transferts"] = TransfertCredit.objects.order_by("-date_heure")
         context["compteurs"] = Compteur.objects.all()
-        context["details"] = Details_Compteur.objects.all()
+        context["details"] = DetailsCompteur.objects.all()
         return context
 
 
@@ -146,6 +146,28 @@ class TransformateurDetailView(DetailView):
         context = super(TransformateurDetailView, self).get_context_data(**kwargs)
         context['transfos'] = Transformateur.get(id=self.object.pk).compteur_set.all()
         return context
+
+
+class TransformateurCreateView(CreateView):
+    model = Transformateur
+    template_name = "admin/create-transfo.html"
+    success_url = "/admin-snel/transfos/"
+    fields = ("designation", "p_max", "q_max")
+
+
+class TransformateurUpdateView(UpdateView):
+    model = Transformateur
+    template_name = "admin/update-transfo.html"
+    fields = ("designation", "p_max", "q_max")
+    success_url = "/admin-snel/transfos/"
+
+
+class TransformateurDeleteView(DeleteView):
+    model = Transformateur
+    template_name = "whats-up.html"
+    success_url = "/admin-snel/transfos/"
+
+
 
 
 
