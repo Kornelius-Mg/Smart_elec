@@ -73,6 +73,9 @@ class UserDetailView(DetailView):
         return context
 
 
+# Vues pour adresses et appartements
+
+
 class AdresseCreateView(CreateView):
     model = Adresse
     template_name = "admin/create-appart.html"
@@ -110,6 +113,9 @@ class AdresseUpdateView(UpdateView):
         return super(AdresseUpdateView, self).get(request, *args, **kwargs)
 
 
+# Vues concernant les compteurs
+
+
 class CompteurListView(ListView):
     model = Compteur
     template_name = "admin/compteurs.html"
@@ -119,4 +125,34 @@ class CompteurListView(ListView):
         cle = kwargs["pk"]
         CompteurListView.queryset = Appartement.objects.get(id=cle).compteur_set.all()
         return super(CompteurListView, self).get(request, **kwargs)
+
+
+
+# Vues concernant les transformateurs
+
+
+class TransformateurListView(ListView):
+    model = Transformateur
+    template_name = "admin/transfos.html"
+    context_object_name = "transfos"
+
+
+class TransformateurDetailView(DetailView):
+    model = Transformateur
+    template_name = "admin/transfo.html"
+    context_object_name = "transfo"
+
+    def get_context_data(self, **kwargs):
+        context = super(TransformateurDetailView, self).get_context_data(**kwargs)
+        context['transfos'] = Transformateur.get(id=self.object.pk).compteur_set.all()
+        return context
+
+
+
+
+
+
+
+
+
 

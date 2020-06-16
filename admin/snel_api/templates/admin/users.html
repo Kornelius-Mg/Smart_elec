@@ -68,9 +68,9 @@
                                                         <td>{{user.telephone}}</td>
                                                         <td>
 															<div class="btn-group-toggle">
-																<a href={% url "user" user.id %} class="btn btn-primary btn-sm">Details</a>
-                                                            	<a href={% url "update-user" user.id %} class="btn btn-success btn-sm">Modifier</a>
-                                                            	<a href={% url "delete-user" user.id %} class="btn btn-danger btn-sm">Supprimer</a>
+																<a href={% url "user" user.id %} title="Details"><i class="ti ti-plus  mr-10"></i></a>
+																<a href={%url "update-user" user.id %} user.id %} title="Editer"><i class="ti ti-pencil  mr-10"></i></a>
+																<a href={% url "delete-user" user.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
 															</div>
                                                         </td>
                                                     </tr>

@@ -210,9 +210,11 @@
                                                                         <td>{{appart.adresse.numero}}</td>
                                                                         <td>
                                                                             <div class="btn-group-toggle">
-                                                                                <a href={% url "update-appart" appart.id %} title="modifier" class="btn btn-success btn-xs"><i class="fa fa-edit fa-2x"></i></a>
-                                                                                <a href={% url "delete-appart" appart.id %} title="supprimer" class="btn btn-danger btn-xs"><i class="fa fa-trash fa-2x"></i></a>
-                                                                                <a href={% url "compteurs" appart.id %} class="btn btn-primary btn-xs" title="Voir les compteurs"><i class="fa fa-cogs fa-2x"></i></a>
+                                                                                <div class="btn-group-toggle">
+                                                                                    <a href={% url "compteurs" appart.id %} title="Details"><i class="ti ti-plus mr-10"></i></a>
+                                                                                    <a href={% url "update-appart" appart.id  %} user.id %} title="Editer"><i class="ti ti-pencil  mr-10"></i></a>
+                                                                                    <a href={% url "delete-appart" appart.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
+                                                                                </div>
                                                                             </div>
                                                                         </td>
                                                                     </tr>

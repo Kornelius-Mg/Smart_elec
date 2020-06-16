@@ -53,6 +53,7 @@ class Transformateur(models.Model):
     localisation = models.CharField(max_length=45)
     p_max = models.FloatField()
     q_max = models.FloatField()
+    global_state = models.IntegerField(choices = ((0,'OFF'), (1, "ON")), default=0)
 
     def __str__(self):
         return "%s %f VA"%(self.localisation, self.p_max)

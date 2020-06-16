@@ -9,9 +9,9 @@
             <div class="col-sm-12">
                 <div class="panel panel-default card-view">
                     <div class="panel-heading">
-                        <!-- <div class="pull-left">
-                            <h4 class="panel-title txt-dark">Utilisateurs</h4>
-                        </div> -->
+                        <div class="pull-left">
+                            <h4 class="panel-title txt-dark">Transformateurs</h4>
+                        </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-wrapper collapse in">
@@ -21,40 +21,28 @@
                                     <table id="myTable1" class="table table-hover display  pb-30" >
                                         <thead>
                                             <tr>
-                                                <th>Appartement</th>
-                                                <th>classe</th>
-                                                <th>modele</th>
-                                                <th>credit</th>
-                                                <th>Transformateur</th>
-                                                <th>P totale</th>
-                                                <th>Q totale</th>
-                                                <th>Etat</th>
+                                                <th>Localisation</th>
+                                                <th>Puisaance active</th>
+                                                <th>Puissance reactive</th>
+                                                <th>etat</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>Appartement</th>
-                                                <th>classe</th>
-                                                <th>modele</th>
-                                                <th>credit</th>
-                                                <th>Transformateur</th>
-                                                <th>P. totale</th>
-                                                <th>Q totale</th>
-                                                <th>Etat</th>
+                                                <th>Localisation</th>
+                                                <th>Puisaance active</th>
+                                                <th>Puissance reactive</th>
+                                                <th>etat</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
-                                            {% for compteur in compteurs %}  
+                                            {% for transfo in transfos %}  
                                             <tr>
-                                                <td>{{compteur.appartement|truncatewords:5}}</td>
-                                                <td>{{compteur.classe|humanize}}</td>
-                                                <td>{{compteur.modele|humanize}}</td>
-                                                <td>{{compteur.credit}}</td>
-                                                <td>{{compteur.transformateur}}</td>
-                                                <td>{{compteur.p_totale}}</td>
-                                                <td>{{compteur.q_totale}}</td>
+                                                <td>{{transfo.localisation}}</td>
+                                                <td>{{transfo.p_max}}</td>
+                                                <td>{{transfo.q_max}}</td>
                                                 <td>
                                                     {% if compteur.global_state == 'ON' %}
                                                         <a class="btn btn-success btn-sm">ON</a>
@@ -64,8 +52,8 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group-toggle">
-                                                        <a href="" title="Details"><i class="ti ti-plus"></i></a>
-                                                        <a href="" user.id %} title="Editer"><i class="ti ti-pencil"></i></a>
+                                                        <a href="" title="Details"><i class="ti ti-plus  mr-10"></i></a>
+                                                        <a href="" user.id %} title="Editer"><i class="ti ti-pencil  mr-10"></i></a>
                                                         <a href="" title="Supprimer"><i class="ti ti-trash"></i></a>
                                                     </div>
                                                 </td>
