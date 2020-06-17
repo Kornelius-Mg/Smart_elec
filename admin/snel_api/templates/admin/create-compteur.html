@@ -1,0 +1,98 @@
+{% extends "admin/base.html" %}
+
+{% block "body" %}
+<!-- Right Sidebar Backdrop -->
+<div class="right-sidebar-backdrop"></div>
+<!-- /Right Sidebar Backdrop -->
+    
+<!-- Main Content -->
+<div class="page-wrapper">
+    <div class="container-fluid">
+        
+        <!-- Title -->
+        <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="txt-dark">{{action}} utilisateur</h4>
+            </div>
+        
+            <!-- Breadcrumb -->
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href={% url "home" %}>Dashboard</a></li>
+                    <li><a href={% url "compteurs" %}><span>Compteurs</span></a></li>
+                    <li class="active"><span>Nouveau</span></li>
+                </ol>
+            </div>
+            <!-- /Breadcrumb -->
+        
+        </div>
+        <!-- /Title -->
+        
+        <!-- Row -->
+            <div class="col-offset-2 col-md-9">
+                <div class="panel panel-default vertical-align-middle card-view">
+                    <div class="panel-heading">
+                        <!-- <div class="pull-left">
+                            <h4 class="panel-title txt-dark">ENREGISTRER UTILISATEUR</h4>
+                        </div> -->
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-wrap">
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label for="designation">Modele</label>
+                                                <select class="form-control" name="modele" id="modele" required>
+                                                    <option selected disabled>Choisir le modele</option>
+                                                    <option value = 0>Monophasé</option>
+                                                    <option value = 1>Biphasé</option>
+                                                    <option value = 2>Triphasé</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Appartement</label>
+                                                <select class="form-control select2" name="appartement" required>
+                                                    <option selected disabled>Select</option>
+                                                    {% for appart in apparts %}
+                                                    <option value={{appart.id}}>{{appart}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>	
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Transformateur</label>
+                                                <select class="form-control select2" name="transformateur" required>
+                                                    <option selected disabled>Select</option>
+                                                    {% for transfo in transfos %}
+                                                    <option value={{transfo.id}}>{{transfo}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Classe</label>
+                                                <select class="form-control" name="active_class" required>
+                                                    <option disabled selected>Choisir</option>
+                                                    <option value=0>Domestique</option>
+                                                    <option value=1>Semi-Industrielle</option>
+                                                    <option value=2>Industrielle</option>
+                                                </select>
+                                            </div>	
+                                            <div class="btn-group-toggle">
+                                                <button type="submit" class="btn btn-success">Enregistrer</button>
+                                                <button type="reset" class="btn btn-danger">Annuler</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+{% endblock "body" %}
+    

@@ -9,9 +9,12 @@
             <div class="col-sm-12">
                 <div class="panel panel-default card-view">
                     <div class="panel-heading">
-                        <!-- <div class="pull-left">
-                            <h4 class="panel-title txt-dark">Utilisateurs</h4>
-                        </div> -->
+                        <div class="pull-left">
+                            <h4 class="panel-title txt-dark">Compteurs</h4>
+                        </div>
+                        <div class="pull-right">
+                            <a href={% url "new-compteur" %} class="btn btn-primary">Nouveau compteur</a>
+                        </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-wrapper collapse in">
@@ -49,12 +52,12 @@
                                             {% for compteur in compteurs %}  
                                             <tr>
                                                 <td>{{compteur.appartement|truncatewords:5}}</td>
-                                                <td>{{compteur.classe|humanize}}</td>
-                                                <td>{{compteur.modele|humanize}}</td>
+                                                <td>{{compteur.classe}}</td>
+                                                <td>{{compteur.modele}}</td>
                                                 <td>{{compteur.credit}}</td>
                                                 <td>{{compteur.transformateur}}</td>
-                                                <td>{{compteur.p_totale}}</td>
-                                                <td>{{compteur.q_totale}}</td>
+                                                <td>{{compteur.p_phase1|add:compteur.p_phase2|add:compteur.p_phase3}}</td>
+                                                <td>{{compteur.q_phase1|add:compteur.q_phase3|add:compteur.q_phase3}}</td>
                                                 <td>
                                                     {% if compteur.global_state == 'ON' %}
                                                         <a class="btn btn-success btn-sm">ON</a>
@@ -65,8 +68,8 @@
                                                 <td>
                                                     <div class="btn-group-toggle">
                                                         <a href="" title="Details"><i class="ti ti-plus"></i></a>
-                                                        <a href="" user.id %} title="Editer"><i class="ti ti-pencil"></i></a>
-                                                        <a href="" title="Supprimer"><i class="ti ti-trash"></i></a>
+                                                        <a href={% url "update-compteur" compteur.id %} title="Editer"><i class="ti ti-pencil"></i></a>
+                                                        <a href={% url "delete-compteur" compteur.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>

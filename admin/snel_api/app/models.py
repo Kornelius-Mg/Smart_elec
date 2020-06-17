@@ -56,7 +56,7 @@ class Transformateur(models.Model):
     global_state = models.IntegerField(choices = ((0,'OFF'), (1, "ON")), default=0)
 
     def __str__(self):
-        return "%s %f VA"%(self.localisation, self.p_max)
+        return "%s %f VA"%(self.designation, self.p_max)
 
 class Compteur(models.Model):
     modele = models.IntegerField(choices=((0, "Monophasé"), (1, "Biphasé"), (2, "Triphasé")))
@@ -76,7 +76,7 @@ class Compteur(models.Model):
     q_phase1 = models.FloatField(default=0)
     q_phase2 = models.FloatField(default=0)
     q_phase3 = models.FloatField(default=0)
-    global_state = models.IntegerField(choices=((0, "OFF"), (1, "ON")))
+    global_state = models.IntegerField(choices=((0, "OFF"), (1, "ON")), default=0)
 
     def __str__(self):
         return '%s %s'%(self.appartement, self.modele)
@@ -110,7 +110,6 @@ class Detail(models.Model):
 
 class DetailsCompteur(Detail):
     compteur = models.ForeignKey(Compteur, on_delete=models.CASCADE)
-    
 
 class Abonnement(models.Model):
     date_heure = models.DateTimeField(verbose_name="Date et heure de l'Abonnement", auto_now=True)

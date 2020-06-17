@@ -116,7 +116,7 @@ class AdresseUpdateView(UpdateView):
 # Vues concernant les compteurs
 
 
-class CompteurListView(ListView):
+class CompteurAppartListView(ListView):
     model = Compteur
     template_name = "admin/compteurs.html"
     context_object_name = "compteurs"
@@ -124,9 +124,51 @@ class CompteurListView(ListView):
     def get(self, request, **kwargs):
         cle = kwargs["pk"]
         CompteurListView.queryset = Appartement.objects.get(id=cle).compteur_set.all()
-        return super(CompteurListView, self).get(request, **kwargs)
+        return super(CompteurAppartListView, self).get(request, **kwargs)
 
 
+class CompteurListView(ListView):
+    model = Compteur
+    template_name = "admin/compteurs.html"
+    context_object_name = "compteurs"
+
+
+class CompteurTransfoListView(ListView):
+    model = Compteur
+    template_name = "agdmin/compteurs.html"
+    context_object_name = "compteurs"
+
+
+class CompteurCreateView(CreateView):
+    model = Compteur
+    template_name = "admin/create-compteur.html"
+    fields = ("modele", "appartement", "transformateur", "active_class")
+    success_url = "/admin-snel/compteurs/"
+
+    def get_context_data(self, **kwargs):
+        context = super(CompteurCreateView, self).get_context_data(**kwargs)
+        context["apparts"] = Appartement.objects.all()
+        context["transfos"] = Transformateur.objects.all()
+        return context
+
+
+class CompteurDeleteView(DeleteView):
+    model = Compteur
+    template_name = "whats-up.html"
+    success_url = "/admin-snel/compteurs"
+
+
+class CompteurUpdateView(UpdateView):
+    model = Compteur
+    template_name = "admin/update-compteur.html"
+    success_url = "/admin-snel/compteurs"
+    fields = ("modele", "appartement", "transformateur", "active_class")
+
+    def get_context_data(self, **kwargs):
+        context = super(CompteurUpdateView, self).get_context_data(**kwargs)
+        context["apparts"] = Appartement.objects.all()
+        context["transfos"] = Transformateur.objects.all()
+        return context
 
 # Vues concernant les transformateurs
 
