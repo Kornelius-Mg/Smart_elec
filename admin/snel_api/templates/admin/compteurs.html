@@ -52,7 +52,7 @@
                                             {% for compteur in compteurs %}  
                                             <tr>
                                                 <td>{{compteur.appartement|truncatewords:5}}</td>
-                                                <td>{{compteur.classe}}</td>
+                                                <td>{{compteur.active_class}}</td>
                                                 <td>{{compteur.modele}}</td>
                                                 <td>{{compteur.credit}}</td>
                                                 <td>{{compteur.transformateur}}</td>
@@ -67,8 +67,8 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group-toggle">
-                                                        <a href="" title="Details"><i class="ti ti-plus"></i></a>
-                                                        <a href={% url "update-compteur" compteur.id %} title="Editer"><i class="ti ti-pencil"></i></a>
+                                                        <a href="" title="Details"><i class="ti ti-plus mr-10"></i></a>
+                                                        <a href={% url "update-compteur" compteur.id %} title="Editer"><i class="ti ti-pencil mr-10"></i></a>
                                                         <a href={% url "delete-compteur" compteur.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
                                                     </div>
                                                 </td>

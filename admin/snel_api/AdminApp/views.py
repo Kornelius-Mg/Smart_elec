@@ -167,7 +167,9 @@ class CompteurUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super(CompteurUpdateView, self).get_context_data(**kwargs)
         context["apparts"] = Appartement.objects.all()
+        context["id_appart"] = list(context["apparts"]).index(self.object.appartement) + 1
         context["transfos"] = Transformateur.objects.all()
+        context["id_transfo"] = list(context["transfos"]).index(self.object.transformateur) + 1
         return context
 
 # Vues concernant les transformateurs
