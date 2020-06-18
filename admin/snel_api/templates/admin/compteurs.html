@@ -11,9 +11,15 @@
                     <div class="panel-heading">
                         <div class="pull-left">
                             <h4 class="panel-title txt-dark">Compteurs</h4>
+                            <p>{{url}}</p>
                         </div>
                         <div class="pull-right">
-                            <a href={% url "new-compteur" %} class="btn btn-primary">Nouveau compteur</a>
+                            
+                            {% if url == "compteurs-appart" %}
+                                <a href={% url "new-compteur-appart" id_appart %} class="btn btn-primary">Nouveau compteur</a>
+                            {% else %}
+                                <a href={% url "new-compteur" %} class="btn btn-primary">Nouveau compteur</a>
+                            {% endif %}
                         </div>
                         <div class="clearfix"></div>
                     </div>

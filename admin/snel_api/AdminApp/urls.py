@@ -25,6 +25,7 @@ urlpatterns = [
      # Urls pour compteurs
      url(r'^compteurs/new/$', CompteurCreateView.as_view(), name="new-compteur"),
      url(r'^compteurs-appart/(?P<pk>[0-9]+)/$', CompteurAppartListView.as_view(), name="compteurs-appart"),
+     url(r'^compteurs-appart/(?P<pk>[0-9]+)/new/$', CompteurAppartCreateView.as_view(), name="new-compteur-appart"),
      url(r'^compteurs/$', CompteurListView.as_view(), name="compteurs"),
      url(r'^compteurs-transfo/(?P<pk>[0-9]+)/$', CompteurTransfoListView.as_view(), name="compteurs-transfo"),
      url(r'compteurs/delete/(?P<pk>[0-9]+)/$', CompteurDeleteView.as_view(), name="delete-compteur"),

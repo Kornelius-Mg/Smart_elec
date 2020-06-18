@@ -12,7 +12,7 @@
         <!-- Title -->
         <div class="row heading-bg">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="txt-dark">{{action}} utilisateur</h4>
+                <h4 class="txt-dark">Compteurs</h4>
             </div>
         
             <!-- Breadcrumb -->
@@ -55,7 +55,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label mb-10">Appartement</label>
-                                                <select class="form-control select2" name="appartement" required>
+                                                <select class="form-control select2" id="appartement" name="appartement" required>
                                                     <option selected disabled>Select</option>
                                                     {% for appart in apparts %}
                                                     <option value={{appart.id}}>{{appart}}</option>
@@ -64,7 +64,7 @@
                                             </div>	
                                             <div class="form-group">
                                                 <label class="control-label mb-10">Transformateur</label>
-                                                <select class="form-control select2" name="transformateur" required>
+                                                <select class="form-control select2" name="transformateur" id="transformateur" required>
                                                     <option selected disabled>Select</option>
                                                     {% for transfo in transfos %}
                                                     <option value={{transfo.id}}>{{transfo}}</option>
@@ -73,7 +73,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label mb-10">Classe</label>
-                                                <select class="form-control" name="active_class" required>
+                                                <select class="form-control" name="active_class" id="classe" required>
                                                     <option disabled selected>Choisir</option>
                                                     <option value=0>Domestique</option>
                                                     <option value=1>Semi-Industrielle</option>
@@ -94,5 +94,9 @@
             </div>
     </div>
 </div>
+<script>
+    var id_appart = {{id_appart}};
+    if(id_appart != undefined) document.getElementById("appartement").selectedIndex = id_appart;
+</script>
 {% endblock "body" %}
     

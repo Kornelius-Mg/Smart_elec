@@ -123,21 +123,27 @@ class CompteurAppartListView(ListView):
     
     def get(self, request, **kwargs):
         cle = kwargs["pk"]
-        CompteurListView.queryset = Appartement.objects.get(id=cle).compteur_set.all()
+        self.key = cle
+        CompteurAppartListView.queryset = Appartement.objects.get(id=cle).compteur_set.all()
         return super(CompteurAppartListView, self).get(request, **kwargs)
-
+    
+    def get_context_data(self, **kwargs):
+        context = super(CompteurAppartListView, self).get_context_data(**kwargs)
+        context["url"] = "compteurs-appart"
+        context["id_appart"] = self.key
+        return context
 
 class CompteurListView(ListView):
     model = Compteur
     template_name = "admin/compteurs.html"
     context_object_name = "compteurs"
+    queryset = Compteur.objects.all()
 
 
 class CompteurTransfoListView(ListView):
     model = Compteur
     template_name = "agdmin/compteurs.html"
     context_object_name = "compteurs"
-
 
 class CompteurCreateView(CreateView):
     model = Compteur
@@ -148,6 +154,23 @@ class CompteurCreateView(CreateView):
     def get_context_data(self, **kwargs):
         context = super(CompteurCreateView, self).get_context_data(**kwargs)
         context["apparts"] = Appartement.objects.all()
+        context["transfos"] = Transformateur.objects.all()
+        return context
+
+class CompteurAppartCreateView(CreateView):
+    model = Compteur
+    template_name = "admin/create-compteur.html"
+    fields = ("modele", "appartement", "transformateur", "active_class")
+
+    def get(self, request, **kwargs):
+        self.key = kwargs["pk"]
+        CompteurAppartCreateView.success_url = "/admin-snel/compteurs-appart/"+self.key
+        return super(CompteurAppartCreateView, self).get(request, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(CompteurAppartCreateView, self).get_context_data(**kwargs)
+        context["apparts"] = Appartement.objects.all()
+        context["id_appart"] = list(context["apparts"]).index(Appartement.objects.get(id=self.key)) + 1
         context["transfos"] = Transformateur.objects.all()
         return context
 
