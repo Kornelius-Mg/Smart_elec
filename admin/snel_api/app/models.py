@@ -56,7 +56,7 @@ class Transformateur(models.Model):
     global_state = models.IntegerField(choices = ((0,'OFF'), (1, "ON")), default=0)
 
     def __str__(self):
-        return "%s %f VA"%(self.designation, self.p_max)
+        return "%s %.2f KVA"%(self.designation, self.p_max)
 
 class Compteur(models.Model):
     modele = models.IntegerField(choices=((0, "Monophasé"), (1, "Biphasé"), (2, "Triphasé")))
@@ -106,6 +106,8 @@ class Detail(models.Model):
     q_phase1 = models.FloatField(default=0)
     q_phase2 = models.FloatField(default=0)
     q_phase3 = models.FloatField(default=0)
+    p_total = models.FloatField(default=0)
+    q_total = models.FloatField(default=0)
     etat = models.CharField(max_length=45)
 
 class DetailsCompteur(Detail):
@@ -127,6 +129,7 @@ class TransfertCredit(models.Model):
 
     def __str__(self):
         return "%s >> %s %s %s"%(self.expeditaire, self.destinataire, self.qteTransfert, self.date_heure)
+
 
 class DetailsTransfo(Detail):
     transformateur = models.ForeignKey(Transformateur, on_delete=models.CASCADE)

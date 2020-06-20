@@ -12,7 +12,7 @@
         <!-- Title -->
         <div class="row heading-bg">
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                <h4 class="txt-dark">{{action}} utilisateur</h4>
+                <h4 class="txt-dark">Transformateur</h4>
             </div>
         
             <!-- Breadcrumb -->
@@ -45,16 +45,23 @@
                                         <form action="" method="post">
                                             {% csrf_token %}
                                             <div class="form-group">
-                                                <label for="designation">Designation</label>
+                                                <label class="control-label mb-10" for="designation">Designation</label>
                                                 <input class="form-control" name="designation" id="designation" placeholder="Designation"  required/>
                                             </div>
                                             <div class="form-group">
-                                                <label for="p_max">Puissance active</label>
-                                                <input class="form-control" type="number" min=0 name="p_max" id="p_max" placeholder="Puissance active maximale"  required/>
+                                                <label class="control-label mb-10" for="p_max">Puissance active</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" type="number" min=0 name="p_max" id="p_max" placeholder="Puissance active maximale"  required/>
+                                                    <div class="input-group-addon"><i>KVA</i></div>
+                                                </div>
+                                                
                                             </div>
                                             <div class="form-group">
-                                                <label for="q_max">Puissance reactive</label>
-                                                <input class="form-control" name="q_max" min=0 id="q_max" placeholder="Puissance réactive maximale"  required/>
+                                                <label class="control-label mb-10" for="q_max">Puissance reactive</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" name="q_max" min=0 id="q_max" placeholder="Puissance réactive maximale"  required/>
+                                                    <div class="input-group-addon"><i>KVA</i></div>
+                                                </div>
                                             </div>
                                             <div class="btn-group-toggle">
                                                 <button type="submit" class="btn btn-success">Enregistrer</button>

@@ -211,8 +211,10 @@ class TransformateurDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(TransformateurDetailView, self).get_context_data(**kwargs)
-        context['transfos'] = Transformateur.get(id=self.object.pk).compteur_set.all()
+        context['compteurs'] = Transformateur.objects.get(id=self.object.pk).compteur_set.all()
+        context['details'] = Transformateur.objects.get(id=self.object.pk).detailstransfo_set.all()
         return context
+
 
 
 class TransformateurCreateView(CreateView):
