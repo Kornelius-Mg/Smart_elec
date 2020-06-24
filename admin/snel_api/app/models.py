@@ -53,6 +53,8 @@ class Transformateur(models.Model):
     designation = models.CharField(max_length=45)
     p_max = models.FloatField()
     q_max = models.FloatField()
+    p_total = models.FloatField(default=0)
+    q_total = models.FloatField(default=0)
     global_state = models.IntegerField(choices = ((0,'OFF'), (1, "ON")), default=0)
 
     def __str__(self):
@@ -64,6 +66,8 @@ class Compteur(models.Model):
     transformateur = models.ForeignKey(Transformateur, on_delete=models.DO_NOTHING, null=True, default=None)
     appartement = models.ForeignKey(Appartement, on_delete=models.DO_NOTHING)
     active_class = models.IntegerField(choices = ((0, "Domestique"), (1, "Semi-industriel"), (2, "Industriel")), default=0)
+    p_total = models.FloatField(default=0)
+    q_total = models.FloatField(default=0)
     i_phase1 = models.FloatField(default=0)
     i_phase2 = models.FloatField(default=0)
     i_phase3 = models.FloatField(default=0)
@@ -113,6 +117,27 @@ class Detail(models.Model):
 class DetailsCompteur(Detail):
     compteur = models.ForeignKey(Compteur, on_delete=models.CASCADE)
 
+    def save(self):
+        self.p_total = self.p_phase1 + self.p_phase2 + self.p_phase3
+        self.q_total = self.q_phase1 + self.q_phase2 + self.q_phase3
+        self.compteur.p_total += self.p_total
+        self.compteur.q_total += self.q_total
+        self.compteur.p_phase1 += self.p_phase1
+        self.compteur.p_phase2 += self.p_phase2
+        self.compteur.p_phase3 += self.p_phase3
+        self.compteur.q_phase1 += self.q_phase1
+        self.compteur.q_phase2 += self.q_phase2
+        self.compteur.q_phase3 += self.q_phase3
+        self.compteur.u_phase1 += self.u_phase1
+        self.compteur.u_phase2 += self.u_phase2
+        self.compteur.u_phase3 += self.u_phase3
+        self.compteur.i_phase1 += self.i_phase1
+        self.compteur.i_phase2 += self.i_phase2
+        self.compteur.i_phase3 += self.i_phase3
+        self.compteur.save()
+        return super(DetailsCompteur, self).save()
+        
+
 class Abonnement(models.Model):
     date_heure = models.DateTimeField(verbose_name="Date et heure de l'Abonnement", auto_now=True)
     compteur = models.ForeignKey(Compteur, on_delete=models.DO_NOTHING)
@@ -133,3 +158,12 @@ class TransfertCredit(models.Model):
 
 class DetailsTransfo(Detail):
     transformateur = models.ForeignKey(Transformateur, on_delete=models.CASCADE)
+
+    def save(self):
+        self.p_total = self.p_phase1 + self.p_phase2 + self.p_phase3
+        self.q_total = self.q_phase1 + self.q_phase2 + self.q_phase3
+        self.transformateur.p_total += self.p_total
+        self.transformateur.q_total += self.q_total
+        self.transformateur.global_state = 1
+        self.transformateur.save()
+        return super(DetailsCompteur, self).save()

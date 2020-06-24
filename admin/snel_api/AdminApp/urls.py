@@ -30,6 +30,7 @@ urlpatterns = [
      url(r'^compteurs-transfo/(?P<pk>[0-9]+)/$', CompteurTransfoListView.as_view(), name="compteurs-transfo"),
      url(r'compteurs/delete/(?P<pk>[0-9]+)/$', CompteurDeleteView.as_view(), name="delete-compteur"),
      url(r'^compteurs/update/(?P<pk>[0-9]+)/$', CompteurUpdateView.as_view(), name="update-compteur"),
+     url(r'^compteur/(?P<pk>[0-9]+)/$', DetailsCompteurView.as_view(), name="compteur"),
 
      # urls pour transfos
      url(r'^transfos/$', TransformateurListView.as_view(), name="transfos"),

@@ -11,13 +11,13 @@
           	<!-- Title -->
 				<div class="row heading-bg">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-					  <h5 class="txt-dark">Transformateur</h5>
+					  <h5 class="txt-dark">Compteur</h5>
 					</div>
 					<!-- Breadcrumb -->
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 					  <ol class="breadcrumb">
                         <li><a href={% url "home" %}>Dashboard</a></li>
-                        <li><a href={% url "transfos" %}>Transformateurs</a></li>
+                        <li><a href={% url "compteurs" %}>Compteurs</a></li>
 						<li class="active"><span>Details</span></li>
 					  </ol>
 					</div>
@@ -34,8 +34,8 @@
                                   <div class="container-fluid">
                                       <div class="row">
                                           <div class="col-xs-12 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark block counter">{{ transfo.designation }}</span>
-                                              <span class="weight-500 uppercase-font block font-13">Designation</span>
+                                              <span class="txt-dark">{{ compteur.appartement.adresse }}</span>
+                                              <span class="weight-500 uppercase-font block font-13">Appartement</span>
                                           </div>
                                       </div>	
                                   </div>
@@ -52,7 +52,25 @@
                                   <div class="container-fluid">
                                       <div class="row">
                                           <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark block counter"><span class="counter-anim">{{ transfo.p_max }} </span>KVA</span>
+                                              <span class="txt-dark block counter"><span class="counter-anim">{{ compteur.p_total }} </span>KVA</span>
+                                              <span class="weight-500 uppercase-font block">P. Active Totale</span>
+                                          </div>
+                                      </div>	
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                  <div class="panel panel-default card-view pa-0">
+                      <div class="panel-wrapper collapse in">
+                          <div class="panel-body pa-0">
+                              <div class="sm-data-box">
+                                  <div class="container-fluid">
+                                      <div class="row">
+                                          <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                              <span class="txt-dark block counter"><span class="counter-anim">{{compteur.q_total}} </span>KVAR</span>
                                               <span class="weight-500 uppercase-font block">Puissance active</span>
                                           </div>
                                       </div>	
@@ -62,60 +80,6 @@
                       </div>
                   </div>
               </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                  <div class="panel panel-default card-view pa-0">
-                      <div class="panel-wrapper collapse in">
-                          <div class="panel-body pa-0">
-                              <div class="sm-data-box">
-                                  <div class="container-fluid">
-                                      <div class="row">
-                                          <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark block counter"><span class="counter-anim">{{transfo.q_max}} </span>KVAR</span>
-                                              <span class="weight-500 uppercase-font block">P. Reactive Max</span>
-                                          </div>
-                                      </div>	
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default card-view pa-0">
-                    <div class="panel-wrapper collapse in">
-                        <div class="panel-body pa-0">
-                            <div class="sm-data-box">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                            <span class="txt-dark block counter"><span class="counter-anim">{{transfo.q_total}} </span>KVAR</span>
-                                            <span class="weight-500 uppercase-font block">P. Reactive Totale</span>
-                                        </div>
-                                    </div>	
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default card-view pa-0">
-                    <div class="panel-wrapper collapse in">
-                        <div class="panel-body pa-0">
-                            <div class="sm-data-box">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                            <span class="txt-dark block counter"><span class="counter-anim">{{transfo.p_total}} </span>KVA</span>
-                                            <span class="weight-500 uppercase-font block">P. Active Totale</span>
-                                        </div>
-                                    </div>	
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
           </div>
           <!-- /Row -->
           
@@ -245,11 +209,11 @@
                                                   <td>{{detail.p_phase1}}</td>
                                                   <td>{{detail.p_phase2}}</td>
                                                   <td>{{detail.p_phase3}}</td>
-                                                  <td>{{detail.p_total}}</td>
+                                                  <td>{{detail.p_phase1|add:detail.p_phase2|add:detail.p_phase3}}</td>
                                                   <td>{{detail.q_phase1}}</td>
                                                   <td>{{detail.q_phase2}}</td>
                                                   <td>{{detail.q_phase3}}</td>
-                                                  <td>{{detail.q_total}}</td>
+                                                  <td>{{detail.q_phase1|add:detail.q_phase2|add:detail.q_phase3}}</td>
                                               </tr>
                                             {% endfor %}
                                         </tbody>
@@ -260,90 +224,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Row -->
-          <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="panel panel-default card-view panel-refresh">
-                    <div class="refresh-container">
-                        <div class="la-anim-1"></div>
-                      </div>
-                      <div class="panel-heading">
-                          <div class="pull-left">
-                              <h6 class="panel-title txt-dark">Compteurs associés</h6>
-                          </div>
-                          <div class="pull-right">
-                              <a href="#" class="pull-left inline-block refresh mr-15">
-                                  <i class="zmdi zmdi-replay"></i>
-                              </a>
-                              <a href="#" class="pull-left inline-block full-screen mr-15">
-                                  <i class="zmdi zmdi-fullscreen"></i>
-                              </a>
-                          </div>
-                          <div class="clearfix"></div>
-                      </div>
-                      <div class="panel-wrapper collapse in">
-                          <div class="panel-body row pa-0">
-                              <div class="table-wrap">
-                                  <div class="table-responsive">
-                                      <table class="table table-hover mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>Appartement</th>
-                                                <th>classe</th>
-                                                <th>modele</th>
-                                                <th>credit</th>
-                                                <th>P totale</th>
-                                                <th>Q totale</th>
-                                                <th>Etat</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Appartement</th>
-                                                <th>classe</th>
-                                                <th>modele</th>
-                                                <th>credit</th>
-                                                <th>P. totale</th>
-                                                <th>Q totale</th>
-                                                <th>Etat</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            {% for compteur in compteurs %}  
-                                            <tr>
-                                                <td>{{compteur.appartement|truncatewords:5}}</td>
-                                                <td>{{compteur.active_class}}</td>
-                                                <td>{{compteur.modele}}</td>
-                                                <td>{{compteur.credit}}</td>
-                                                <td>{{compteur.p_phase1|add:compteur.p_phase2|add:compteur.p_phase3}}</td>
-                                                <td>{{compteur.q_phase1|add:compteur.q_phase3|add:compteur.q_phase3}}</td>
-                                                <td>
-                                                    {% if compteur.global_state == 'ON' %}
-                                                        <span class="label label-success">ON</span>
-                                                    {% else %}
-                                                    <span class="label label-danger">OFF</span>
-                                                    {% endif %}  
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group-toggle">
-                                                        <a href="" title="Details"><i class="ti ti-plus mr-10"></i></a>
-                                                        <a href={% url "update-compteur" compteur.id %} title="Editer"><i class="ti ti-pencil mr-10"></i></a>
-                                                        <a href={% url "delete-compteur" compteur.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                      </table>
-                                  </div>
-                                </div>
-                          </div>	
-                      </div>
-                  </div>
-              </div>
-          </div>	
           <!-- Row -->
       </div>
     </div>
@@ -605,7 +485,7 @@
         setInterval(
             () => {
                 $.get(
-                    '{% url "transfo" object.id %}',
+                    '{% url "compteur" object.id %}',
                     (datas) => {
                         afficherDatas(datas);
                     },

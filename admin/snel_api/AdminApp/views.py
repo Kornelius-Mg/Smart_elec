@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.core import serializers
+from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView, DetailView, FormView, View
 from app.models import *
@@ -175,6 +177,28 @@ class CompteurAppartCreateView(CreateView):
         return context
 
 
+class DetailsCompteurView(DetailView):
+    model = Compteur
+    template_name = "admin/compteur.html"
+    context_object_name = "compteur"
+
+    def get(self, request, *args, **kwargs):
+        if request.is_ajax():
+            JSONSerializer = serializers.get_serializer("json")
+            json_serializer = JSONSerializer()
+            json_serializer.serialize(DetailsCompteur.objects.order_by("-instant").filter(compteur=Compteur.objects.get(id=kwargs["pk"])))
+            datas = json_serializer.getvalue()
+            return HttpResponse(datas)
+        else:
+            return super(DetailsCompteurView, self).get(request, *args, **kwargs) 
+
+    def get_context_data(self, **kwargs):
+        context = super(DetailsCompteurView, self).get_context_data(**kwargs)
+        context['details'] = Compteur.objects.get(id=self.object.pk).detailscompteur_set.order_by("-instant")
+        return context
+
+
+
 class CompteurDeleteView(DeleteView):
     model = Compteur
     template_name = "whats-up.html"
@@ -209,10 +233,20 @@ class TransformateurDetailView(DetailView):
     template_name = "admin/transfo.html"
     context_object_name = "transfo"
 
+    def get(self, request, *args, **kwargs):
+        if request.is_ajax():
+            JSONSerializer = serializers.get_serializer("json")
+            json_serializer = JSONSerializer()
+            json_serializer.serialize(DetailsTransfo.objects.order_by("-instant").filter(transformateur=Transformateur.objects.get(id=kwargs["pk"])))
+            datas = json_serializer.getvalue()
+            return HttpResponse(datas)
+        else:
+            return super(TransformateurDetailView, self).get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super(TransformateurDetailView, self).get_context_data(**kwargs)
         context['compteurs'] = Transformateur.objects.get(id=self.object.pk).compteur_set.all()
-        context['details'] = Transformateur.objects.get(id=self.object.pk).detailstransfo_set.all()
+        context['details'] = Transformateur.objects.get(id=self.object.pk).detailstransfo_set.order_by("-instant")
         return context
 
 
