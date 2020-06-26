@@ -159,11 +159,11 @@ class TransfertCredit(models.Model):
 class DetailsTransfo(Detail):
     transformateur = models.ForeignKey(Transformateur, on_delete=models.CASCADE)
 
-    def save(self):
+    def save(self, *args, **kwargs):
         self.p_total = self.p_phase1 + self.p_phase2 + self.p_phase3
         self.q_total = self.q_phase1 + self.q_phase2 + self.q_phase3
         self.transformateur.p_total += self.p_total
         self.transformateur.q_total += self.q_total
         self.transformateur.global_state = 1
         self.transformateur.save()
-        return super(DetailsCompteur, self).save()
+        return super(DetailsTransfo, self).save(*args, **kwargs)

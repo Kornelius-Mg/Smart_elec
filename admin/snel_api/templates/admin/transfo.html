@@ -88,7 +88,7 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                            <span class="txt-dark block counter"><span class="counter-anim">{{transfo.q_total}} </span>KVAR</span>
+                                            <span class="txt-dark block counter"><span class="counter-anim" id="qtotal">{{transfo.q_total}} </span>KVAR</span>
                                             <span class="weight-500 uppercase-font block">P. Reactive Totale</span>
                                         </div>
                                     </div>	
@@ -106,7 +106,7 @@
                                 <div class="container-fluid">
                                     <div class="row">
                                         <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                            <span class="txt-dark block counter"><span class="counter-anim">{{transfo.p_total}} </span>KVA</span>
+                                            <span class="txt-dark block counter"><span class="counter-anim" id="ptotal">{{transfo.p_total}} </span>KVA</span>
                                             <span class="weight-500 uppercase-font block">P. Active Totale</span>
                                         </div>
                                     </div>	
@@ -532,7 +532,7 @@
         return chaine;
     }
 
-    function afficherDatas(data){
+    function afficherDatasDetails(data){
         var datas = JSON.parse(data);
         var corpsTableau = document.getElementById("tbody");
         var tableau = document.getElementById("tab");
@@ -540,7 +540,6 @@
         corpsTableau = document.createElement("tbody");
         corpsTableau.id = "tbody";
         tableau.appendChild(corpsTableau);
-        //console.log(datas);
         for(var i=0;i < datas.length; i++) {
             var element = datas[i];
             var ligne = document.createElement("tr");
@@ -575,12 +574,11 @@
             colonnePPhase3.appendChild(document.createTextNode(element["fields"]["p_phase3"]));
             ligne.appendChild(colonnePPhase3);
             var colonnePTotal = document.createElement("td");
-            var total = element["fields"]["p_phase1"] + element["fields"]["p_phase2"] + element["fields"]["p_phase3"];
-            colonnePTotal.appendChild(document.createTextNode(total));
+            colonnePTotal.appendChild(document.createTextNode(element["fields"]["p_total"]));
             ligne.appendChild(colonnePTotal);
             var colonneQPhase1 = document.createElement("td");
             colonneQPhase1.appendChild(document.createTextNode(element["fields"]["q_phase1"]));
-            ligne.appendChild(colonnePPhase1);
+            ligne.appendChild(colonneQPhase1);
             var colonneQPhase2 = document.createElement("td");
             colonneQPhase2.appendChild(document.createTextNode(element["fields"]["q_phase2"]));
             ligne.appendChild(colonneQPhase2);
@@ -588,12 +586,21 @@
             colonneQPhase3.appendChild(document.createTextNode(element["fields"]["q_phase3"]));
             ligne.appendChild(colonneQPhase3);
             var colonneQTotal = document.createElement("td");
-            total = element["fields"]["q_phase1"] + element["fields"]["q_phase2"] + element["fields"]["q_phase3"];
-            colonneQTotal.appendChild(document.createTextNode(total));
+            colonneQTotal.appendChild(document.createTextNode(element["fields"]["q_total"]));
             ligne.appendChild(colonneQTotal);
             corpsTableau.appendChild(ligne);
             //console.log("Nouvelle colonne");
         };
+    }
+
+    var afficherTransfo = (data) => {
+        var datas = JSON.parse(data);
+        for(let i=0; i<datas.length; i++)
+        {
+            let element = datas[i];
+            $("#ptotal").text(element["fields"]["p_total"]);
+            $("#qtotal").text(element["fields"]["q_total"]) ;
+        }
     }
 
     $.ajaxSetup(
@@ -605,9 +612,15 @@
         setInterval(
             () => {
                 $.get(
+                    '{% url "transfo-infos" object.id %}',
+                    (datas) => {
+                        afficherTransfo(datas);
+                    }
+                )
+                $.get(
                     '{% url "transfo" object.id %}',
                     (datas) => {
-                        afficherDatas(datas);
+                        afficherDatasDetails(datas);
                     },
                 )
             }, 3000

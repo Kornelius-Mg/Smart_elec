@@ -52,7 +52,7 @@
                                   <div class="container-fluid">
                                       <div class="row">
                                           <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark block counter"><span class="counter-anim">{{ compteur.p_total }} </span>KVA</span>
+                                              <span class="txt-dark block counter"><span class="counter-anim" id="ptotal">{{ compteur.p_total }} </span>KVA</span>
                                               <span class="weight-500 uppercase-font block">P. Active Totale</span>
                                           </div>
                                       </div>	
@@ -70,7 +70,7 @@
                                   <div class="container-fluid">
                                       <div class="row">
                                           <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark block counter"><span class="counter-anim">{{compteur.q_total}} </span>KVAR</span>
+                                              <span class="txt-dark block counter"><span class="counter-anim" id="qtotal">{{compteur.q_total}} </span>KVAR</span>
                                               <span class="weight-500 uppercase-font block">Puissance active</span>
                                           </div>
                                       </div>	
@@ -420,7 +420,6 @@
         corpsTableau = document.createElement("tbody");
         corpsTableau.id = "tbody";
         tableau.appendChild(corpsTableau);
-        //console.log(datas);
         for(var i=0;i < datas.length; i++) {
             var element = datas[i];
             var ligne = document.createElement("tr");
@@ -476,6 +475,17 @@
         };
     }
 
+    var afficherCompteur = (data) => {
+        var datas = JSON.parse(data);
+        for(let i=0; i<datas.length; i++)
+        {
+            let element = datas[i];
+            $("#ptotal").text(element["fields"]["p_total"]);
+            $("#qtotal").text(element["fields"]["q_total"]) ;
+        }
+    }
+
+
     $.ajaxSetup(
             {'X-CSRFToken': getCookie("csrftoken"), 'Content-type': 'json/application'}
     );
@@ -484,6 +494,12 @@
         console.log("Chargement de la page");
         setInterval(
             () => {
+                $.get(
+                    '{% url "compteur-infos" object.id %}',
+                    (datas) => {
+                        afficherCompteur(datas);
+                    }
+                )
                 $.get(
                     '{% url "compteur" object.id %}',
                     (datas) => {

@@ -221,7 +221,6 @@ class CompteurUpdateView(UpdateView):
 
 # Vues concernant les transformateurs
 
-
 class TransformateurListView(ListView):
     model = Transformateur
     template_name = "admin/transfos.html"
@@ -250,7 +249,6 @@ class TransformateurDetailView(DetailView):
         return context
 
 
-
 class TransformateurCreateView(CreateView):
     model = Transformateur
     template_name = "admin/create-transfo.html"
@@ -271,13 +269,21 @@ class TransformateurDeleteView(DeleteView):
     success_url = "/admin-snel/transfos/"
 
 
+# AJAX REQUESTS
+
+def transformateur_infos(request, *args, **kwargs):
+    if request.is_ajax():
+        JSONSerializer = serializers.get_serializer("json")
+        json_serializer = JSONSerializer()
+        json_serializer.serialize(Transformateur.objects.filter(id=kwargs["pk"]))
+        datas = json_serializer.getvalue()
+        return HttpResponse(datas)
 
 
-
-
-
-
-
-
-
-
+def compteur_infos(request, *args, **kwargs):
+    if request.is_ajax():
+        JSONSerializer = serializers.get_serializer("json")
+        json_serializer = JSONSerializer()
+        json_serializer.serialize( Compteur.objects.filter(id=kwargs["pk"]))
+        datas = json_serializer.getvalue()
+        return HttpResponse(datas)
