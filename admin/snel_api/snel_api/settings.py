@@ -87,7 +87,7 @@ DATABASES = {
     },
     'replica': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR,'sneldb.sq3'),
+        'NAME': 'snel_db.sq3',
         'TEST': {
             'MIRROR': 'default',
         }, # ... plus some other settings

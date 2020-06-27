@@ -234,7 +234,7 @@
 <footer class="footer container-fluid pl-30 pr-30">
     <div class="row">
         <div class="col-sm-12">
-            <p>2020&copy;By Kornelius-Mg</p>
+            <p> 2020&copy; By Kornelius-Mg</p>
         </div>
     </div>
 </footer>
@@ -454,12 +454,11 @@
             colonnePPhase3.appendChild(document.createTextNode(element["fields"]["p_phase3"]));
             ligne.appendChild(colonnePPhase3);
             var colonnePTotal = document.createElement("td");
-            var total = element["fields"]["p_phase1"] + element["fields"]["p_phase2"] + element["fields"]["p_phase3"];
-            colonnePTotal.appendChild(document.createTextNode(total));
+            colonnePTotal.appendChild(document.createTextNode(element["fields"]["p_total"]));
             ligne.appendChild(colonnePTotal);
             var colonneQPhase1 = document.createElement("td");
             colonneQPhase1.appendChild(document.createTextNode(element["fields"]["q_phase1"]));
-            ligne.appendChild(colonnePPhase1);
+            ligne.appendChild(colonneQPhase1);
             var colonneQPhase2 = document.createElement("td");
             colonneQPhase2.appendChild(document.createTextNode(element["fields"]["q_phase2"]));
             ligne.appendChild(colonneQPhase2);
@@ -467,8 +466,7 @@
             colonneQPhase3.appendChild(document.createTextNode(element["fields"]["q_phase3"]));
             ligne.appendChild(colonneQPhase3);
             var colonneQTotal = document.createElement("td");
-            total = element["fields"]["q_phase1"] + element["fields"]["q_phase2"] + element["fields"]["q_phase3"];
-            colonneQTotal.appendChild(document.createTextNode(total));
+            colonneQTotal.appendChild(document.createTextNode(element["fields"]["q_total"]));
             ligne.appendChild(colonneQTotal);
             corpsTableau.appendChild(ligne);
             //console.log("Nouvelle colonne");
