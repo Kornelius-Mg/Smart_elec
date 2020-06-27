@@ -84,6 +84,13 @@ DATABASES = {
         'PORT': 3306,
         'USER': 'root',
         'PASSWORD': ''
+    },
+    'replica': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR,'sneldb.sq3'),
+        'TEST': {
+            'MIRROR': 'default',
+        }, # ... plus some other settings
     }
 }
 
