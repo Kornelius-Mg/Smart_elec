@@ -37,7 +37,6 @@ class UserCreateView(CreateView):
         context["action"] = "Enregistrer"
         return context
 
-
 class UserUpdateView(UpdateView):
     model = Utilisateur
     template_name = "admin/update-user.html"
@@ -74,9 +73,7 @@ class UserDetailView(DetailView):
         context["nb_apparts"] = len(context["apparts"])
         return context
 
-
 # Vues pour adresses et appartements
-
 
 class AdresseCreateView(CreateView):
     model = Adresse
@@ -267,7 +264,6 @@ class TransformateurDeleteView(DeleteView):
     model = Transformateur
     template_name = "whats-up.html"
     success_url = "/admin-snel/transfos/"
-
 
 # AJAX REQUESTS
 
