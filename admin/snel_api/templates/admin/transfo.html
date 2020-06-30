@@ -11,7 +11,7 @@
           	<!-- Title -->
 				<div class="row heading-bg">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-					  <h5 class="txt-dark">Transformateur</h5>
+					  <h5 class="txt-dark"></h5>
 					</div>
 					<!-- Breadcrumb -->
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
@@ -25,99 +25,13 @@
 				</div>
 				<!-- /Title -->
           <!-- Row -->
-          <div class="row">
-              <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                  <div class="panel panel-default card-view pa-0">
-                      <div class="panel-wrapper collapse in">
-                          <div class="panel-body pa-0">
-                              <div class="sm-data-box">
-                                  <div class="container-fluid">
-                                      <div class="row">
-                                          <div class="col-xs-12 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark block counter">{{ transfo.designation }}</span>
-                                              <span class="weight-500 uppercase-font block font-13">Designation</span>
-                                          </div>
-                                      </div>	
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+          <div class="card">
+              <div class="card-header">
+                  <div class="card-header-title">
+                      <h4 class="text-center text-capitalize">Transformateur : {{ transfo.designation }}</h4>
                   </div>
               </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                  <div class="panel panel-default card-view pa-0">
-                      <div class="panel-wrapper collapse in">
-                          <div class="panel-body pa-0">
-                              <div class="sm-data-box">
-                                  <div class="container-fluid">
-                                      <div class="row">
-                                          <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark block counter"><span class="counter-anim">{{ transfo.p_max }} </span>KVA</span>
-                                              <span class="weight-500 uppercase-font block">Puissance active</span>
-                                          </div>
-                                      </div>	
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                  <div class="panel panel-default card-view pa-0">
-                      <div class="panel-wrapper collapse in">
-                          <div class="panel-body pa-0">
-                              <div class="sm-data-box">
-                                  <div class="container-fluid">
-                                      <div class="row">
-                                          <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark block counter"><span class="counter-anim">{{transfo.q_max}} </span>KVAR</span>
-                                              <span class="weight-500 uppercase-font block">P. Reactive Max</span>
-                                          </div>
-                                      </div>	
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default card-view pa-0">
-                    <div class="panel-wrapper collapse in">
-                        <div class="panel-body pa-0">
-                            <div class="sm-data-box">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                            <span class="txt-dark block counter"><span class="counter-anim" id="qtotal">{{transfo.q_total}} </span>KVAR</span>
-                                            <span class="weight-500 uppercase-font block">P. Reactive Totale</span>
-                                        </div>
-                                    </div>	
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                <div class="panel panel-default card-view pa-0">
-                    <div class="panel-wrapper collapse in">
-                        <div class="panel-body pa-0">
-                            <div class="sm-data-box">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                            <span class="txt-dark block counter"><span class="counter-anim" id="ptotal">{{transfo.p_total}} </span>KVA</span>
-                                            <span class="weight-500 uppercase-font block">P. Active Totale</span>
-                                        </div>
-                                    </div>	
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
           </div>
-          <!-- /Row -->
           
           <!-- Row -->
           <div class="row">
@@ -128,30 +42,33 @@
                               <h6 class="panel-title txt-dark">Statistiques instantannées</h6>
                           </div>
                           <div class="pull-right">
-                              <span class="no-margin-switcher">
-                                  <input type="checkbox" checked id="morris_switch"  class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/>	
-                              </span>	
-                          </div>
+                            <span class="no-margin-switcher">
+                                <input type="checkbox" checked id="morris_switch"  class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/>	
+                            </span>	
+                        </div>
                           <div class="clearfix"></div>
                       </div>
                       <div class="panel-wrapper collapse in">
-                        <div id="area_chart" class="morris-chart" style="height:293px;"></div>
-                              <ul class="flex-stat mt-40">
-                                  <li>
-                                      <span class="block">Weekly Users</span>
-                                      <span class="block txt-dark weight-500 font-18"><span class="counter-anim">3,24,222</span></span>
-                                  </li>
-                                  <li>
-                                      <span class="block">Monthly Users</span>
-                                      <span class="block txt-dark weight-500 font-18"><span class="counter-anim">1,23,432</span></span>
-                                  </li>
-                                  <li>
-                                      <span class="block">Trend</span>
-                                      <span class="block">
-                                          <i class="zmdi zmdi-trending-up txt-success font-24"></i>
-                                      </span>
-                                  </li>
-                              </ul>
+                        <ul class="flex-stat mb-10 ml-15">
+                            <li class="text-left auto-width mr-60">
+                                <span class="block">P. Active max (KVA)</span>
+                                <span class="block txt-success weight-500 font-18"><span class="counter-anim">{{ transfo.p_max }}</span></span>
+                            </li>
+                            <li class="text-left auto-width mr-60">
+                                <span class="block">P. active consommée (KVA)</span>
+                                <span class="block txt-dark weight-500 font-18"><span class="counter-anim success" id="ptotal">{{ transfo.p_total }}</span></span>
+                            </li>
+                            <li class="text-left auto-width mr-60">
+                                <span class="block">P. réactive max (KVAR)</span>
+                                <span class="block txt-success weight-500 font-18"><span class="counter-anim">{{ transfo.q_max }}</span></span>
+                            </li>
+                            <li class="text-left auto-width mr-60">
+                                <span class="block">P. réactive consommée (KVAR)</span>
+                                <span class="block txt-dark weight-500 font-18"><span class="counter-anim" id="qtotal">{{ transfo.q_total }}</span></span>
+                            </li>
+
+                        </ul>
+                        <div id="area_chart" class="morris-chart" style="height:295px;"></div>
                           </div>
                       </div>
                   </div>
@@ -510,6 +427,9 @@
 <script src={% static "dist/js/dashboard-data.js" %}></script>
 
 <script>
+    var p_max = 0;
+    var q_max = 0;
+    var btnSwitch = $("#start");
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -574,7 +494,8 @@
             colonnePPhase3.appendChild(document.createTextNode(element["fields"]["p_phase3"]));
             ligne.appendChild(colonnePPhase3);
             var colonnePTotal = document.createElement("td");
-            colonnePTotal.appendChild(document.createTextNode(element["fields"]["p_total"]));
+            var p_total = element["fields"]["p_total"];
+            colonnePTotal.appendChild(document.createTextNode(p_total));
             ligne.appendChild(colonnePTotal);
             var colonneQPhase1 = document.createElement("td");
             colonneQPhase1.appendChild(document.createTextNode(element["fields"]["q_phase1"]));
@@ -586,8 +507,18 @@
             colonneQPhase3.appendChild(document.createTextNode(element["fields"]["q_phase3"]));
             ligne.appendChild(colonneQPhase3);
             var colonneQTotal = document.createElement("td");
-            colonneQTotal.appendChild(document.createTextNode(element["fields"]["q_total"]));
+            var q_total = element["fields"]["q_total"];
+            colonneQTotal.appendChild(document.createTextNode(q_total));
             ligne.appendChild(colonneQTotal);
+            if((p_total < p_max)) {
+                ligne.setAttribute("class", "success");
+            }
+            else if((p_total = p_max)) {
+                ligne.setAttribute("class", "warning");
+            }
+            else if((p_total > p_max)) {
+                ligne.setAttribute("class", "danger");
+            }
             corpsTableau.appendChild(ligne);
             //console.log("Nouvelle colonne");
         };
@@ -600,12 +531,32 @@
             let element = datas[i];
             $("#ptotal").text(element["fields"]["p_total"]);
             $("#qtotal").text(element["fields"]["q_total"]) ;
+            p_max = element['fields']['p_max'];
+            p_max = element['fields']['q_max'];
         }
     }
 
     $.ajaxSetup(
             {'X-CSRFToken': getCookie("csrftoken"), 'Content-type': 'json/application'}
     );
+
+    var start = () => {
+        $.get(
+            '{% url "start-transfo" object.id %}',
+            (datas) => {
+                btnSwitch.value = "on";
+            }
+        );
+    }
+
+    var stop = () => {
+        $.get(
+            '{% url "stop-transfo" object.id %}',
+            (datas) => {
+                btnSwitch.value = "off";
+            }
+        );
+    }
 
     $(document).ready(() => {
         console.log("Chargement de la page");
@@ -624,7 +575,19 @@
                     },
                 )
             }, 3000
-        ); 
+        );
+        btnSwitch.click(
+            (event) => {
+                event.preventDefault();
+                console.log("On a cliqué");
+                if(btnSwitch.val() == "on") {
+                    stop();
+                }
+                else if(btnSwitch.val() == "off") {
+                    start();
+                }
+            }
+        )
     });
 </script>
 

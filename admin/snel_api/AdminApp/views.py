@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core import serializers
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, Http404
 from django.db.models import Q
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView, DetailView, FormView, View
 from app.models import *
@@ -283,3 +283,15 @@ def compteur_infos(request, *args, **kwargs):
         json_serializer.serialize( Compteur.objects.filter(id=kwargs["pk"]))
         datas = json_serializer.getvalue()
         return HttpResponse(datas)
+
+def start_transfo(request, *args, **kwargs):
+    return Http404
+
+def stop_transfo(request, *args, **kwargs):
+    return Http404
+
+def start_compteur(request, *args, **kwargs):
+    return Http404
+
+def stop_compteur(request, *args, **kwargs):
+    return Http404

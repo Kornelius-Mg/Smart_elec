@@ -139,10 +139,12 @@ $(document).ready(function(){
 			}
 		});
 	}
+	console.log('Voici la longueur ' + $('#area_chart').length);
 	if($('#area_chart').length > 0) {
+		console.log("C'est superieur à 1");
 		var data=[{
-            period: 'Son',
-            iphone: 10,
+            period: 'Sunday',
+            iphone: 102,
             ipad: 80,
             itouch: 20
         }, {
@@ -156,7 +158,7 @@ $(document).ready(function(){
             ipad: 30,
             itouch: 70
         }, {
-            period: 'Wed',
+            period: 'Wednesday',
             iphone: 70,
             ipad: 200,
             itouch: 140
@@ -226,7 +228,7 @@ $(document).ready(function(){
             itouch: 80
         },
 		{
-            period: 'Sep',
+            period: 'Septembre',
             iphone: 110,
             ipad: 120,
             itouch: 80
@@ -254,17 +256,17 @@ $(document).ready(function(){
 		var lineChart = Morris.Area({
         element: 'area_chart',
         data: data ,
-        xkey: 'period',
-        ykeys: ['iphone', 'ipad', 'itouch'],
-        labels: ['iphone', 'ipad', 'itouch'],
+        xkey: 'temps',
+        ykeys: ['phase1', 'phase2', 'phase3'],
+        labels: ['phase1', 'phase2', 'phase3'],
         pointSize: 0,
         lineWidth:0,
 		fillOpacity: 0.6,
-		pointStrokeColors:['#2ecd99', '#4e9de6', '#f0c541'],
+		pointStrokeColors:['#ff0000', '#00ff00', '#0000ff'],
 		behaveLikeLine: true,
 		grid: false,
 		hideHover: 'auto',
-		lineColors: ['#2ecd99', '#4e9de6', '#f0c541'],
+		lineColors: ['#ff0000', '#00ff00', '#0000ff'],
 		resize: true,
 		redraw: true,
 		smooth: true,

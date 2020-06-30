@@ -32,6 +32,8 @@ urlpatterns = [
      url(r'^compteurs/update/(?P<pk>[0-9]+)/$', CompteurUpdateView.as_view(), name="update-compteur"),
      url(r'^compteur/(?P<pk>[0-9]+)/$', DetailsCompteurView.as_view(), name="compteur"),
      url(r'^compteur-infos/(?P<pk>[0-9]+)/$', compteur_infos, name="compteur-infos"),
+     url(r'^start-compteur/(?P<pk>[0-9]+)/$', start_compteur, name="start-transfo"),
+     url(r'^stop-compteur/(?P<pk>[0-9]+)/$', stop_compteur, name="stop-compteur"),
 
      # urls pour transfos
      url(r'^transfos/$', TransformateurListView.as_view(), name="transfos"),
@@ -40,6 +42,8 @@ urlpatterns = [
      url(r'^transfos/delete/(?P<pk>[0-9]+)/$', TransformateurDeleteView.as_view(), name="delete-transfo"),
      url(r'transfo/(?P<pk>[0-9]+)/$', TransformateurDetailView.as_view(), name="transfo"),
      url(r'^transfo-infos/(?P<pk>[0-9]+)/$', transformateur_infos, name="transfo-infos"),
+     url(r'^start-transfo/(?P<pk>[0-9]+)/$', start_transfo, name="start-transfo"),
+     url(r'^stop-transfo/(?P<pk>[0-9]+)/$', stop_transfo, name="stop-transfo"),
 ]
 
 # urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
