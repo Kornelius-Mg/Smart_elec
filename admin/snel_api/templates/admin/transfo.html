@@ -28,7 +28,7 @@
           <div class="card">
               <div class="card-header">
                   <div class="card-header-title">
-                      <h4 class="text-center text-capitalize">Transformateur : {{ transfo.designation }}</h4>
+                      <h4 class="text-center text-capitalize mb-20">Transformateur : {{ transfo.designation }}</h4>
                   </div>
               </div>
           </div>
@@ -43,8 +43,10 @@
                           </div>
                           <div class="pull-right">
                             <span class="no-margin-switcher">
-                                <input type="checkbox" checked id="morris_switch"  class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/>	
-                            </span>	
+                                <i class="icon-power mr-10"></i>
+                                <input type="checkbox" id="transfo_switch"  class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>	
+                                <label for="transfo_switch" class="label text-danger"><span class="text-uppercase" id="power_state"></span></label>
+                            </span>
                         </div>
                           <div class="clearfix"></div>
                       </div>
@@ -424,12 +426,11 @@
 
 <!-- Init JavaScript -->
 <script src={% static "dist/js/init.js" %}></script>
-<script src={% static "dist/js/dashboard-data.js" %}></script>
 
 <script>
     var p_max = 0;
     var q_max = 0;
-    var btnSwitch = $("#start");
+    var btnSwitch = $("#transfo_switch");
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -513,7 +514,7 @@
             if((p_total < p_max)) {
                 ligne.setAttribute("class", "success");
             }
-            else if((p_total = p_max)) {
+            else if((p_total == p_max)) {
                 ligne.setAttribute("class", "warning");
             }
             else if((p_total > p_max)) {
@@ -540,22 +541,37 @@
             {'X-CSRFToken': getCookie("csrftoken"), 'Content-type': 'json/application'}
     );
 
-    var start = () => {
-        $.get(
-            '{% url "start-transfo" object.id %}',
-            (datas) => {
-                btnSwitch.value = "on";
+    var startEngin = () => {
+        console.log("ALlumage d'un transfo");
+        $.ajax({
+            url: '{% url "start-transfo" object.id %}',
+            method: "post",
+            success: (datas) => {
+                btnSwitch.attr("checked", "true");
             }
-        );
+        });
     }
 
-    var stop = () => {
-        $.get(
-            '{% url "stop-transfo" object.id %}',
-            (datas) => {
-                btnSwitch.value = "off";
+    var stopEngin = () => {
+        console.log("Extinction d'un transfo");
+        $.ajax({
+            url: '{% url "stop-transfo" object.id %}',
+            method: 'post',
+            success: (datas) => {
+                btnSwitch.attr("checked", "false");
             }
-        );
+        });
+    }
+
+    var setPowerState = () => {
+        if(btnSwitch.is(":checked")) {
+            $("#power_state").text("Allumé");
+            $("#power_state").removeClass("text-danger").addClass("text-success");
+        }
+        else{
+            $("#power_state").text("Eteint");
+            $("#power_state").removeClass("text-success").addClass("text-danger");
+        }
     }
 
     $(document).ready(() => {
@@ -576,20 +592,11 @@
                 )
             }, 3000
         );
-        btnSwitch.click(
-            (event) => {
-                event.preventDefault();
-                console.log("On a cliqué");
-                if(btnSwitch.val() == "on") {
-                    stop();
-                }
-                else if(btnSwitch.val() == "off") {
-                    start();
-                }
-            }
-        )
+        setPowerState();
     });
 </script>
+
+<script src={% static "dist/js/dashboard-data.js" %}></script>
 
 </body>
 

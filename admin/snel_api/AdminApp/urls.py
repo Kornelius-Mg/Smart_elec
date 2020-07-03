@@ -32,7 +32,7 @@ urlpatterns = [
      url(r'^compteurs/update/(?P<pk>[0-9]+)/$', CompteurUpdateView.as_view(), name="update-compteur"),
      url(r'^compteur/(?P<pk>[0-9]+)/$', DetailsCompteurView.as_view(), name="compteur"),
      url(r'^compteur-infos/(?P<pk>[0-9]+)/$', compteur_infos, name="compteur-infos"),
-     url(r'^start-compteur/(?P<pk>[0-9]+)/$', start_compteur, name="start-transfo"),
+     url(r'^start-compteur/(?P<pk>[0-9]+)/$', start_compteur, name="start-compteur"),
      url(r'^stop-compteur/(?P<pk>[0-9]+)/$', stop_compteur, name="stop-compteur"),
 
      # urls pour transfos

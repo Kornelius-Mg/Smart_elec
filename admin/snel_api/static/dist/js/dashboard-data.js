@@ -139,117 +139,115 @@ $(document).ready(function(){
 			}
 		});
 	}
-	console.log('Voici la longueur ' + $('#area_chart').length);
 	if($('#area_chart').length > 0) {
-		console.log("C'est superieur à 1");
 		var data=[{
-            period: 'Sunday',
-            iphone: 102,
-            ipad: 80,
-            itouch: 20
+            temps: 'Sunday',
+            phase1: 102,
+            phase2: 80,
+            phase3: 20
         }, {
-            period: 'Mon',
-            iphone: 130,
-            ipad: 100,
-            itouch: 80
+            temps: 'Mon',
+            phase1: 130,
+            phase2: 100,
+            phase3: 80
         }, {
-            period: 'Tue',
-            iphone: 80,
-            ipad: 30,
-            itouch: 70
+            temps: 'Tue',
+            phase1: 80,
+            phase2: 30,
+            phase3: 70
         }, {
-            period: 'Wednesday',
-            iphone: 70,
-            ipad: 200,
-            itouch: 140
+            temps: 'Wednesday',
+            phase1: 70,
+            phase2: 200,
+            phase3: 140
         }, {
-            period: 'Thu',
-            iphone: 180,
-            ipad: 50,
-            itouch: 140
+            temps: 'Thu',
+            phase1: 180,
+            phase2: 50,
+            phase3: 140
         }, {
-            period: 'Fri',
-            iphone: 105,
-            ipad: 170,
-            itouch: 80
+            temps: 'Fri',
+            phase1: 105,
+            phase2: 170,
+            phase3: 80
         },
          {
-            period: 'Sat',
-            iphone: 250,
-            ipad: 150,
-            itouch: 200
+            temps: 'Sat',
+            phase1: 250,
+            phase2: 150,
+            phase3: 200
         }];
 		var dataNew = [{
-            period: 'Jan',
-            iphone: 10,
-            ipad: 60,
-            itouch: 20
+            temps: 'Jan',
+            phase1: 10,
+            phase2: 60,
+            phase3: 20
         }, 
 		{
-            period: 'Feb',
-            iphone: 110,
-            ipad: 100,
-            itouch: 80
+            temps: 'Feb',
+            phase1: 110,
+            phase2: 100,
+            phase3: 80
         },
 		{
-            period: 'March',
-            iphone: 120,
-            ipad: 100,
-            itouch: 80
+            temps: 'March',
+            phase1: 120,
+            phase2: 100,
+            phase3: 80
         },
 		{
-            period: 'April',
-            iphone: 110,
-            ipad: 100,
-            itouch: 80
+            temps: 'April',
+            phase1: 110,
+            phase2: 100,
+            phase3: 80
         },
 		{
-            period: 'May',
-            iphone: 170,
-            ipad: 100,
-            itouch: 80
+            temps: 'May',
+            phase1: 170,
+            phase2: 100,
+            phase3: 80
         },
 		{
-            period: 'June',
-            iphone: 120,
-            ipad: 150,
-            itouch: 80
+            temps: 'June',
+            phase1: 120,
+            phase2: 150,
+            phase3: 80
         },
 		{
-            period: 'July',
-            iphone: 120,
-            ipad: 150,
-            itouch: 80
+            temps: 'July',
+            phase1: 120,
+            phase2: 150,
+            phase3: 80
         },
 		{
-            period: 'Aug',
-            iphone: 190,
-            ipad: 120,
-            itouch: 80
+            temps: 'Aug',
+            phase1: 190,
+            phase2: 120,
+            phase3: 80
         },
 		{
-            period: 'Septembre',
-            iphone: 110,
-            ipad: 120,
-            itouch: 80
+            temps: 'Septembre',
+            phase1: 110,
+            phase2: 120,
+            phase3: 80
         },
 		{
-            period: 'Oct',
+            temps: 'Oct',
             iphone: 10,
             ipad: 170,
             itouch: 10
         },
 		{
-            period: 'Nov',
-            iphone: 10,
-            ipad: 470,
-            itouch: 10
+            temps: 'Nov',
+            phase1: 10,
+        	phase2: 470,
+            phase3: 10
         },
 		{
-            period: 'Dec',
-            iphone: 30,
-            ipad: 170,
-            itouch: 10
+            temps: 'Dec',
+            phase1: 30,
+            phase2: 170,
+            phase3: 10
         }
 		];
 		
@@ -291,9 +289,26 @@ $(document).ready(function(){
 		}
 	}
 	swichMorris();	
-	$(document).on('change', '#morris_switch', function () {
-		swichMorris();
-	});
+	btnSwitch.on(
+		{
+			click: (event) => {
+				event.preventDefault();
+				console.log("Un clic vient d'etre detecté");
+				if(btnSwitch.is(":checked")) {
+					console.log("Le bouton etait laché au paravant");
+					startEngin();
+				}
+				else {
+					console.log("Le bouton etait cliqué au paravant");
+					stopEngin();
+				}
+			},
+			change: () => {
+				setPowerState();
+				swichMorris();
+			}
+		}
+	);
 	
 });
 /*****Ready function end*****/

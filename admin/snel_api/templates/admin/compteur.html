@@ -11,7 +11,7 @@
           	<!-- Title -->
 				<div class="row heading-bg">
 					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-					  <h5 class="txt-dark">Compteur</h5>
+					  <h5 class="txt-dark"></h5>
 					</div>
 					<!-- Breadcrumb -->
 					<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
@@ -25,62 +25,14 @@
 				</div>
 				<!-- /Title -->
           <!-- Row -->
-          <div class="row">
-              <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                  <div class="panel panel-default card-view pa-0">
-                      <div class="panel-wrapper collapse in">
-                          <div class="panel-body pa-0">
-                              <div class="sm-data-box">
-                                  <div class="container-fluid">
-                                      <div class="row">
-                                          <div class="col-xs-12 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark">{{ compteur.appartement.adresse }}</span>
-                                              <span class="weight-500 uppercase-font block font-13">Appartement</span>
-                                          </div>
-                                      </div>	
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                  <div class="panel panel-default card-view pa-0">
-                      <div class="panel-wrapper collapse in">
-                          <div class="panel-body pa-0">
-                              <div class="sm-data-box">
-                                  <div class="container-fluid">
-                                      <div class="row">
-                                          <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark block counter"><span class="counter-anim" id="ptotal">{{ compteur.p_total }} </span>KVA</span>
-                                              <span class="weight-500 uppercase-font block">P. Active Totale</span>
-                                          </div>
-                                      </div>	
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                  <div class="panel panel-default card-view pa-0">
-                      <div class="panel-wrapper collapse in">
-                          <div class="panel-body pa-0">
-                              <div class="sm-data-box">
-                                  <div class="container-fluid">
-                                      <div class="row">
-                                          <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                              <span class="txt-dark block counter"><span class="counter-anim" id="qtotal">{{compteur.q_total}} </span>KVAR</span>
-                                              <span class="weight-500 uppercase-font block">Puissance active</span>
-                                          </div>
-                                      </div>	
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+          <div class="card">
+            <div class="card-header">
+                <div class="card-header-title">
+                    <h5 class="text-capitalize ml-10 mb-20">Compteur ID : {{ compteur.id }}</h5>
+                    <h4 class="text-center text-capitalize mb-20">Compteur : {{ compteur.appartement }}</h4>
+                </div>
+            </div>
+        </div>
           <!-- /Row -->
           
           <!-- Row -->
@@ -93,29 +45,33 @@
                           </div>
                           <div class="pull-right">
                               <span class="no-margin-switcher">
-                                  <input type="checkbox" checked id="morris_switch"  class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/>	
+                                <i class="icon-power mr-10"></i>
+                                <input type="checkbox" id="compteur_switch"  class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>	
+                                <label for="transfo_switch" class="label text-danger"><span class="text-uppercase" id="power_state"></span></label>	
                               </span>	
                           </div>
                           <div class="clearfix"></div>
                       </div>
                       <div class="panel-wrapper collapse in">
+                        <ul class="flex-stat mb-10 ml-15">
+                            <li class="text-left auto-width mr-60">
+                                <span class="block">P. active max</span>
+                                <span class="block txt-success weight-500 font-18"><span class="counter-anim">{{compteur.p_max}}</span></span>
+                            </li>
+                            <li class="text-left auto-width mr-60">
+                                <span class="block">P. Active consommée</span>
+                                <span class="block txt-dark weight-500 font-18"><span class="counter-anim" id="ptotal">{{compteur.p_total}}</span></span>
+                            </li>
+                            <li class="text-left auto-width mr-60">
+                                <span class="block">P. Réactive max</span>
+                                <span class="block txt-success weight-500 font-18"><span class="counter-anim">{{ compteur.q_max }}</span></span>
+                            </li>
+                            <li class="text-left auto-width mr-60">
+                                <span class="block">P. Réactive consommée</span>
+                                <span class="block txt-dark weight-500 font-18"><span class="counter-anim" id="qtotal">{{compteur.q_total}}</span></span>
+                            </li>
+                        </ul>
                         <div id="area_chart" class="morris-chart" style="height:293px;"></div>
-                              <ul class="flex-stat mt-40">
-                                  <li>
-                                      <span class="block">Weekly Users</span>
-                                      <span class="block txt-dark weight-500 font-18"><span class="counter-anim">3,24,222</span></span>
-                                  </li>
-                                  <li>
-                                      <span class="block">Monthly Users</span>
-                                      <span class="block txt-dark weight-500 font-18"><span class="counter-anim">1,23,432</span></span>
-                                  </li>
-                                  <li>
-                                      <span class="block">Trend</span>
-                                      <span class="block">
-                                          <i class="zmdi zmdi-trending-up txt-success font-24"></i>
-                                      </span>
-                                  </li>
-                              </ul>
                           </div>
                       </div>
                   </div>
@@ -390,6 +346,9 @@
 <script src={% static "dist/js/dashboard-data.js" %}></script>
 
 <script>
+    var p_max = 0;
+    var q_max = 0;
+    var btnSwitch = $("#compteur_switch");
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -454,7 +413,8 @@
             colonnePPhase3.appendChild(document.createTextNode(element["fields"]["p_phase3"]));
             ligne.appendChild(colonnePPhase3);
             var colonnePTotal = document.createElement("td");
-            colonnePTotal.appendChild(document.createTextNode(element["fields"]["p_total"]));
+            var p_total = element["fields"]["p_total"];
+            colonnePTotal.appendChild(document.createTextNode(p_total));
             ligne.appendChild(colonnePTotal);
             var colonneQPhase1 = document.createElement("td");
             colonneQPhase1.appendChild(document.createTextNode(element["fields"]["q_phase1"]));
@@ -466,8 +426,18 @@
             colonneQPhase3.appendChild(document.createTextNode(element["fields"]["q_phase3"]));
             ligne.appendChild(colonneQPhase3);
             var colonneQTotal = document.createElement("td");
-            colonneQTotal.appendChild(document.createTextNode(element["fields"]["q_total"]));
+            var q_total = element["fields"]["q_total"];
+            colonneQTotal.appendChild(document.createTextNode(q_total));
             ligne.appendChild(colonneQTotal);
+            if((p_total < p_max)) {
+                ligne.setAttribute("class", "success");
+            }
+            else if((p_total == p_max)) {
+                ligne.setAttribute("class", "warning");
+            }
+            else if((p_total > p_max)) {
+                ligne.setAttribute("class", "danger");
+            }
             corpsTableau.appendChild(ligne);
             //console.log("Nouvelle colonne");
         };
@@ -483,29 +453,66 @@
         }
     }
 
-
     $.ajaxSetup(
-            {'X-CSRFToken': getCookie("csrftoken"), 'Content-type': 'json/application'}
+            {'X-CSRFToken': getCookie("csrftoken"), 'Content-type': 'application/json' }
     );
 
+    var startEngin = () => {
+        $.ajax({
+            url: '{% url "start-compteur" object.id %}',
+            method: "GET",
+            success: (datas) => {
+                btnSwitch.value = "on";
+            },
+            error: (error) => {
+                console.warn("Impossible d'envoyer la requete");
+            }
+        );
+    }
+
+    var stopEngin = () => {
+        $.ajax({
+            url: '{% url "stop-compteur" object.id %}',
+            method: "GET",
+            success: (datas) => {
+                btnSwitch.value = "off";
+            },
+            error: (datas) => {
+                console.warn("Imposssible de fermer l'engin");
+            }
+            }
+        );
+    }
+
+    var setPowerState = () => {
+        if(btnSwitch.is(":checked")) {
+            $("#power_state").text("Allumé");
+            $("#power_state").removeClass("text-danger").addClass("text-success");
+        }
+        else{
+            $("#power_state").text("Eteint");
+            $("#power_state").removeClass("text-success").addClass("text-danger");
+        }
+    }
+
     $(document).ready(() => {
-        console.log("Chargement de la page");
-        setInterval(
-            () => {
-                $.get(
-                    '{% url "compteur-infos" object.id %}',
-                    (datas) => {
-                        afficherCompteur(datas);
-                    }
-                )
-                $.get(
-                    '{% url "compteur" object.id %}',
-                    (datas) => {
-                        afficherDatas(datas);
-                    },
-                )
-            }, 3000
-        ); 
+        // setInterval(
+        //     () => {
+        //         $.get(
+        //             '{% url "compteur-infos" object.id %}',
+        //             (datas) => {
+        //                 afficherCompteur(datas);
+        //             }
+        //         )
+        //         $.get(
+        //             '{% url "compteur" object.id %}',
+        //             (datas) => {
+        //                 afficherDatas(datas);
+        //             },
+        //         )
+        //     }, 3000
+        // );
+        setPowerState();
     });
 </script>
 
