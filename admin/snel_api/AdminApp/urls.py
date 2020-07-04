@@ -1,5 +1,3 @@
-from django.conf.urls.static import static
-from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from AdminApp.views import *
@@ -45,5 +43,3 @@ urlpatterns = [
      url(r'^start-transfo/(?P<pk>[0-9]+)/$', start_transfo, name="start-transfo"),
      url(r'^stop-transfo/(?P<pk>[0-9]+)/$', stop_transfo, name="stop-transfo"),
 ]
-
-# urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

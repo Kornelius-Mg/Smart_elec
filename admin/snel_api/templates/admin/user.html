@@ -50,17 +50,13 @@
                                 </div>	
                                 <div class="social-info">
                                     <div class="row">
-                                        <div class="col-xs-4 text-center">
-                                            <span class="counts block head-font"><span class="counter-anim">345</span></span>
-                                            <span class="counts-text block">post</span>
+                                        <div class="col-xs-offset-2 col-xs-4 text-center">
+                                            <span class="counts block head-font"><span class="counter-anim">{{nb_apparts}}</span></span>
+                                            <span class="counts-text block">Appartements</span>
                                         </div>
                                         <div class="col-xs-4 text-center">
-                                            <span class="counts block head-font"><span class="counter-anim">246</span></span>
-                                            <span class="counts-text block">followers</span>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
-                                            <span class="counts block head-font"><span class="counter-anim">898</span></span>
-                                            <span class="counts-text block">tweets</span>
+                                            <span class="counts block head-font"><span class="counter-anim">{{nb_compteurs}}</span></span>
+                                            <span class="counts-text block">Compteurs</span>
                                         </div>
                                     </div>
                                     <a href={% url "update-user" user.id %} class="btn btn-default btn-block btn-outline btn-anim mt-30"><i class="fa fa-pencil"></i><span class="btn-text">edit profile</span></a>
@@ -253,7 +249,9 @@
                     
             </div>
         </div>
-        <!-- /Row --
-    
+        <!-- /Row -->
+<script>
+        document.getElementById("link-users").setAttribute("class", "active");
+    </script> 
 {% endblock "body" %}
     

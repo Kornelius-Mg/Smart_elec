@@ -115,17 +115,6 @@
 
 <!-- JavaScripts -->
 
-<script>
-    var modele = document.getElementById("modele");
-    modele.selectedIndex = {{object.modele}} + 1;
-    var appart = document.getElementById("appartement");
-    appart.selectedIndex = '{{id_appart}}';
-    var transfos = document.getElementById("transformateur");
-    transfos.selectedIndex = '{{id_transfo}}'
-    var classe = document.getElementById("classe");
-    classe.selectedIndex = {{object.active_class}} + 1;
-</script>
-
 <!-- jQuery -->
 <script src={% static "vendors/bower_components/jquery/dist/jquery.min.js" %}></script>
 
@@ -177,6 +166,18 @@
 
 <!-- Init JavaScript -->
 <script src={% static "dist/js/init.js" %}></script>
+
+<script>
+    var modele = document.getElementById("modele");
+    modele.selectedIndex = {{object.modele}} + 1;
+    var appart = document.getElementById("appartement");
+    appart.selectedIndex = '{{id_appart}}';
+    var transfos = document.getElementById("transformateur");
+    transfos.selectedIndex = '{{id_transfo}}'
+    var classe = document.getElementById("classe");
+    classe.selectedIndex = {{object.active_class}} + 1;
+    $("#link-compteurs").addClass("active");
+</script>
 
 </body>
 

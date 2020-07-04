@@ -443,6 +443,18 @@
         };
     }
 
+    var indicatePowerStateOn = () => {
+        $("#power_state").text("Allumé");
+        $("#power_state").removeClass("text-danger").addClass("text-success");
+        btnSwitch.value = 'on';
+    }
+
+    var indicatePowerStateOff = () => {
+        $("#power_state").text("Eteint");
+        $("#power_state").removeClass("text-success").addClass("text-danger");
+        btnSwitch.value = "off";
+    }
+
     var afficherCompteur = (data) => {
         var datas = JSON.parse(data);
         for(let i=0; i<datas.length; i++)
@@ -450,6 +462,9 @@
             let element = datas[i];
             $("#ptotal").text(element["fields"]["p_total"]);
             $("#qtotal").text(element["fields"]["q_total"]) ;
+            let state = element["fields"]["global_state"];
+            if(state == "ON") indicatePowerStateOn();
+            else indicatePowerStateOff();
         }
     }
 
@@ -462,12 +477,12 @@
             url: '{% url "start-compteur" object.id %}',
             method: "GET",
             success: (datas) => {
-                btnSwitch.value = "on";
+                indicatePowerStateOn();
             },
             error: (error) => {
                 console.warn("Impossible d'envoyer la requete");
             }
-        );
+        });
     }
 
     var stopEngin = () => {
@@ -475,7 +490,7 @@
             url: '{% url "stop-compteur" object.id %}',
             method: "GET",
             success: (datas) => {
-                btnSwitch.value = "off";
+                indicatePowerStateOff();
             },
             error: (datas) => {
                 console.warn("Imposssible de fermer l'engin");
@@ -486,33 +501,32 @@
 
     var setPowerState = () => {
         if(btnSwitch.is(":checked")) {
-            $("#power_state").text("Allumé");
-            $("#power_state").removeClass("text-danger").addClass("text-success");
+            indicatePowerStateOn();
         }
         else{
-            $("#power_state").text("Eteint");
-            $("#power_state").removeClass("text-success").addClass("text-danger");
+            indicatePowerStateOn();
         }
     }
 
     $(document).ready(() => {
-        // setInterval(
-        //     () => {
-        //         $.get(
-        //             '{% url "compteur-infos" object.id %}',
-        //             (datas) => {
-        //                 afficherCompteur(datas);
-        //             }
-        //         )
-        //         $.get(
-        //             '{% url "compteur" object.id %}',
-        //             (datas) => {
-        //                 afficherDatas(datas);
-        //             },
-        //         )
-        //     }, 3000
-        // );
+        setInterval(
+            () => {
+                $.get(
+                    '{% url "compteur-infos" object.id %}',
+                    (datas) => {
+                        afficherCompteur(datas);
+                    }
+                )
+                $.get(
+                    '{% url "compteur" object.id %}',
+                    (datas) => {
+                        afficherDatas(datas);
+                    },
+                )
+            }, 3000
+        );
         setPowerState();
+        document.getElementById("link-compteurs").setAttribute("class", "active");
     });
 </script>
 

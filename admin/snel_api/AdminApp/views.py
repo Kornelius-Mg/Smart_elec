@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView, DetailView, FormView, View
 from app.models import *
 from AdminApp.forms import UtilisateurForm, CreateAppartForm
+from . import compteurs_states, transfos_states
 
 # Create your views here.
 
@@ -70,7 +71,11 @@ class UserDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(UserDetailView, self).get_context_data(**kwargs)
         context["apparts"] = self.object.appartement_set.all()
-        context["nb_apparts"] = len(context["apparts"])
+        context["nb_apparts"] = self.object.appartement_set.count()
+        nb = 0
+        for appart in context["apparts"]:
+            nb += appart.compteur_set.count()
+        context["nb_compteurs"] = nb
         return context
 
 # Vues pour adresses et appartements
@@ -285,19 +290,49 @@ def compteur_infos(request, *args, **kwargs):
         return HttpResponse(datas)
 
 def start_transfo(request, *args, **kwargs):
-    if request.method == "POST":
-        print("invocation de la mehode start")
-        return Http404
+    if request.method == "GET":
+        responses = transfos_states.get_infos()
+        if responses:
+            id_t = kwargs["pk"]
+            transfo = Transformateur.objects.get(id=id_t)
+            transfo.global_state = "ON"
+            transfo.save()
+            return HttpResponse("ok")
+        else:
+            return Http404
 
 def stop_transfo(request, *args, **kwargs):
-    if request.method == "POST":
-        print("invocation de la mehode stop")
-        return Http404
+    if request.method == "GET":
+        responses = transfos_states.get_infos()
+        if responses:
+            d_t = kwargs["pk"]
+            transfo = Transformateur.objects.get(id=id_t)
+            transfo.global_state = "OFF"
+            transfo.save()
+            return HttpResponse("ok")
+        else:
+            return Http404
 
 def start_compteur(request, *args, **kwargs):
     if request.method == "GET":
-        return Http404
+        responses = compteurs_states.get_infos()
+        if responses:
+            id_c = kwargs["pk"]
+            compteur = Compteur.objects.get(id=id_c)
+            compteur.global_state = "ON"
+            compteur.save()
+            return HttpResponse("ok")
+        else:
+            return Http404
 
 def stop_compteur(request, *args, **kwargs):
     if request.method == "GET":
-        return Http404
+        responses = compteurs_states.get_infos()
+        if responses:
+            d_c = kwargs["pk"]
+            compteur = Compteur.objects.get(id=id_c)
+            compteur.global_state = "OFF"
+            compteur.save()
+            return HttpResponse("ok")
+        else:
+            return Http404

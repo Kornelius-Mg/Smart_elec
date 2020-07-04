@@ -62,7 +62,7 @@
                                                 <td>{{transfo.p_max}}</td>
                                                 <td>{{transfo.q_max}}</td>
                                                 <td>
-                                                    {% if compteur.global_state == 'ON' %}
+                                                    {% if transfo.global_state == 'ON' %}
                                                         <span class="label label-success">ON</span>
                                                     {% else %}
                                                     <span class="label label-danger">OFF</span>
@@ -70,7 +70,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group-toggle">
-                                                        <a href={% url "transfo" transfo.id %} title="Details"><i class="ti ti-plus  mr-10"></i></a>
+                                                        <a href={% url "transfo" transfo.id %} title="Afficher les details"><i class="ti ti-plus  mr-10"></i></a>
                                                         <a href={% url "update-transfo" transfo.id %} user.id %} title="Editer"><i class="ti ti-pencil  mr-10"></i></a>
                                                         <a href={% url "delete-transfo" transfo.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
                                                     </div>
@@ -88,5 +88,8 @@
         </div>
         <!-- /Row -->
     </div>
+    <script>
+        document.getElementById("link-transfos").setAttribute("class", "active");
+    </script>
 {% endblock "body" %}
     

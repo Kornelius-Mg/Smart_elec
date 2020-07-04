@@ -293,13 +293,11 @@ $(document).ready(function(){
 		{
 			click: (event) => {
 				event.preventDefault();
-				console.log("Un clic vient d'etre detecté");
+	
 				if(btnSwitch.is(":checked")) {
-					console.log("Le bouton etait laché au paravant");
 					startEngin();
 				}
 				else {
-					console.log("Le bouton etait cliqué au paravant");
 					stopEngin();
 				}
 			},

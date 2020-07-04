@@ -115,6 +115,7 @@
     
     <!-- JavaScripts -->
     <script>
+        $("#link-compteurs").addClass("active");
         var id_appart = {{id_appart}};
         if(id_appart != undefined) document.getElementById("appartement").selectedIndex = id_appart;
     </script>
@@ -169,7 +170,11 @@
 
     <!-- Init JavaScript -->
     <script src={% static "dist/js/init.js" %}></script>
-    
+    <script>
+        $("#link-compteurs").addClass("active");
+        var id_appart = {{id_appart}};
+        if(id_appart != undefined) document.getElementById("appartement").selectedIndex = id_appart;
+    </script>
 </body>
 
 <!-- Mirrored from hencework.com/theme/philbert/full-width-light/form-advanced.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 11 May 2020 09:20:02 GMT -->

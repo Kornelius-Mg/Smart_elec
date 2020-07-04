@@ -78,20 +78,20 @@ WSGI_APPLICATION = 'snel_api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'snel_db',
-        'HOST': '127.0.0.1',
-        'PORT': 3306,
-        'USER': 'root',
-        'PASSWORD': ''
-    },
-    'replica': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'snel_db.sq3',
         'TEST': {
             'MIRROR': 'default',
         }, # ... plus some other settings
-    }
+    },
+    # 'replica': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'snel_db',
+    #     'HOST': '127.0.0.1',
+    #     'PORT': 3306,
+    #     'USER': 'root',
+    #     'PASSWORD': ''
+    # },
 }
 
 
@@ -135,9 +135,9 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 
-MEDIA_URL = '/media/'
+MEDIA_URL = '/medias/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR,'medias/')
+MEDIA_ROOT = os.path.join(BASE_DIR,'medias')
 
 CORS_ORIGIN_ALLOW_ALL = True
 

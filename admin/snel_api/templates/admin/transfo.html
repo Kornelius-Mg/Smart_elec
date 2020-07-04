@@ -44,7 +44,7 @@
                           <div class="pull-right">
                             <span class="no-margin-switcher">
                                 <i class="icon-power mr-10"></i>
-                                <input type="checkbox" id="transfo_switch"  class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>	
+                                <input type="checkbox" checked=true id="transfo_switch" class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>	
                                 <label for="transfo_switch" class="label text-danger"><span class="text-uppercase" id="power_state"></span></label>
                             </span>
                         </div>
@@ -286,7 +286,6 @@
 <!-- /#wrapper -->
 
 <!-- JavaScript -->
-
 <!-- jQuery -->
 <script src={% static "vendors/bower_components/jquery/dist/jquery.min.js" %}></script>
 
@@ -525,6 +524,19 @@
         };
     }
 
+    function indicatePowerStateOn() {
+        btnSwitch.attr('checked', 'checked');
+        $("#power_state").text("Allumé");
+        $("#power_state").removeClass("text-danger").addClass("text-success");
+    }
+
+    function indicatePowerStateOff() {
+        btnSwitch.attr('checked', false);
+        $("#power_state").text("Eteint");
+        $("#power_state").removeClass("text-success").addClass("text-danger");
+    }
+
+
     var afficherTransfo = (data) => {
         var datas = JSON.parse(data);
         for(let i=0; i<datas.length; i++)
@@ -532,6 +544,12 @@
             let element = datas[i];
             $("#ptotal").text(element["fields"]["p_total"]);
             $("#qtotal").text(element["fields"]["q_total"]) ;
+            let state = element['fields']['global_state'];
+            if(state == "ON") {
+                indicatePowerStateOn();
+            } else {
+                indicatePowerStateOff();
+            }
             p_max = element['fields']['p_max'];
             p_max = element['fields']['q_max'];
         }
@@ -545,10 +563,14 @@
         console.log("ALlumage d'un transfo");
         $.ajax({
             url: '{% url "start-transfo" object.id %}',
-            method: "post",
+            method: "GET",
             success: (datas) => {
-                btnSwitch.attr("checked", "true");
+                btnSwitch.attr("checked", true);
+            },
+            error: (error) => {
+                console.warn("L'allumage du tranfo n'a pas reussi");
             }
+            
         });
     }
 
@@ -556,21 +578,22 @@
         console.log("Extinction d'un transfo");
         $.ajax({
             url: '{% url "stop-transfo" object.id %}',
-            method: 'post',
+            method: 'GET',
             success: (datas) => {
-                btnSwitch.attr("checked", "false");
+                btnSwitch.attr("checked", false);
+            },
+            error: (error) => {
+                console.warn("L'extinction du transfo a echoué");
             }
         });
     }
 
     var setPowerState = () => {
         if(btnSwitch.is(":checked")) {
-            $("#power_state").text("Allumé");
-            $("#power_state").removeClass("text-danger").addClass("text-success");
+            indicatePowerStateOn();
         }
         else{
-            $("#power_state").text("Eteint");
-            $("#power_state").removeClass("text-success").addClass("text-danger");
+            indicatePowerStateOff();
         }
     }
 
@@ -593,6 +616,7 @@
             }, 3000
         );
         setPowerState();
+        $("#link-transfos").addClass("active");
     });
 </script>
 

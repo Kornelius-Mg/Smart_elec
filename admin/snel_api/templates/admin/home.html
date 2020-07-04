@@ -2,6 +2,12 @@
 
 
 {% block "body" %}
-    
+{% with 12 as path %}{% endwith %}
+<h1>Un titre pour regaler tout le monde</h1>
+<p>Je ne suis pas un homme libre {{user}}</p>
+<script>
+    document.getElementById("link-home").setAttribute("class", "active");
+</script>
+
 {% endblock "body" %}
     
