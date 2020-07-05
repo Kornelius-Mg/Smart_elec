@@ -1,4 +1,6 @@
 from django.db import models
+from time import time
+import os
 
 # Create your models here.
 
@@ -8,13 +10,38 @@ class Utilisateur(models.Model):
     prenom = models.CharField(max_length=45)
     psw = models.CharField(max_length=40)
     telephone = models.CharField(max_length=20)
-    avatar = models.ImageField(upload_to="medias/img/", default="medias/img/avatar.jpg")
+    avatar = models.ImageField(upload_to="img/user/avatar/", default="medias/img/user/avatar/avatar.jpg", unique=True)
+
+    def save(self, *args, **kwargs):
+        index = 0
+        try:
+            index = self.avatar.name.rindex("/")
+        except ValueError:
+            pass
+        except Exception:
+            models.FieldError()
+        dossier = self.avatar.name[:index]
+        fichier = self.avatar.name[index:]
+        liste_name = fichier.split(".")
+        extension = liste_name[-1]
+        new_name = str(time()) + "." + extension
+        self.avatar.name = dossier + "/" + new_name
+        return super(Utilisateur, self).save(*args, **kwargs)
 
     def __str__(self):
         return "%s %s %s - %s"%(self.nom, self.postnom, self.prenom, self.telephone)
     
     def __unicode__(self):
         return "%s %s %s - %s"%(self.nom, self.postnom, self.prenom, self.telephone)
+
+class Appartement(models.Model):
+    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '%s %s'%(self.utilisateur, self.adresse)
+
+    def __unicode__(self):
+        return '%s %s'%(self.utilisateur, self.adresse)
 
 class Adresse(models.Model):
     pays = models.CharField(max_length=45, default="RDC")
@@ -24,6 +51,7 @@ class Adresse(models.Model):
     quartier = models.CharField(max_length=45)
     avenue = models.CharField(max_length=45)
     numero = models.PositiveIntegerField()
+    utilisateur = models.OneToOneField(Appartement, on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s C. %s Q. %s Av. %s  N°%s"%(self.ville, self.commune, self.quartier, self.avenue, self.numero)
@@ -31,15 +59,6 @@ class Adresse(models.Model):
     def __unicode__(self):
         return "%s C. %s Q. %s Av. %s  N°%s"%(self.ville, self.commune, self.quartier, self.avenue, self.numero) 
 
-class Appartement(models.Model):
-    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.DO_NOTHING)
-    adresse = models.OneToOneField(Adresse, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return '%s %s'%(self.utilisateur, self.adresse)
-
-    def __unicode__(self):
-        return '%s %s'%(self.utilisateur, self.adresse)
 
 class Classes(models.Model):
     designation = models.IntegerField(choices=((0, "CLASSE 1"), (1, "CLASSE 2"), (3, "CLASSE 3")))

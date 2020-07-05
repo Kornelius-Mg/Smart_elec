@@ -43,7 +43,7 @@
                               <div class="row">
                                   <div class="col-sm-12 col-xs-12">
                                       <div class="form-wrap">
-                                          <form action="" method="post">
+                                          <form action="" method="post" enctype="multipart/form-data">
                                               {% csrf_token %}
                                               <div class="form-group">
                                                   <label class="control-label mb-10" for="nom">Nom</label>
@@ -87,6 +87,13 @@
                                                     <input type="phone" name="telephone" class="form-control" id="exampleInputEmail_1" placeholder="Numero de telephone" required>
                                                 </div>
                                             </div>
+                                            <div class="form-group">
+                                                <label class="control-label mb-10" for="exampleInputEmail_1">Photo</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-picture-o"></i></div>
+                                                    <input type="file" name="avatar" class="form-control" id="exampleInputEmail_1" placeholder="Photo de l'utilisateur" >
+                                                </div>
+                                            </div>
                                               <button id="submit-btn" type="submit" class="btn btn-success mr-10">Enregistrer</button>
                                               <button type="reset" class="btn btn-default">Annuler</button>
                                           </form>
@@ -101,10 +108,10 @@
       </div>
       <script>
           document.getElementById("link-transfos").setAttribute("class", "active");
-          $("document").load(() => {
-            $("#submit-btn").setAttribute("disabled", "disabled");
-            var psw = $("#psw").val();
-            var conf = $("#conf-psw").val();
+          document.load(() => {
+            document.getElementById("submit-btn").setAttribute("disabled", "disabled");
+            var psw = document.getElementById("psw").value;
+            var conf = document.getElementById("conf-psw").value;
             if(psw == conf) $("#submit-btn").setAttribute("disabled", false);
           }
           );
