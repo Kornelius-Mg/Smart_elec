@@ -7,14 +7,22 @@ from django.conf.urls import url
 urlpatterns = [
      path('', HomeView.as_view(), name="home"),
 
-     # Urls pour utilisateurs
+     # URLS d'authentification
+
+     url(r'^login-admin/$', login_admin, name="login-admin"),
+     url(r'^register-admin/$', register_admin, name="register-admin"),
+     url(r'^logout-admin/$', logout_admin, name="logout-admin"),
+     url(r'^login/$', login_form, name="login"),
+     url(r'^register/$', register_form, name="register"),
+
+     # URLS pour utilisateurs
      path('users/new', UserCreateView.as_view(), name="new-user"),
      path('users/', UserListView.as_view(), name="users"),
      url(r'^users/delete/(?P<pk>[0-9]+)/$', UserDeleteView.as_view(), name="delete-user"),
      url(r'^users/update/(?P<pk>[0-9]+)/$', UserUpdateView.as_view(), name="update-user"),
      url(r'^user/(?P<pk>[0-9]+)/$', UserDetailView.as_view(), name="user"),
 
-     # Urls pour appartements et adresses
+     # URLS pour appartements et adresses
      url(r'^adresses/new/(?P<pk>[0-9]+)/$', AdresseCreateView.as_view(), name="new-adresse"),
      url(r'^apparts/update/(?P<pk>[0-9]+)/$', AdresseUpdateView.as_view(), name="update-appart"),
      url(r'^apparts/delete/(?P<pk>[0-9]+)/$', AdresseDeleteView.as_view(), name="delete-appart"),
@@ -42,4 +50,5 @@ urlpatterns = [
      url(r'^transfo-infos/(?P<pk>[0-9]+)/$', transformateur_infos, name="transfo-infos"),
      url(r'^start-transfo/(?P<pk>[0-9]+)/$', start_transfo, name="start-transfo"),
      url(r'^stop-transfo/(?P<pk>[0-9]+)/$', stop_transfo, name="stop-transfo"),
+     
 ]

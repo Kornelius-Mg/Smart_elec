@@ -4,13 +4,11 @@ from django.http import HttpResponse, Http404
 from django.db.models import Q
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView, DetailView, FormView, View
 from app.models import *
-from AdminApp.forms import UtilisateurForm, CreateAppartForm
+from AdminApp.forms import UtilisateurForm, CreateAppartForm, LoginForm, RegisterForm
 from . import compteurs_states, transfos_states
+from django.views.generic.edit import FormView
 
 # Create your views here.
-
-
-
 
 class HomeView(TemplateView):
     template_name = "admin/home.html"
@@ -299,7 +297,7 @@ def start_transfo(request, *args, **kwargs):
             transfo.save()
             return HttpResponse("ok")
         else:
-            return Http404
+            return Http404("Une erreur est survenue")
 
 def stop_transfo(request, *args, **kwargs):
     if request.method == "GET":
@@ -311,7 +309,7 @@ def stop_transfo(request, *args, **kwargs):
             transfo.save()
             return HttpResponse("ok")
         else:
-            return Http404
+            return Http404("Une erreur est survenue")
 
 def start_compteur(request, *args, **kwargs):
     if request.method == "GET":
@@ -323,7 +321,7 @@ def start_compteur(request, *args, **kwargs):
             compteur.save()
             return HttpResponse("ok")
         else:
-            return Http404
+            return Http404("Une erreur est survenue")
 
 def stop_compteur(request, *args, **kwargs):
     if request.method == "GET":
@@ -335,4 +333,33 @@ def stop_compteur(request, *args, **kwargs):
             compteur.save()
             return HttpResponse("ok")
         else:
-            return Http404
+            return Http404("Une erreur est survenue")
+
+# AdminViews
+
+class LoginFormView(FormView):
+    form_class = LoginForm
+    template_name = "admin/login.html"
+    success_url = "/admin-snel/"
+
+    def form_valid(self, form):
+        username = form.cleaned_data["username"]
+        password = form.cleaned_data["password"]
+        user = authenticate(username=username, password=password)
+        if user:
+            login(user, password)
+
+def login_admin(request, *args, **kwargs):
+    return HttpResponse("ok")
+
+def register_admin(request, *args, **kwargs):
+    return HttpResponse("ok")
+
+def logout_admin(request, *args, **kwargs):
+    return HttpResponse("ok")
+
+def login_form(request, *args, **kwargs):
+    return render(request, "admin/login.html", {})
+
+def register_form(request, *args, **kwargs):
+    return render(request, 'admin/register.html')
