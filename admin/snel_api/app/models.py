@@ -1,5 +1,6 @@
 from django.db import models
 from time import time
+from django.contrib.auth.models import User
 import os
 
 # Create your models here.
@@ -187,3 +188,8 @@ class DetailsTransfo(Detail):
         self.transformateur.global_state = "ON"
         self.transformateur.save()
         return super(DetailsTransfo, self).save(*args, **kwargs)
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    telephone = models.CharField(max_length=20)
+    avatar = models.ImageField(upload_to='img/admin/avatar', default="medias/img/admin/avatar/avatar.png")

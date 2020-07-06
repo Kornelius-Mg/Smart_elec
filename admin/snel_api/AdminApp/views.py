@@ -4,13 +4,20 @@ from django.http import HttpResponse, Http404
 from django.db.models import Q
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView, DetailView, FormView, View
 from app.models import *
-from AdminApp.forms import UtilisateurForm, CreateAppartForm, LoginForm, RegisterForm
+from AdminApp.forms import UtilisateurForm, CreateAppartForm, LoginForm, RegisterAdminForm
 from . import compteurs_states, transfos_states
 from django.views.generic.edit import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import login, authenticate
 
 # Create your views here.
 
-class HomeView(TemplateView):
+class LocalLoginRequired(LoginRequiredMixin):
+    login_url = '/admin-snel/login'
+
+class HomeView(LocalLoginRequired, TemplateView):
     template_name = "admin/home.html"
 
     def get_context_data(self, **kwargs):
@@ -25,7 +32,8 @@ class HomeView(TemplateView):
 
 # Vues en rapport avec l'utilisateur
 
-class UserCreateView(CreateView):
+        context["utilisateurs"] = Utilisateur.objects.all()
+class UserCreateView(LocalLoginRequired, CreateView):
     model = Utilisateur
     template_name = "admin/create-user.html"
     success_url = "/admin-snel/users/"
@@ -47,17 +55,17 @@ class UserUpdateView(UpdateView):
         context["action"] = "Modifier"
         return context
 
-class UserDeleteView(DeleteView):
+class UserDeleteView(LocalLoginRequired, DeleteView):
     model = Utilisateur
     template_name = "whats-up.html"
     success_url = "/admin-snel/users/"
 
-class UserListView(ListView):
+class UserListView(LocalLoginRequired, ListView):
     model = Utilisateur
     template_name = "admin/users.html"
     context_object_name = "users"
 
-class UserDetailView(DetailView):
+class UserDetailView(LocalLoginRequired, DetailView):
     model = Utilisateur
     template_name='admin/user.html'
     context_object_name = "user"
@@ -78,7 +86,7 @@ class UserDetailView(DetailView):
 
 # Vues pour adresses et appartements
 
-class AdresseCreateView(CreateView):
+class AdresseCreateView(LocalLoginRequired, CreateView):
     model = Adresse
     template_name = "admin/create-appart.html"
     fields = ("pays", "province", "ville", "commune", "quartier", "avenue", "numero")
@@ -87,7 +95,7 @@ class AdresseCreateView(CreateView):
     def get(self, request,  *args, **kwargs):
         return super(AdresseCreateView, self).get(request, *args, **kwargs)
 
-class AppartementCreateView(View):
+class AppartementCreateView(LocalLoginRequired, View):
     def get(self, request, *args, **kwargs):
         adresse = list(Adresse.objects.all())[-1]
         appart = Appartement(utilisateur=Utilisateur.objects.get(id=request.session["user"]), adresse=adresse)
@@ -97,7 +105,7 @@ class AppartementCreateView(View):
     def post(self, request, *args, **kwargs):
         return HttpResponse('POST request!')
 
-class AdresseDeleteView(DeleteView):
+class AdresseDeleteView(LocalLoginRequired, DeleteView):
     model = Adresse
     template_name = "whats-up.html"
 
@@ -105,7 +113,7 @@ class AdresseDeleteView(DeleteView):
         AdresseDeleteView.success_url = "/admin-snel/user/%s"%request.session["user"]
         return super(AdresseDeleteView, self).get(request, *args, **kwargs)
 
-class AdresseUpdateView(UpdateView):
+class AdresseUpdateView(LocalLoginRequired, UpdateView):
     model = Adresse
     template_name = "admin/update-appart.html"
     fields = ("pays", "province", "ville", "commune", "quartier", "avenue", "numero")
@@ -118,7 +126,7 @@ class AdresseUpdateView(UpdateView):
 # Vues concernant les compteurs
 
 
-class CompteurAppartListView(ListView):
+class CompteurAppartListView(LocalLoginRequired, ListView):
     model = Compteur
     template_name = "admin/compteurs.html"
     context_object_name = "compteurs"
@@ -135,19 +143,19 @@ class CompteurAppartListView(ListView):
         context["id_appart"] = self.key
         return context
 
-class CompteurListView(ListView):
+class CompteurListView(LocalLoginRequired, ListView):
     model = Compteur
     template_name = "admin/compteurs.html"
     context_object_name = "compteurs"
     queryset = Compteur.objects.all()
 
 
-class CompteurTransfoListView(ListView):
+class CompteurTransfoListView(LocalLoginRequired, ListView):
     model = Compteur
     template_name = "agdmin/compteurs.html"
     context_object_name = "compteurs"
 
-class CompteurCreateView(CreateView):
+class CompteurCreateView(LocalLoginRequired, CreateView):
     model = Compteur
     template_name = "admin/create-compteur.html"
     fields = ("modele", "appartement", "transformateur", "active_class")
@@ -159,7 +167,7 @@ class CompteurCreateView(CreateView):
         context["transfos"] = Transformateur.objects.all()
         return context
 
-class CompteurAppartCreateView(CreateView):
+class CompteurAppartCreateView(LocalLoginRequired, CreateView):
     model = Compteur
     template_name = "admin/create-compteur.html"
     fields = ("modele", "appartement", "transformateur", "active_class")
@@ -177,7 +185,7 @@ class CompteurAppartCreateView(CreateView):
         return context
 
 
-class DetailsCompteurView(DetailView):
+class DetailsCompteurView(LocalLoginRequired, DetailView):
     model = Compteur
     template_name = "admin/compteur.html"
     context_object_name = "compteur"
@@ -199,7 +207,7 @@ class DetailsCompteurView(DetailView):
 
 
 
-class CompteurDeleteView(DeleteView):
+class CompteurDeleteView(LocalLoginRequired, DeleteView):
     model = Compteur
     template_name = "whats-up.html"
     success_url = "/admin-snel/compteurs"
@@ -221,13 +229,13 @@ class CompteurUpdateView(UpdateView):
 
 # Vues concernant les transformateurs
 
-class TransformateurListView(ListView):
+class TransformateurListView(LocalLoginRequired, ListView):
     model = Transformateur
     template_name = "admin/transfos.html"
     context_object_name = "transfos"
 
 
-class TransformateurDetailView(DetailView):
+class TransformateurDetailView(LocalLoginRequired, DetailView):
     model = Transformateur
     template_name = "admin/transfo.html"
     context_object_name = "transfo"
@@ -249,21 +257,21 @@ class TransformateurDetailView(DetailView):
         return context
 
 
-class TransformateurCreateView(CreateView):
+class TransformateurCreateView(LocalLoginRequired, CreateView):
     model = Transformateur
     template_name = "admin/create-transfo.html"
     success_url = "/admin-snel/transfos/"
     fields = ("designation", "p_max", "q_max")
 
 
-class TransformateurUpdateView(UpdateView):
+class TransformateurUpdateView(LocalLoginRequired, UpdateView):
     model = Transformateur
     template_name = "admin/update-transfo.html"
     fields = ("designation", "p_max", "q_max")
     success_url = "/admin-snel/transfos/"
 
 
-class TransformateurDeleteView(DeleteView):
+class TransformateurDeleteView(LocalLoginRequired, DeleteView):
     model = Transformateur
     template_name = "whats-up.html"
     success_url = "/admin-snel/transfos/"
@@ -337,29 +345,37 @@ def stop_compteur(request, *args, **kwargs):
 
 # AdminViews
 
-class LoginFormView(FormView):
-    form_class = LoginForm
-    template_name = "admin/login.html"
-    success_url = "/admin-snel/"
-
-    def form_valid(self, form):
-        username = form.cleaned_data["username"]
-        password = form.cleaned_data["password"]
-        user = authenticate(username=username, password=password)
-        if user:
-            login(user, password)
-
 def login_admin(request, *args, **kwargs):
     return HttpResponse("ok")
 
+@login_required
 def register_admin(request, *args, **kwargs):
     return HttpResponse("ok")
 
+@login_required
 def logout_admin(request, *args, **kwargs):
     return HttpResponse("ok")
 
-def login_form(request, *args, **kwargs):
-    return render(request, "admin/login.html", {})
-
+@login_required
 def register_form(request, *args, **kwargs):
-    return render(request, 'admin/register.html')
+    if request.method == "POST":
+        form = RegisterAdminForm(request.POST, request.FILES)
+        if form.is_valid():
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password"]
+            email = form.cleaned_data["email"]
+            user = User.objects.create_user(username=username, password=password, email=email)
+            user.firstname = form.cleaned_data["firstname"]
+            user.lastname = form.cleaned_data["lastname"]
+            profile = Profile(user=user)
+            profile.telephone = form.cleaned_data["telephone"]
+            profile.avatar = form.cleaned_data.get("avatar")
+            profile.save()
+            user = authenticate(username=username, password=password)
+            if user:
+                return redirect('/admin-snel/')
+            else:
+                return render(request, 'admin/register.html', {'error': 'Une erreur s\'est produite, veuillez recommencer s\'il vous plait'})
+        else:
+            return 
+    return render(request, 'admin/register.html', {})

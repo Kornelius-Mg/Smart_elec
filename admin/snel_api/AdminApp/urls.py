@@ -2,6 +2,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 from AdminApp.views import *
 from django.conf.urls import url
+from django.contrib.auth.views import LoginView, LogoutView
 
 
 urlpatterns = [
@@ -11,8 +12,8 @@ urlpatterns = [
 
      url(r'^login-admin/$', login_admin, name="login-admin"),
      url(r'^register-admin/$', register_admin, name="register-admin"),
-     url(r'^logout-admin/$', logout_admin, name="logout-admin"),
-     url(r'^login/$', login_form, name="login"),
+     url(r'^logout/$', LogoutView.as_view(template_name="admin/login.html"), name="logout"),
+     url(r'^login/$', LoginView.as_view(template_name='admin/login.html'), name="login"),
      url(r'^register/$', register_form, name="register"),
 
      # URLS pour utilisateurs

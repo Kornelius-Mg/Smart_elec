@@ -142,3 +142,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'medias')
 CORS_ORIGIN_ALLOW_ALL = True
 
 CSRF_TRUSTED_ORIGINS = ['*',]
+
+LOGIN_URL = '/admin-snel/login'
+
+LOGOUT_URL = '/admin-snel/logout'
+
+LOGIN_REDIRECT_URL = '/admin-snel/'

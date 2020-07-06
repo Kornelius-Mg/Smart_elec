@@ -6,9 +6,6 @@
 		</div>
         <!--/Preloader-->
         
-        {% if error %}
-			<p><strong>Utilisateur inexistant ou mauvais de mot de passe.</strong></p>
-        {% endif %}
         {% if user.is_authenticated %}
         <p>Vous êtes connecté, <span>{{ user.username }}</span> !</p>
 		{% else %}
@@ -39,9 +36,12 @@
 										<div class="mb-30">
 											<h3 class="text-center txt-dark mb-10">Sign in to SmartElect</h3>
 											<h6 class="text-center nonecase-font txt-grey">Authentifiez-vous</h6>
+											{% if form.error %}
+												<p class="text-center txt-red">Utilisateur inexistant ou mauvais de mot de passe.</p>
+        									{% endif %}
 										</div>	
 										<div class="form-wrap">
-											<form action="{url 'login'}" method="POST">
+											<form action="{% url 'login' %}" method="POST">
 												{% csrf_token %}
 												<div class="form-group">
 													<label class="control-label mb-10" for="exampleInputEmail_2">login</label>
