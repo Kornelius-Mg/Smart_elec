@@ -45,7 +45,7 @@ class RegisterAdminForm(forms.Form):
     
     def clean_telephone(self):
         numero = self.cleaned_data["telephone"]
-        pattern1 = re.compile(r'^+243[0-9]{9}$')
+        pattern1 = re.compile(r'^\+243[0-9]{9}$')
         pattern2 = re.compile(r'^0[0-9]{9}$')
 
         if not re.fullmatch(pattern1, numero) and not re.fullmatch(pattern2, numero):

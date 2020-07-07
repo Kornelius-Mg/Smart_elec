@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.core import serializers
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpRequest
 from django.db.models import Q
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, TemplateView, DetailView, FormView, View
 from app.models import *
@@ -356,26 +356,35 @@ def register_admin(request, *args, **kwargs):
 def logout_admin(request, *args, **kwargs):
     return HttpResponse("ok")
 
-@login_required
-def register_form(request, *args, **kwargs):
+def register_form(request: HttpRequest, *args, **kwargs):
+    print(request.method)
     if request.method == "POST":
+        print("Une requete POST arrive")
         form = RegisterAdminForm(request.POST, request.FILES)
         if form.is_valid():
+            print("Le formulaire est valide")
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             email = form.cleaned_data["email"]
-            user = User.objects.create_user(username=username, password=password, email=email)
+            print("%s %s %s"%(username, email, password))
+            user = User.objects.create_user(username, email, password)
             user.firstname = form.cleaned_data["firstname"]
             user.lastname = form.cleaned_data["lastname"]
             profile = Profile(user=user)
             profile.telephone = form.cleaned_data["telephone"]
-            profile.avatar = form.cleaned_data.get("avatar")
+            if form.cleaned_data["avatar"]:
+                profile.avatar = form.cleaned_data["avatar"]
             profile.save()
             user = authenticate(username=username, password=password)
             if user:
                 return redirect('/admin-snel/')
             else:
-                return render(request, 'admin/register.html', {'error': 'Une erreur s\'est produite, veuillez recommencer s\'il vous plait'})
+                return render(request, 'admin/create-admin.html', {'error': 'Une erreur s\'est produite, veuillez recommencer s\'il vous plait'})
         else:
-            return 
-    return render(request, 'admin/register.html', {})
+            print("Le formulaire n'est pas valide")
+            print(form.errors)
+            return render(request, 'admin/create-admin.html', {})
+    else:
+        print("Une requete GET arrive")
+        form = RegisterAdminForm()
+        return render(request, 'admin/create-admin.html', {})

@@ -11,7 +11,7 @@ class Utilisateur(models.Model):
     prenom = models.CharField(max_length=45)
     psw = models.CharField(max_length=40)
     telephone = models.CharField(max_length=20)
-    avatar = models.ImageField(upload_to="img/user/avatar/", default="medias/img/user/avatar/avatar.jpg", unique=True)
+    avatar = models.ImageField(upload_to="img/user/avatar/", default="img/user/avatar/avatar.jpg", unique=True)
 
     def save(self, *args, **kwargs):
         index = 0
