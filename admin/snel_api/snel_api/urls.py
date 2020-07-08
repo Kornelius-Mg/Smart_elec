@@ -20,7 +20,7 @@ from django.urls import path, include
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from app.views import *
-import AdminApp
+import superviseur, user, compteur, parametres, transfos
 
 router =routers.DefaultRouter()
 router.register(r'users',UtilisateurViewsSet)
@@ -37,7 +37,11 @@ urlpatterns = [
     path('api-token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api-token-refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/', include(router.urls)),
-    path('admin-snel/', include('AdminApp.urls'))
+    path('users/', include('user.urls')), 
+    path('compteurs/', include('compteur.urls')),
+    path('transfos/', include('transfos.urls')),
+    path('', include('app.urls')),
+    path('', include('superviseur.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block "body" %}
+  <!-- Right Sidebar Backdrop -->
+  <div class="right-sidebar-backdrop"></div>
+  <!-- /Right Sidebar Backdrop -->
+      
+  <!-- Main Content -->
+  <div class="page-wrapper">
+      <div class="container-fluid">
+          
+          <!-- Title -->
+          <div class="row heading-bg">
+              <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                  <h4 class="txt-dark">{{action}} utilisateur</h4>
+              </div>
+          
+              <!-- Breadcrumb -->
+              <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                  <ol class="breadcrumb">
+                      <li><a href={% url "home" %}>Dashboard</a></li>
+                      <li><a href={% url "users" %}><span>Utilisateur</span></a></li>
+                      <li class="active"><span>{{action}}</span></li>
+                  </ol>
+              </div>
+              <!-- /Breadcrumb -->
+          
+          </div>
+          <!-- /Title -->
+          
+          <!-- Row -->
+          <div class="row">
+              <div class="col-offset-2 col-md-9">
+                  <div class="panel panel-default vertical-align-middle card-view">
+                      <div class="panel-heading">
+                          <!-- <div class="pull-left">
+                              <h4 class="panel-title txt-dark">ENREGISTRER UTILISATEUR</h4>
+                          </div> -->
+                          <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-wrapper collapse in">
+                          <div class="panel-body">
+                              <div class="row">
+                                  <div class="col-sm-12 col-xs-12">
+                                      <div class="form-wrap">
+                                          <form action="" method="post" enctype="multipart/form-data">
+                                              {% csrf_token %}
+                                              <div class="form-group">
+                                                  <label class="control-label mb-10" for="nom">Nom</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                      <input type="text" name="nom" class="form-control" id="nom" placeholder="Nom" required>
+                                                  </div>
+                                              </div>
+                                              <div class="form-group">
+                                                <label class="control-label mb-10" for="postnom">PostNom</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                    <input type="text" name="postnom" class="form-control" id="postnom" placeholder="Postnom" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label mb-10" for="exampleInputuname_1">Prenom</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="icon-user"></i></div>
+                                                    <input type="text" name="prenom" class="form-control" id="exampleInputuname_1" placeholder="Prenom" required>
+                                                </div>
+                                            </div>
+                                              <div class="form-group">
+                                                  <label class="control-label mb-10" for="exampleInputpwd_1">Mot de passe</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon"><i class="icon-lock"></i></div>
+                                                      <input type="password" name="psw" class="form-control" id="psw" placeholder="Mot de passe" required>
+                                                  </div>
+                                              </div>
+                                              <div class="form-group">
+                                                  <label class="control-label mb-10" for="exampleInputpwd_2">Confirmer mot de passe</label>
+                                                  <div class="input-group">
+                                                      <div class="input-group-addon"><i class="icon-lock"></i></div>
+                                                      <input type="password" name="conf_psw" class="form-control" id="conf-psw" placeholder="Confirmer mot de passe" required>
+                                                  </div>
+                                              </div>
+                                              <div class="form-group">
+                                                <label class="control-label mb-10" for="exampleInputEmail_1">Telephone</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="icon-phone"></i></div>
+                                                    <input type="phone" name="telephone" class="form-control" id="exampleInputEmail_1" placeholder="Numero de telephone" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label mb-10" for="exampleInputEmail_1">Photo</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-picture-o"></i></div>
+                                                    <input type="file" name="avatar" class="form-control" id="exampleInputEmail_1" placeholder="Photo de l'utilisateur" >
+                                                </div>
+                                            </div>
+                                              <button id="submit-btn" type="submit" class="btn btn-success mr-10">Enregistrer</button>
+                                              <button type="reset" class="btn btn-default">Annuler</button>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          <!-- /Row -->	
+      </div>
+      <script>
+          document.getElementById("link-transfos").setAttribute("class", "active");
+          document.load(() => {
+            document.getElementById("submit-btn").setAttribute("disabled", "disabled");
+            var psw = document.getElementById("psw").value;
+            var conf = document.getElementById("conf-psw").value;
+            if(psw == conf) $("#submit-btn").setAttribute("disabled", false);
+          }
+          );
+      </script>
+{% endblock "body" %}

@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from .models import *
+from superviseur.models import *
+from compteur.models import *
+from transfos.models import *
+from user.models import *
 
 
 class AbonnementSerializer(serializers.ModelSerializer):

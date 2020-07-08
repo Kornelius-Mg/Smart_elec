@@ -39,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
-    'app'
+    'app',
+    'compteur',
+    'parametres',
+    'superviseur',
+    'transfos',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +62,12 @@ ROOT_URLCONF = 'snel_api.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates',],
+        'DIRS': ['superviseur/templates', 
+            'compteur/templates', 
+            'parametres/templates',
+            'transfos/templates',
+            'user/templates',
+            'app/templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
