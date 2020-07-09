@@ -1,3 +1,4 @@
 {
-    "editor.fontSize": 16
+    "editor.fontSize": 16,
+    "python.pythonPath": "C:\\Program Files\\Python38\\python.exe"
 }

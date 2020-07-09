@@ -20,8 +20,10 @@ class Profile(models.Model):
             models.FieldError()
         dossier = self.avatar.name[:index]
         fichier = self.avatar.name[index:]
-        liste_name = fichier.split(".")
-        extension = liste_name[-1]
-        new_name = str(time()) + "." + extension
-        self.avatar.name = dossier + "/" + new_name
+        if not fichier.endswith("avatar.png"):
+            liste_name = fichier.split(".")
+            extension = liste_name[-1]
+            new_name = str(time()) + "." + extension
+            self.avatar.name =   new_name
+            print(self.avatar.name)
         return super(Profile, self).save(*args, **kwargs)

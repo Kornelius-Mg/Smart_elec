@@ -153,8 +153,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CSRF_TRUSTED_ORIGINS = ['*',]
 
-LOGIN_URL = '/admin-snel/login'
+LOGIN_URL = '/login'
 
-LOGOUT_URL = '/admin-snel/logout'
+LOGOUT_URL = '/logout'
 
-LOGIN_REDIRECT_URL = '/admin-snel/'
+LOGIN_REDIRECT_URL = '/'

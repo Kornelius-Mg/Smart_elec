@@ -10,19 +10,6 @@
         <p>Vous êtes connecté, <span>{{ user.username }}</span> !</p>
 		{% else %}
 		<div class="wrapper pa-0">
-			<header class="sp-header">
-				<div class="sp-logo-wrap pull-left">
-					<a href="{% url 'home' %}">
-						<!-- <img class="brand-img mr-10" src="../img/logo.png" alt="brand"/> -->
-						<span class="brand-text">SmartElect</span>
-					</a>
-				</div>
-				<div class="form-group mb-0 pull-right">
-					<span class="inline-block pr-10">Vous n'avez pas de compte?</span>
-					<a class="inline-block btn btn-info btn-success btn-rounded btn-outline" href="{% url 'register' %}">Inscrivez-vous</a>
-				</div>
-				<div class="clearfix"></div>
-			</header>
 			
 			<!-- Main Content -->
 			<div class="page-wrapper pa-0 ma-0 auth-page">
@@ -34,7 +21,7 @@
 								<div class="row">
 									<div class="col-sm-12 col-xs-12">
 										<div class="mb-30">
-											<h3 class="text-center txt-dark mb-10">Sign in to SmartElect</h3>
+											<h3 class="text-center txt-dark mb-10">Connexion à SmartElect</h3>
 											<h6 class="text-center nonecase-font txt-grey">Authentifiez-vous</h6>
 											{% if form.error %}
 												<p class="text-center txt-red">Utilisateur inexistant ou mauvais de mot de passe.</p>
@@ -44,10 +31,12 @@
 											<form action="{% url 'login' %}" method="POST">
 												{% csrf_token %}
 												<div class="form-group">
+													<div class="help-block with-errors">{{form.username.errors}}</div>
 													<label class="control-label mb-10" for="exampleInputEmail_2">login</label>
 													<input type="text" class="form-control" required name="username" id="login" placeholder="nom d'utilisateur">
 												</div>
 												<div class="form-group">
+													<div class="help-block with-errors">{{form.password.errors}}</div>
 													<label class="pull-left control-label mb-10" for="exampleInputpwd_2">Password</label>
 													<a class="capitalize-font txt-primary block mb-10 pull-right font-12" href="forgot-password.html">Mot de passe oublié ?</a>
 													<div class="clearfix"></div>

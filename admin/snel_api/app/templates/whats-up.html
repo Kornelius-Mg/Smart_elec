@@ -1,58 +1,41 @@
-    {% load static %}
-    <!DOCTYPE html>
-    <html lang="">
-        <head>
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <title>Title Page</title>
-    
-            <!-- Bootstrap CSS -->
-            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-            <link href={% static "mdb/css/bootstrap.min.css" %} rel="stylesheet" />
-     
-            <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-            <!--[if lt IE 9]>
-                <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
-                <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-            <![endif]-->
-        </head>
-        <body>
-            <div class="container">
-                <div class="row">
-                  <div class="col-lg-offset-4 col-5">
-                    <div class="card">
-                      <div class="card-header">
-                        <div class="card-header-tabs">
-                          <div class="card-title">
-                            <h3>Confirmer la suppression</h3>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card-body">
-                        <fieldset>
-                            <h5>Etes-vous sur de vouloir supprimer cet élément?</h5>
-                          <form method="post" action="">
-                            {% csrf_token %}
-                              <p>Une fois executée, cette action est irreversible</p>
-                            <div class="row">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
-                                    <a href={% url "users" %} class="btn btn-success btn-sm">Annuler</a>
-                                </div>
-                            </div>
-                          </form>
-                        </fieldset>
-                      </div>
-                    </div>
+{% extends "base.html" %}
+
+{% block "body" %}
+<div class="row">
+    <div class="col-lg-offset-3 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="mt-90 mb-90"></div>
+        </div>
+        <div class="panel panel-warning contact-card card-view mt-90 mb-90">
+            <div class="panel-heading">
+                <div class="txt-dark" style="font-size: 30px;">Avertissement</div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel-wrapper collapse in">
+                <div class="panel-body row">
+                  <div class="text-lg-center">
+                    <p><span class="txt-dark">Etes-vous sûr(e) de vouloir poursuivre la suppression?</span></p>
+                    <p><span class="txt-dark">Une fois effectuée, cette action est irreversible!</span></p>
                   </div>
                 </div>
-              </div>
-              
-            <!-- jQuery -->
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-            <!-- Bootstrap JavaScript -->
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        </body>
-    </html>
+                <div class="panel-footer">
+                  <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                      <button type="submit" class="btn btn-danger mr-20">Confirmer</button>
+                      <a href={% url 'home' %} type="reset" class="btn btn-success mr-20">Annuler</a>
+                    </div>
+                  </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="mt-90 mb-90"></div>
+        </div>
+        <div class="row">
+            <div class="mt-90 mb-90"></div>
+        </div>
+    </div>		
+</div>
+<!-- Row -->
+{% endblock "body" %}
