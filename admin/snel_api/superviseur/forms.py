@@ -32,3 +32,7 @@ class RegisterAdminForm(forms.Form):
         if not re.fullmatch(pattern1, numero) and not re.fullmatch(pattern2, numero):
             raise forms.ValidationError("Le numero de telephone n'est pas valide")
         return numero
+
+class UpdateAdminForm(RegisterAdminForm):
+    password = forms.CharField(max_length=40, required=False, widget=forms.PasswordInput)
+    conf_psw = forms.CharField(max_length=40, required=False, widget=forms.PasswordInput)

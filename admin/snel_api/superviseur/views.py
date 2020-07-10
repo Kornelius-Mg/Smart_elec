@@ -6,6 +6,7 @@ from django.http import HttpRequest, HttpResponse, Http404
 from django.views.generic import ListView, DetailView
 from superviseur.models import Profile
 from .forms import *
+from app.views import LocalLoginRequired
 
 # Create your views here.
 
@@ -22,6 +23,7 @@ def register_admin(request, *args, **kwargs):
 def logout_admin(request, *args, **kwargs):
     return HttpResponse("ok")
 
+@login_required
 def register_form(request: HttpRequest, *args, **kwargs):
     print(request.method)
     if request.method == "POST":
@@ -41,7 +43,7 @@ def register_form(request: HttpRequest, *args, **kwargs):
             profile.save()
             user = authenticate(username=username, password=password)
             if user:
-                return redirect('{% url "list-superviseurs" %}')
+                return redirect('/superviseurs/list')
             else:
                 return render(request, 'create-admin.html', {'error': 'Une erreur s\'est produite, veuillez recommencer s\'il vous plait'})
         else:
@@ -51,35 +53,38 @@ def register_form(request: HttpRequest, *args, **kwargs):
         form = RegisterAdminForm()
         return render(request, 'create-admin.html', {})
 
+@login_required
 def superviseur_update(request: HttpRequest, *args, **kwargs):
     if request.method == "POST":
-        form = RegisterAdminForm(request.POST, request.FILES)
+        form = UpdateAdminForm(request.POST, request.FILES)
         if form.is_valid():
             if form.has_changed():
                 request.user.username = form.cleaned_data["username"]
-                request.user.first_name = form.cleaned_data["lastname"]
+                request.user.first_name = form.cleaned_data["firstname"]
                 request.user.last_name = form.cleaned_data["lastname"]
                 request.user.email = form.cleaned_data["email"]
-                if form.password.has_changed():
+                if form.cleaned_data["password"]:
                     request.user.set_password(form.cleaned_data["password"])
                 request.user.save()
                 request.user.profile.telephone = form.cleaned_data["telephone"]
                 if form.cleaned_data["avatar"]:
                     request.user.profile.avatar = form.cleaned_data["avatar"]
                 request.user.profile.save()
-            return redirect('{% url "list-superviseurs" %}')
+            return redirect('/superviseurs/list')
         else:
             return render(request, 'update-admin.html', {})
     else:
-        form = RegisterAdminForm()
+        form = UpdateAdminForm()
         return render(request, 'update-admin.html', {})
 
+@login_required
 def superviseur_details(request: HttpRequest, *args, **kwargs):
     contexte = dict()
     contexte['superviseur'] = request.user
     contexte['profile'] = Profile.objects.get(user=request.user)
     return render(request, 'admin.html', contexte)
 
+@login_required
 def delete_admin(request: HttpRequest, *args, **kwargs):
     """ Vue e suppression d'un administrateur """
     if request.method == "POST":
@@ -88,7 +93,7 @@ def delete_admin(request: HttpRequest, *args, **kwargs):
     else:
         return render(request, 'whats-up.html', {})
 
-class SuperviseurList(ListView):
+class SuperviseurList(LocalLoginRequired, ListView):
     model = User
     template_name = "admins.html"
     context_object_name = 'superviseurs'
