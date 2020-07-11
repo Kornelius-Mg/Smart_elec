@@ -23,8 +23,8 @@
 										<div class="mb-30">
 											<h3 class="text-center txt-dark mb-10">Connexion à SmartElect</h3>
 											<h6 class="text-center nonecase-font txt-grey">Authentifiez-vous</h6>
-											{% if form.error %}
-												<p class="text-center txt-red">Utilisateur inexistant ou mauvais de mot de passe.</p>
+											{% if form.errors %}
+												<p class="text-center" style="color: red;">Nom d'utilisateur inexistant ou mauvais de mot de passe.</p>
         									{% endif %}
 										</div>	
 										<div class="form-wrap">

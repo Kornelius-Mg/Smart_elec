@@ -34,51 +34,46 @@
 											<h3 class="text-center txt-dark mb-10">Nouvel admin</h3>
 											<h6 class="text-center nonecase-font txt-grey">Enter your details below</h6>
 										</div>
-										<div class="help-block with-errors">
-											{% if error %}
-												{{ error }}
-											{% endif %}
-										</div>
 										<div class="form-wrap">
 											<form action="" method="POST" enctype="multipart/form-data">
                                             	{% csrf_token %}
                                                 <div class="form-group">
-                                                    <div class="help-block with-errors">{{form.firstname.errors}}</div>
+                                                    <div class="invalid-feedback" style="color: red;">{{form.errors.firstname}}</div>
 													<label class="control-label mb-10" for="exampleInputName_1">Prenom</label>
 													<input type="text" name="firstname" class="form-control" required id="firstname" placeholder="Prénom">
 												</div>
                                                 <div class="form-group">
-													<div class="help-block with-errors">{{form.lastname.errors}}</div>
+													<div class="help-block with-errors" style="color: red;">{{form.errors.lastname}}</div>
 													<label class="control-label mb-10" for="exampleInputName_1">Nom</label>
 													<input type="text" name="lastname" class="form-control" required="" id="lastname" placeholder="Nom">
 												</div>
 												<div class="form-group">
-													<div class="help-block with-errors">{{form.username.errors}}</div>
+													<div class="help-block with-errors" style="color: red;">{{form.errors.username}}</div>
 													<label class="control-label mb-10" for="exampleInputName_1">Username</label>
 													<input type="text" name="username" class="form-control" required="" id="username" placeholder="Username">
 												</div>
 												<div class="form-group">
-													<div class="help-block with-errors">{{form.email.errors}}</div>
+													<div class="help-block with-errors" style="color: red;">{{form.errors.email}}</div>
 													<label class="control-label mb-10" for="exampleInputEmail_2">Email address</label>
 													<input type="email" name="email" class="form-control" required="" id="email" placeholder="Enter email">
 												</div>
 												<div class="form-group">
-													<div class="help-block with-errors">{{form.password.errors}}</div>
+													<div class="help-block with-errors" style="color: red;">{{form.errors.password}}</div>
 													<label class="pull-left control-label mb-10" for="exampleInputpwd_2">Password</label>
 													<input type="password" name="password" class="form-control" required id="exampleInputpwd_2" placeholder="Mot de passe">
 												</div>
 												<div class="form-group">
-													<div class="help-block with-errors">{{form.conf_psw.error}}</div>
+													<div class="help-block with-errors" style="color: red;">{{form.errors.conf_psw}}</div>
 													<label class="pull-left control-label mb-10" for="exampleInputpwd_3">Confirm Password</label>
 													<input type="password" name="conf_psw" class="form-control" required="" id="exampleInputpwd_3" placeholder="Mot de passe">
 												</div>
                                                 <div class="form-group">
-													<div class="help-block with-errors">{{form.telephone.errors}}</div>
+													<div class="help-block with-errors" style="color: red;">{{form.errors.telephone}}</div>
 													<label class="pull-left control-label mb-10" for="exampleInputpwd_3">Telephone</label>
 													<input type="phone" name="telephone" class="form-control" required="" id="exampleInputpwd_3" placeholder="telephone">
 												</div>
                                                 <div class="form-group">
-													<div class="help-block with-errors">{{form.avatar.errors}}</div>
+													<div class="help-block with-errors" style="color: red;">{{form.errors.avatar}}</div>
 													<label class="pull-left control-label mb-10" for="exampleInputpwd_3">Avatar</label>
 													<input type="file" class="form-control" name="avatar" id="exampleInputpwd_3" placeholder="avatar">
 												</div>

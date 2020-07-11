@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView
 from superviseur.models import Profile
 from .forms import *
 from app.views import LocalLoginRequired
+from superviseur.forms import RegisterAdminForm
 
 # Create your views here.
 
@@ -47,11 +48,10 @@ def register_form(request: HttpRequest, *args, **kwargs):
             else:
                 return render(request, 'create-admin.html', {'error': 'Une erreur s\'est produite, veuillez recommencer s\'il vous plait'})
         else:
-            print(form.errors)
-            return render(request, 'create-admin.html', {})
+            return render(request, 'create-admin.html', locals())
     else:
         form = RegisterAdminForm()
-        return render(request, 'create-admin.html', {})
+        return render(request, 'create-admin.html', locals())
 
 @login_required
 def superviseur_update(request: HttpRequest, *args, **kwargs):
@@ -72,10 +72,11 @@ def superviseur_update(request: HttpRequest, *args, **kwargs):
                 request.user.profile.save()
             return redirect('/superviseurs/list')
         else:
-            return render(request, 'update-admin.html', {})
+            print(form.errors())
+            return render(request, 'update-admin.html', locals())
     else:
         form = UpdateAdminForm()
-        return render(request, 'update-admin.html', {})
+        return render(request, 'update-admin.html', locals())
 
 @login_required
 def superviseur_details(request: HttpRequest, *args, **kwargs):
