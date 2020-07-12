@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, ListView, TemplateView, View
 from app.views import LocalLoginRequired
 from .models import *
@@ -60,38 +60,43 @@ class UserDetailView(LocalLoginRequired, DetailView):
 
 # Vues pour adresses et appartements
 
-class AdresseCreateView(LocalLoginRequired, CreateView):
-    model = Adresse
-    template_name = "create-appart.html"
-    fields = ("pays", "province", "ville", "commune", "quartier", "avenue", "numero")
-    success_url = "/users/apparts/new"
-
-    def get(self, request,  *args, **kwargs):
-        return super(AdresseCreateView, self).get(request, *args, **kwargs)
-
 class AppartementCreateView(LocalLoginRequired, View):
-    def get(self, request, *args, **kwargs):
-        adresse = list(Adresse.objects.all())[-1]
-        appart = Appartement(utilisateur=Utilisateur.objects.get(id=request.session["user"]), adresse=adresse)
-        appart.save()
-        return redirect("/users/%s"%request.session["user"])
-
+    def get(self, request,  *args, **kwargs):
+        form = CreateAppartForm()
+        return render(request, "create-appart.html", locals())
+    
     def post(self, request, *args, **kwargs):
-        return HttpResponse('POST request!')
+        form = CreateAppartForm(request.POST)
+        if form.is_valid():
+            appartement = Appartement()
+            id_user = kwargs["pk"]
+            appartement.pays = form.cleaned_data["pays"]
+            appartement.province = form.cleaned_data["province"]
+            appartement.ville = form.cleaned_data["ville"]
+            appartement.commune = form.cleaned_data["commune"]
+            appartement.quartier = form.cleaned_data["quartier"]
+            appartement.avenue = form.cleaned_data["avenue"]
+            appartement.numero = form.cleaned_data["numero"]
+            appartement.utilisateur = Utilisateur.objects.get(id=id_user)
+            appartement.save()
+            return redirect('/users/'+id_user)
+        else:
+            return render(request, "create-appart.html", locals())
+        
 
-class AdresseDeleteView(LocalLoginRequired, DeleteView):
-    model = Adresse
+class AppartementDeleteView(LocalLoginRequired, DeleteView):
+    model = Appartement
     template_name = "whats-up.html"
 
     def get(self, request, *args, **kwargs):
-        AdresseDeleteView.success_url = "/users/%s"%request.session["user"]
-        return super(AdresseDeleteView, self).get(request, *args, **kwargs)
+        AppartementDeleteView.success_url = "/users/%s"%request.session["user"]
+        return super(AppartementDeleteView, self).get(request, *args, **kwargs)
 
-class AdresseUpdateView(LocalLoginRequired, UpdateView):
-    model = Adresse
+class AppartementUpdateView(LocalLoginRequired, UpdateView):
+    model = Appartement
     template_name = "update-appart.html"
     fields = ("pays", "province", "ville", "commune", "quartier", "avenue", "numero")
     
     def get(self, request, *args, **kwargs):
-        AdresseUpdateView.success_url = "/users/" + request.session["user"]
-        return super(AdresseUpdateView, self).get(request, *args, **kwargs)
+        AppartementUpdateView.success_url = "/users/" + request.session["user"]
+        return super(AppartementUpdateView, self).get(request, *args, **kwargs)

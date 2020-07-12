@@ -43,11 +43,6 @@ class TransfertViewsSet(viewsets.ModelViewSet):
     queryset = TransfertCredit.objects.all()
     permission_classes = (permissions.AllowAny, )
 
-class AdresseViewsSet(viewsets.ModelViewSet):
-    serializer_class = AdresseSerializer
-    queryset = Adresse.objects.all()
-    permission_classes = (permissions.AllowAny, )
-
 # Home Page
 
 class LocalLoginRequired(LoginRequiredMixin):

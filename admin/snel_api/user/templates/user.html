@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <a href={% url "update-user" user.id %} class="btn btn-default btn-block btn-outline btn-anim mt-30"><i class="fa fa-pencil"></i><span class="btn-text">edit profile</span></a>
-                                    <a href={% url "new-adresse" user.id %} class="btn btn-default btn-block btn-outline btn-anim mt-30"><i class="fa fa-plus"></i><span class="btn-text">Nouvel appartement</span></a>
+                                    <a href={% url "new-appart" user.id %} class="btn btn-default btn-block btn-outline btn-anim mt-30"><i class="fa fa-plus"></i><span class="btn-text">Nouvel appartement</span></a>
                                     <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
@@ -214,13 +214,13 @@
                                                                 <tbody>
                                                                     {% for appart in apparts %}
                                                                     <tr>
-                                                                        <td>{{appart.adresse.pays}}</td>
-                                                                        <td>{{appart.adresse.province}}</td>
-                                                                        <td>{{appart.adresse.ville}}</td>
-                                                                        <td>{{appart.adresse.commune}}</td>
-                                                                        <td>{{appart.adresse.quartier}}</td>
-                                                                        <td>{{appart.adresse.avenue}}</td>
-                                                                        <td>{{appart.adresse.numero}}</td>
+                                                                        <td>{{appart.pays}}</td>
+                                                                        <td>{{appart.province}}</td>
+                                                                        <td>{{appart.ville}}</td>
+                                                                        <td>{{appart.commune}}</td>
+                                                                        <td>{{appart.quartier}}</td>
+                                                                        <td>{{appart.avenue}}</td>
+                                                                        <td>{{appart.numero}}</td>
                                                                         <td>
                                                                             <div class="btn-group-toggle">
                                                                                 <div class="btn-group-toggle">

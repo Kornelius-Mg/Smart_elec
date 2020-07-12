@@ -14,6 +14,7 @@ class CreateAppartForm(forms.Form):
     pays = forms.CharField(max_length=45)
     province = forms.CharField(max_length=45)
     ville = forms.CharField(max_length=45)
+    commune = forms.CharField(max_length=45)
     quartier = forms.CharField(max_length=45)
     avenue = forms.CharField(max_length=45)
     numero = forms.IntegerField(min_value=1)

@@ -21,10 +21,12 @@ class Utilisateur(models.Model):
             models.FieldError()
         dossier = self.avatar.name[:index]
         fichier = self.avatar.name[index:]
-        liste_name = fichier.split(".")
-        extension = liste_name[-1]
-        new_name = str(time()) + "." + extension
-        self.avatar.name = dossier + "/" + new_name
+        if not fichier.endswith("avatar.png"):
+            liste_name = fichier.split(".")
+            extension = liste_name[-1]
+            new_name = str(time()) + "." + extension
+            self.avatar.name =   new_name
+            print(self.avatar.name)
         return super(Utilisateur, self).save(*args, **kwargs)
 
     def __str__(self):
@@ -34,27 +36,17 @@ class Utilisateur(models.Model):
         return "%s %s %s - %s"%(self.nom, self.postnom, self.prenom, self.telephone)
 
 class Appartement(models.Model):
-    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
-
+    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, null=True)
+    pays = models.CharField(max_length=45, default="RDC", null=True)
+    province = models.CharField(max_length=45, default="Haut-Katanga", null=True)
+    ville = models.CharField(max_length=45, default="Lubumbashi", null=True)
+    commune = models.CharField(max_length=45, null=True)
+    quartier = models.CharField(max_length=45, null=True)
+    avenue = models.CharField(max_length=45, null=True)
+    numero = models.PositiveIntegerField(null=True)
+    
     def __str__(self):
-        return '%s %s'%(self.utilisateur, self.adresse)
+        return '%s %s C. %s Q. %s Av. %s N°%s'%(self.utilisateur, self.ville, self.commune, self.quartier, self.avenue, self.numero)
 
     def __unicode__(self):
-        return '%s %s'%(self.utilisateur, self.adresse)
-
-class Adresse(models.Model):
-    pays = models.CharField(max_length=45, default="RDC")
-    province = models.CharField(max_length=45, default="Haut-Katanga")
-    ville = models.CharField(max_length=45, default="Lubumbashi")
-    commune = models.CharField(max_length=45)
-    quartier = models.CharField(max_length=45)
-    avenue = models.CharField(max_length=45)
-    numero = models.PositiveIntegerField()
-    utilisateur = models.OneToOneField(Appartement, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return "%s C. %s Q. %s Av. %s  N°%s"%(self.ville, self.commune, self.quartier, self.avenue, self.numero)
-
-    def __unicode__(self):
-        return "%s C. %s Q. %s Av. %s  N°%s"%(self.ville, self.commune, self.quartier, self.avenue, self.numero) 
-
+        return '%s %s C. %s Q. %s Av. %s N°%s'%(self.utilisateur, self.ville, self.commune, self.quartier, self.avenue, self.numero)

@@ -1,0 +1,4 @@
+- Les classes de compteurs et les puissances max de consommation
+- classes des transfos
+- Les prix d'achats des energies (prix par quantité d'energie)
+- Achats et transferts

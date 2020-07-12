@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'parametres',
     'superviseur',
     'transfos',
-    'user'
+    'user',
+    'achats', 'transferts',
 ]
 
 MIDDLEWARE = [

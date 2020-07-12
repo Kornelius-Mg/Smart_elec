@@ -34,8 +34,3 @@ class TransfertSerializer(serializers.ModelSerializer):
     class Meta:
         model = TransfertCredit
         exclude = ()
-
-class AdresseSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Adresse
-        exclude =()

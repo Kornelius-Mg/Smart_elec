@@ -25,7 +25,7 @@ class CompteurAppartListView(LocalLoginRequired, ListView):
     
     def get_context_data(self, **kwargs):
         context = super(CompteurAppartListView, self).get_context_data(**kwargs)
-        context["url"] = "compteur-appart"
+        context["url"] = "compteurs-appart"
         context["id_appart"] = self.key
         return context
 

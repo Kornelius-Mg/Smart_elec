@@ -20,7 +20,7 @@ from django.urls import path, include
 from rest_framework import routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from app.views import *
-import superviseur, user, compteur, parametres, transfos
+import superviseur, user, compteur, parametres, transfos, achats, transferts
 
 router =routers.DefaultRouter()
 router.register(r'users',UtilisateurViewsSet)
@@ -29,7 +29,6 @@ router.register(r'compteur',CompteurViewsSet)
 router.register(r'details-compteur', DetailsCompteurViewsSet)
 router.register(r'Abonnement', AbonnementViewsSet)
 router.register(r'transfert', TransfertViewsSet)
-router.register(r'adresse', AdresseViewsSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -40,6 +39,8 @@ urlpatterns = [
     path('users/', include('user.urls')), 
     path('compteurs/', include('compteur.urls')),
     path('transfos/', include('transfos.urls')),
+    path('reglages', include('parametres.urls')),
+    path('achats/', include('achats.urls')),
     path('', include('app.urls')),
     path('', include('superviseur.urls')),
 ]
