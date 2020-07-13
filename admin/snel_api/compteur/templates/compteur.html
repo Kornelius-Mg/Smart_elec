@@ -446,13 +446,13 @@
     var indicatePowerStateOn = () => {
         $("#power_state").text("Allumé");
         $("#power_state").removeClass("text-danger").addClass("text-success");
-        btnSwitch.on();
+        btnSwitch.val("on");
     }
 
     var indicatePowerStateOff = () => {
         $("#power_state").text("Eteint");
         $("#power_state").removeClass("text-success").addClass("text-danger");
-        btnSwitch.off();
+        btnSwitch.val("off");
     }
 
     var afficherCompteur = (data) => {

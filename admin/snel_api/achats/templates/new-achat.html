@@ -43,6 +43,11 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-wrapper collapse in">
+                        <div class="panel-heading">
+                            <div class="pull-right">
+                                <p class="txt-primary mb-10 pull-right font-14 mr-20">Prix par watt : <span>{{prix_par_watt}}</span></p>
+                            </div>
+                        </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
@@ -50,7 +55,7 @@
                                         <form action="" method="post">
                                             {% csrf_token %}
                                             <div class="form-group">
-                                                <label for="designation">Compteur</label>
+                                                <label class="control-label mb-10" for="designation">Compteur</label>
                                                 <select class="form-control select2" name="compteur" id="appartement" required>
                                                     <option selected disabled>Select</option>
                                                     {% for compteur in compteurs %}
@@ -59,6 +64,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
+                                                <p class="txt-success block mb-10 pull-right font-14 mr-20">Quantite acheté : <span id="qte_buyed">0</span></p>
                                                 <label class="control-label mb-10">Prix</label>
                                                 <input class="form-control" type="number" min="0" name="prix" id="prix" required />
                                             </div>	
@@ -148,15 +154,13 @@
 <script src={% static "dist/js/init.js" %}></script>
 
 <script>
-    var modele = document.getElementById("modele");
-    modele.selectedIndex = {{object.modele}} + 1;
-    var appart = document.getElementById("appartement");
-    appart.selectedIndex = '{{id_appart}}';
-    var transfos = document.getElementById("transformateur");
-    transfos.selectedIndex = '{{id_transfo}}'
-    var classe = document.getElementById("classe");
-    classe.selectedIndex = {{object.active_class}} + 1;
     $("#link-achats").addClass("active");
+    $("#prix").change(
+        () => {
+            var qte_total =  $("#prix").val() * {{prix_par_watt}};
+            $("#qte_buyed").text(qte_total);
+        }
+    )
 </script>
 
 </body>

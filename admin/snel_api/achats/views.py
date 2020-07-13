@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, CreateView
 from app.views import LocalLoginRequired
+from parametres import reglages
 from .models import *
 
 # Create your views here.
@@ -19,4 +20,5 @@ class AchatCreateView(LocalLoginRequired, CreateView):
     def get_context_data(self, **kwargs):
         context = super(AchatCreateView, self).get_context_data(**kwargs)
         context["compteurs"] = Compteur.objects.all()
+        context["prix_par_watt"] = reglages.PRIX_PAR_WATT
         return context
