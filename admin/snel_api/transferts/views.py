@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.db.models import Sum
 from app.views import LocalLoginRequired
 from .models import *
@@ -25,6 +25,22 @@ class CreateTransfert(LocalLoginRequired, CreateView):
     fields = ("expediteur", "destinataire", "quantite")
     success_url = "/transferts/list/"
 
+    def get_context_data(self, **kwargs):
+        context = super(CreateTransfert, self).get_context_data(**kwargs)
+        context["compteurs"] = Compteur.objects.all()
+        return context
+
+class TransfertDeleteView(LocalLoginRequired, DeleteView):
+    model = Transfert
+    template_name = "whats-up.html"
+    success_url = "/transferts/list"
+
+class TransfertUpdateView(LocalLoginRequired, UpdateView):
+    model = Transfert
+    template_name = "update-transfert.html"
+    success_url = "/transferts/list"
+    fields = ("expediteur", "destinataire", "quantite")
+    
     def get_context_data(self, **kwargs):
         context = super(CreateTransfert, self).get_context_data(**kwargs)
         context["compteurs"] = Compteur.objects.all()
