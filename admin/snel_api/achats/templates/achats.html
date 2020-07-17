@@ -102,6 +102,7 @@
                                                 <th>ID compteur</th>
                                                 <th>Prix</th>
                                                 <th>Quantite</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -110,6 +111,7 @@
                                                 <th>ID compteur</th>
                                                 <th>Prix</th>
                                                 <th>Quantite</th>
+                                                <th>Actions</th>
                                             </tr>
                                         </tfoot>
                                         <tbody id="tbody">
@@ -120,6 +122,13 @@
                                                   <td><a href={% url 'compteur' compteur_id %} title="Details compteur">{{compteur_id}}</a></td>
                                                   <td>{{achat.prix}}</td>
                                                   <td>{{achat.quantite}}</td>
+                                                  <td>
+                                                    <div class="btn-group-toggle">
+                                                        <a href={% url "home"  %} title="Details"><i class="ti ti-plus mr-10"></i></a>
+                                                        <a href={% url "update-achat" achat.id %} title="Editer"><i class="ti ti-pencil mr-10"></i></a>
+                                                        <a href={% url "delete-achat" achat.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
+                                                    </div>
+                                                </td>
                                               </tr>
                                               {% endwith %}
                                             {% endfor %}

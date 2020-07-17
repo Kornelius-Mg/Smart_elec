@@ -41,6 +41,7 @@ urlpatterns = [
     path('transfos/', include('transfos.urls')),
     path('reglages', include('parametres.urls')),
     path('achats/', include('achats.urls')),
+    path('transferts/', include('transferts.urls')),
     path('', include('app.urls')),
     path('', include('superviseur.urls')),
 ]
