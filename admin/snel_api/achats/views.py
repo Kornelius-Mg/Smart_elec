@@ -14,7 +14,7 @@ class AchatsList(LocalLoginRequired, ListView):
 class AchatCreateView(LocalLoginRequired, CreateView):
     template_name = "new-achat.html"
     fields = ("compteur", "prix", "quantite")
-    success_url = "/achats/"
+    success_url = "/achats/list/"
     model = Achat
     
     def get_context_data(self, **kwargs):

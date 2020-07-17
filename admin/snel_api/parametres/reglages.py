@@ -3,7 +3,7 @@
 """
 
 # Prix d'un wattheure d'energie electrique en francs congolais
-PRIX_PAR_WATT = 0.027
+PRIX_PAR_WATT = 100
 
 # Le niveau en pourcentage à partir du quel on va considerer le transformateur en surcharge (Warning)
 MIN_TRANSFO_ALERT_LEVEL = 75

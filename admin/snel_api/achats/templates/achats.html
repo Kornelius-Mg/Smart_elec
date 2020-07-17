@@ -40,34 +40,18 @@
                           <div class="pull-left">
                               <h6 class="panel-title txt-dark">Statistiques instantannées</h6>
                           </div>
-                          <div class="pull-right">
-                            <span class="no-margin-switcher">
-                                <i class="icon-power mr-10"></i>
-                                <input type="checkbox" checked=true id="transfo_switch" class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>	
-                                <label for="transfo_switch" class="label text-danger"><span class="text-uppercase" id="power_state"></span></label>
-                            </span>
-                        </div>
                           <div class="clearfix"></div>
                       </div>
                       <div class="panel-wrapper collapse in">
                         <ul class="flex-stat mb-10 ml-15">
                             <li class="text-left auto-width mr-60">
-                                <span class="block">P. Active max (KVA)</span>
-                                <span class="block txt-success weight-500 font-18"><span class="counter-anim">{{ transfo.p_max }}</span></span>
+                                <span class="block">Nombre d'achats</span>
+                                <span class="block txt-success weight-500 font-18"><span class="counter-anim">{{nbre_achats }}</span></span>
                             </li>
                             <li class="text-left auto-width mr-60">
-                                <span class="block">P. active consommée (KVA)</span>
-                                <span class="block txt-dark weight-500 font-18"><span class="counter-anim success" id="ptotal">{{ transfo.p_total }}</span></span>
+                                <span class="block">Puissance achetée</span>
+                                <span class="block txt-dark weight-500 font-18"><span class="counter-anim success" id="ptotal">{{ somme_puissances }}</span></span>
                             </li>
-                            <li class="text-left auto-width mr-60">
-                                <span class="block">P. réactive max (KVAR)</span>
-                                <span class="block txt-success weight-500 font-18"><span class="counter-anim">{{ transfo.q_max }}</span></span>
-                            </li>
-                            <li class="text-left auto-width mr-60">
-                                <span class="block">P. réactive consommée (KVAR)</span>
-                                <span class="block txt-dark weight-500 font-18"><span class="counter-anim" id="qtotal">{{ transfo.q_total }}</span></span>
-                            </li>
-
                         </ul>
                         <div id="area_chart" class="morris-chart" style="height:295px;"></div>
                           </div>
@@ -133,7 +117,7 @@
                                             {% with achat.compteur.id as compteur_id  %}
                                               <tr>
                                                   <td>{{achat.instant|timesince}}</td>
-                                                  <td><a href={% url 'compteur' compteur_id %}>compteur_id</a></td>
+                                                  <td><a href={% url 'compteur' compteur_id %} title="Details compteur">{{compteur_id}}</a></td>
                                                   <td>{{achat.prix}}</td>
                                                   <td>{{achat.quantite}}</td>
                                               </tr>
