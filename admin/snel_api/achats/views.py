@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Sum
 from django.views.generic import ListView, CreateView
 from app.views import LocalLoginRequired
 from parametres import reglages
@@ -10,6 +11,13 @@ class AchatsList(LocalLoginRequired, ListView):
     template_name = "achats.html"
     context_object_name = "achats"
     model = Achat
+    queryset = Achat.objects.order_by("-instant")
+    def get_context_data(self, **kwargs):
+        context = super(AchatsList, self).get_context_data(**kwargs)
+        context["nombre"] = self.model.objects.count()
+        obj_sum = self.model.objects.aggregate(Sum('quantite'))
+        context["somme_qte"] =  obj_sum['quantite__sum']
+        return context
 
 class AchatCreateView(LocalLoginRequired, CreateView):
     template_name = "new-achat.html"
