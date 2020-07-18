@@ -312,20 +312,20 @@ $(document).ready(function(){
 /*****Ready function end*****/
 
 /*****Load function start*****/
-$(window).load(function(){
-	window.setTimeout(function(){
-		$.toast({
-			heading: 'Bienvenu(e) à SmartEelec',
-			text: "Pour l'administration des installations electriques",
-			position: 'top-right',
-			loaderBg:'#f0c541',
-			icon: 'success',
-			hideAfter: 3500, 
-			stack: 6
-		});
-	}, 3000);
-});
-/*****Load function* end*****/
+// $(window).load(function(){
+// 	window.setTimeout(function(){
+// 		$.toast({
+// 			heading: 'Bienvenu(e) à SmartEelec',
+// 			text: "Pour l'administration des installations electriques",
+// 			position: 'top-right',
+// 			loaderBg:'#f0c541',
+// 			icon: 'success',
+// 			hideAfter: 3500, 
+// 			stack: 6
+// 		});
+// 	}, 3000);
+// });
+// /*****Load function* end*****/
 
 var sparklineLogin = function() { 
 	if( $('#sparkline_1').length > 0 ){

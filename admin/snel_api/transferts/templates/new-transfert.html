@@ -51,7 +51,7 @@
                                             {% csrf_token %}
                                             <div class="form-group">
                                                 <label class="control-label mb-10" for="designation">Expediteur</label>
-                                                <select class="form-control select2" name="expediteur" id="appartement" required>
+                                                <select class="form-control select2" name="expediteur" id="expediteur" required>
                                                     <option selected disabled>Select</option>
                                                     {% for compteur in compteurs %}
                                                     <option value={{compteur.id}}>{{compteur}}</option>
@@ -60,17 +60,17 @@
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label mb-10" for="designation">Destinataire</label>
-                                                <select class="form-control select2" name="destinataire" id="appartement" required>
+                                                <select class="form-control select2" name="destinataire" id="destinataire" required>
                                                     <option selected disabled>Select</option>
                                                     {% for compteur in compteurs %}
-                                                    <option value={{compteur.id}}>{{compteur}}</option>
+                                                    <option value={{compteur.id}} >{{compteur}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label mb-10">Quantite de transfert</label>
                                                 <div class="input-group">
-                                                    <input class="form-control" type="number" min="0" name="quantite" id="prix" required />
+                                                    <input class="form-control" type="number" min="0" name="quantite" id="quantite" required />
                                                     <div class="input-group-addon"><i>KVA</i></div>
                                                 </div>
                                             </div>
@@ -160,17 +160,12 @@
 <script src={% static "dist/js/init.js" %}></script>
 
 <script>
-    $("#link-achats").addClass("active");
-    $("#prix").change(
+    $("link-transferts").addClass("active");
+    $("#expediteur").change(
         () => {
-            var qte_total =  $("#prix").val() / {{prix_par_watt}};
-            $("#qte_buyed").text(qte_total);
-            $("#qte").val(qte_total);
+            document.getElementById("destinataire").options[$("#expediteur").val()].disabled = true;
         }
     );
-</script>
-<script>
-    document.getElementById("link-transferts").setAttribute("class", "active");
 </script>
 
 </body>
