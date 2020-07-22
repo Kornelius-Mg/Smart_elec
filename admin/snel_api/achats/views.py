@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Sum
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, View
 from app.views import LocalLoginRequired
 from parametres import reglages
 from .models import *
@@ -47,3 +47,4 @@ class AchatUpdateView(LocalLoginRequired, UpdateView):
         context["compteurs"] = Compteur.objects.all()
         context["prix_par_watt"] = reglages.PRIX_PAR_WATT
         return context
+

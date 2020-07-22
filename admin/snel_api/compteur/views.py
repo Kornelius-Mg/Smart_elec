@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpRequest, Http404, HttpResponse
 from django.core import serializers
+from django.db.models import Q
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, ListView, TemplateView
 from .models import *
 from user.models import Appartement
 from transfos.models import Transformateur
+from transferts.models import Transfert
 from . import compteurs_states
 from app.views import LocalLoginRequired
 from django.contrib.auth.decorators import login_required
@@ -89,6 +91,8 @@ class DetailsCompteurView(LocalLoginRequired, DetailView):
     def get_context_data(self, **kwargs):
         context = super(DetailsCompteurView, self).get_context_data(**kwargs)
         context['details'] = Compteur.objects.get(id=self.object.pk).detailscompteur_set.order_by("-instant")
+        context["achats"] = self.object.achat_set.order_by("-instant")
+        context["transferts"] = Transfert.objects.filter(Q(expediteur=self.object) | Q(destinataire = self.object))
         return context
 
 class CompteurDeleteView(LocalLoginRequired, DeleteView):
