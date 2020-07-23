@@ -1,6 +1,6 @@
 from django.urls import path
 from django.conf.urls import url
-from .views import *
+from .views import AchatCreateView, AchatDeleteView, AchatsList, AchatUpdateView
 
 urlpatterns = [
     	path('list/', AchatsList.as_view(), name='achats'),

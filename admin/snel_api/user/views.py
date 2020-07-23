@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, ListView, TemplateView, View
 from app.views import LocalLoginRequired
-from .models import *
-from .forms import *
+from .models import Utilisateur, Appartement
+from .forms import UtilisateurForm, CreateAppartForm
 
 # Create your views here.
 
 # Vues en rapport avec l'utilisateur
+
 class UserCreateView(LocalLoginRequired, CreateView):
     model = Utilisateur
     template_name = "create-user.html"
@@ -50,12 +51,15 @@ class UserDetailView(LocalLoginRequired, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(UserDetailView, self).get_context_data(**kwargs)
+
         context["apparts"] = self.object.appartement_set.all()
         context["nb_apparts"] = self.object.appartement_set.count()
+
         nb = 0
         for appart in context["apparts"]:
             nb += appart.compteur_set.count()
         context["nb_compteurs"] = nb
+
         return context
 
 # Vues pour adresses et appartements

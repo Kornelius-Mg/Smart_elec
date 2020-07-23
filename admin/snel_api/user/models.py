@@ -4,6 +4,10 @@ from time import time
 # Create your models here.
 
 class Utilisateur(models.Model):
+    """
+    Model representant un utilisateur ou client de l'electricité
+    """
+
     nom = models.CharField(max_length=45)
     postnom = models.CharField(max_length=45)
     prenom = models.CharField(max_length=45)
@@ -36,6 +40,9 @@ class Utilisateur(models.Model):
         return "%s %s %s - %s"%(self.nom, self.postnom, self.prenom, self.telephone)
 
 class Appartement(models.Model):
+    """
+        Model representant un appartement qui appartient à un utilisateur
+    """
     utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, null=True)
     pays = models.CharField(max_length=45, default="RDC", null=True)
     province = models.CharField(max_length=45, default="Haut-Katanga", null=True)

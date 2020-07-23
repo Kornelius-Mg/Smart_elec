@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, ListView, TemplateView
-from .models import *
+from .models import Transformateur, DetailsTransfo
 from app.views import LocalLoginRequired
 from . import transfos_states
 
@@ -56,7 +57,11 @@ class TransformateurDeleteView(LocalLoginRequired, DeleteView):
 
 # AJAX REQUESTS
 
+@login_required
 def transformateur_infos(request, *args, **kwargs):
+    """
+    Vue visant à ramener les infos globales d'un transformateur
+    """
     if request.is_ajax():
         JSONSerializer = serializers.get_serializer("json")
         json_serializer = JSONSerializer()
@@ -64,7 +69,11 @@ def transformateur_infos(request, *args, **kwargs):
         datas = json_serializer.getvalue()
         return HttpResponse(datas)
 
+@login_required
 def start_transfo(request, *args, **kwargs):
+    """
+    Vue permettant de demarrer un transfo à distance
+    """
     if request.method == "GET":
         responses = transfos_states.get_infos()
         if responses:
@@ -76,7 +85,11 @@ def start_transfo(request, *args, **kwargs):
         else:
             return Http404("Une erreur est survenue")
 
+@login_required
 def stop_transfo(request, *args, **kwargs):
+    """
+    Vue permettant d'arreter un transfo à distance
+    """
     if request.method == "GET":
         responses = transfos_states.get_infos()
         if responses:

@@ -1,5 +1,5 @@
 from django import forms
-from.models import *
+from.models import Utilisateur, Appartement
 
 class UtilisateurForm(forms.ModelForm):
     """Form definition for Utilisateur"""

@@ -6,6 +6,9 @@ import os
 # Create your models here.
 
 class Profile(models.Model):
+    """
+    Model qui contient les proprietés du profil de l'utilisateur
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     telephone = models.CharField(max_length=20)
     avatar = models.ImageField(upload_to='img/admin/avatar', default="img/admin/avatar/avatar.png")

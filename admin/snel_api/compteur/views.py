@@ -3,13 +3,16 @@ from django.http import HttpRequest, Http404, HttpResponse
 from django.core import serializers
 from django.db.models import Q
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, ListView, TemplateView
-from .models import *
-from user.models import Appartement
+from django.contrib.auth.decorators import login_required
+
+from .models import Compteur, DetailsCompteur
+from . import compteurs_states
+
+from app.views import LocalLoginRequired
 from transfos.models import Transformateur
 from transferts.models import Transfert
-from . import compteurs_states
-from app.views import LocalLoginRequired
-from django.contrib.auth.decorators import login_required
+from user.models import Appartement
+
 
 # Create your views here.
 
@@ -117,7 +120,11 @@ class CompteurUpdateView(UpdateView):
 
 # AJAX REQUESTS
 
+@login_required
 def compteur_infos(request, *args, **kwargs):
+    """
+        Vue pour ajax qui renvoit les informations sur un compteur
+    """
     if request.is_ajax():
         JSONSerializer = serializers.get_serializer("json")
         json_serializer = JSONSerializer()
@@ -126,7 +133,12 @@ def compteur_infos(request, *args, **kwargs):
         return HttpResponse(datas)
 
 
+@login_required
 def start_compteur(request, *args, **kwargs):
+    """
+        Vue pour ajax qui pour demarrer un compteur electrique à distance
+    """
+
     if request.method == "GET":
         responses = compteurs_states.get_infos()
         if responses:
@@ -138,7 +150,12 @@ def start_compteur(request, *args, **kwargs):
         else:
             return Http404("Une erreur est survenue")
 
+@login_required
 def stop_compteur(request, *args, **kwargs):
+    """
+        Vue pour ajax pour eteindre un compteur electrique à distance
+    """
+
     if request.method == "GET":
         responses = compteurs_states.get_infos()
         if responses:

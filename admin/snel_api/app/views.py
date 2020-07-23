@@ -1,12 +1,17 @@
-from rest_framework import viewsets
-from rest_framework import permissions
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView
-from .serializers import *
-from user.models import *
-from compteur.models import *
-from transfos.models import *
+
+from rest_framework import viewsets
+from rest_framework import permissions
+
+from .serializers import (AbonnementSerializer, UtilisateurSerializer,
+                        AppartementSerializer, CompteurSerializer,
+                        TransfertSerializer, DetailsCompteurSerializer)
+
+from compteur.models import Compteur, DetailsCompteur
+from transfos.models import Transformateur
+from user.models import Utilisateur
 
 # Create your views here.
 
@@ -46,9 +51,16 @@ class TransfertViewsSet(viewsets.ModelViewSet):
 # Home Page
 
 class LocalLoginRequired(LoginRequiredMixin):
+    """
+        Classe locale obligeant l'authentification des utilisateurs pour
+        exploiter une vue
+    """
     login_url = '/login'
 
 class HomeView(LocalLoginRequired, TemplateView):
+    """
+        Page d'accueil du site
+    """
     template_name = "home.html"
 
     def get_context_data(self, **kwargs):

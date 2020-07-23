@@ -1,7 +1,6 @@
 from django.urls import path
 from django.conf.urls import url
-from .views import *
-
+from .views import TransfertList, TransfertDeleteView, TransfertUpdateView, CreateTransfert
 urlpatterns = [
     path('list', TransfertList.as_view(), name="transferts"),
     path('new', CreateTransfert.as_view(), name="new-transfert"),

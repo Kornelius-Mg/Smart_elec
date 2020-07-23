@@ -1,17 +1,24 @@
 from django.shortcuts import render
 from django.db.models import Sum
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, View
+
+from .models import Achat
+
 from app.views import LocalLoginRequired
 from parametres import reglages
-from .models import *
 
 # Create your views here.
 
 class AchatsList(LocalLoginRequired, ListView):
+    """
+    Vue presentant la liste générale des achats
+    """
+
     template_name = "achats.html"
     context_object_name = "achats"
     model = Achat
     queryset = Achat.objects.order_by("-instant")
+
     def get_context_data(self, **kwargs):
         context = super(AchatsList, self).get_context_data(**kwargs)
         context["nombre"] = self.model.objects.count()
@@ -20,6 +27,10 @@ class AchatsList(LocalLoginRequired, ListView):
         return context
 
 class AchatCreateView(LocalLoginRequired, CreateView):
+    """
+        Vue d'enregistrement des achats
+     """
+
     template_name = "new-achat.html"
     fields = ("compteur", "prix", "quantite")
     success_url = "/achats/list/"

@@ -5,24 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse, Http404
 from django.views.generic import ListView, DetailView
 from superviseur.models import Profile
-from .forms import *
+from .forms import RegisterAdminForm, UpdateAdminForm
 from app.views import LocalLoginRequired
-from superviseur.forms import RegisterAdminForm
 
 # Create your views here.
 
 # AdminViews
-
-def login_admin(request, *args, **kwargs):
-    return HttpResponse("ok")
-
-@login_required
-def register_admin(request, *args, **kwargs):
-    return HttpResponse("ok")
-
-@login_required
-def logout_admin(request, *args, **kwargs):
-    return HttpResponse("ok")
 
 @login_required
 def register_form(request: HttpRequest, *args, **kwargs):
@@ -72,7 +60,6 @@ def superviseur_update(request: HttpRequest, *args, **kwargs):
                 request.user.profile.save()
             return redirect('/superviseurs/list')
         else:
-            print(form.errors())
             return render(request, 'update-admin.html', locals())
     else:
         form = UpdateAdminForm()
@@ -87,7 +74,7 @@ def superviseur_details(request: HttpRequest, *args, **kwargs):
 
 @login_required
 def delete_admin(request: HttpRequest, *args, **kwargs):
-    """ Vue e suppression d'un administrateur """
+    """ Vue de suppression d'un administrateur """
     if request.method == "POST":
         request.user.delete()
         return redirect('/login')
