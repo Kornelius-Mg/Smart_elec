@@ -44,6 +44,7 @@
                                     <table id="myTable1" class="table table-hover display  pb-30" >
                                         <thead>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>Appartement</th>
                                                 <th>classe</th>
                                                 <th>modele</th>
@@ -57,6 +58,7 @@
                                         </thead>
                                         <tfoot>
                                             <tr>
+                                                <th>ID</th>
                                                 <th>Appartement</th>
                                                 <th>classe</th>
                                                 <th>modele</th>
@@ -71,6 +73,7 @@
                                         <tbody>
                                             {% for compteur in compteurs %}  
                                             <tr>
+                                                <td>{{compteur.id}}</td>
                                                 <td>{{compteur.appartement|truncatewords:5}}</td>
                                                 <td>{{compteur.active_class}}</td>
                                                 <td>{{compteur.modele}}</td>
