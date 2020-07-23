@@ -39,7 +39,7 @@
                     <div class="panel-heading">
                         <div class="">
                             {% if error %}
-                                <p class="txt-danger block mb-10 font-14 mr-20">{{error}}</p>
+                            <div class="invalid-feedback" style="color: red;"><p class="txt-danger block mb-10 font-14 mr-20">{{error}}</p></div>
                             {% endif %}
                         </div>
                         <div class="clearfix"></div>
@@ -52,7 +52,7 @@
                                         <form action="" method="post">
                                             {% csrf_token %}
                                             <div class="form-group">
-                                                <p class="txt-danger block mb-10 pull-right font-10 mr-20">{{form.errors["expediteur"]}}</p>
+                                                <p class="invalid-feedback" style="color: red;">{{form.errors.expediteur}}</p>
                                                 <label class="control-label mb-10" for="designation">Expediteur</label>
                                                 <select class="form-control select2" name="expediteur" id="expediteur" required>
                                                     <option selected disabled>Select</option>
@@ -62,7 +62,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <p class="txt-danger block mb-10 pull-right font-10 mr-20">{{form.errors["destinataire"]}}</p>
+                                                <p class="invalid-feedback" style="color: red;">{{form.errors.destinataire}}</p>
                                                 <label class="control-label mb-10" for="designation">Destinataire</label>
                                                 <select class="form-control select2" name="destinataire" id="destinataire" required>
                                                     <option selected disabled>Select</option>
@@ -72,7 +72,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <p class="txt-danger block mb-10 pull-right font-10 mr-20">{{form.errors["quantite"]}}</p>
+                                                <p class="invalid-feedback" style="color: red;">{{form.errors.quantite}}</p>
                                                 <label class="control-label mb-10">Quantite de transfert</label>
                                                 <div class="input-group">
                                                     <input class="form-control" type="number" min="0" name="quantite" id="quantite" required />

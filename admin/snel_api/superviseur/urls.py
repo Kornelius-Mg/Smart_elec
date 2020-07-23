@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
-from .views import SuperviseurList, superviseur_details, superviseur_update, delete_admin
+from .views import SuperviseurList, superviseur_details, superviseur_update, delete_admin, register_form
 
 urlpatterns = [
     # URLS d'authentification

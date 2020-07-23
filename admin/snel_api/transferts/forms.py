@@ -1,8 +1,10 @@
 from django import forms
+from .models import Transfert
     
 class TransfertForm(forms.ModelForm):
     class Meta:
-        excludes = ('instant')
+        model = Transfert
+        exclude = ('instant', )
     
     def clean_destinataire(self):
         destinataire = self.cleaned_data["destinataire"]
@@ -17,6 +19,7 @@ class TransfertForm(forms.ModelForm):
 
         if quantite <= 0:
             raise forms.ValidationError("La quantité de transfert doit etre un montant strictement positif")
+        
         return quantite
 
     

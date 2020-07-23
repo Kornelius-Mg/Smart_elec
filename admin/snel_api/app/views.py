@@ -9,9 +9,10 @@ from .serializers import (AbonnementSerializer, UtilisateurSerializer,
                         AppartementSerializer, CompteurSerializer,
                         TransfertSerializer, DetailsCompteurSerializer)
 
-from compteur.models import Compteur, DetailsCompteur
+from compteur.models import Compteur, DetailsCompteur, Abonnement
 from transfos.models import Transformateur
-from user.models import Utilisateur
+from user.models import Utilisateur, Appartement
+from transferts.models import Transfert
 
 # Create your views here.
 
@@ -45,7 +46,7 @@ class DetailsCompteurViewsSet(viewsets.ModelViewSet):
 
 class TransfertViewsSet(viewsets.ModelViewSet):
     serializer_class = TransfertSerializer
-    queryset = TransfertCredit.objects.all()
+    queryset = Transfert.objects.all()
     permission_classes = (permissions.AllowAny, )
 
 # Home Page
@@ -67,7 +68,7 @@ class HomeView(LocalLoginRequired, TemplateView):
         context = super(HomeView, self).get_context_data(**kwargs)
         context["utilisateurs"] = Utilisateur.objects.all()
         context["Abonnements"] = Abonnement.objects.order_by("-date_heure")
-        context["transferts"] = TransfertCredit.objects.order_by("-date_heure")
+        context["transferts"] = Transfert.objects.order_by("-date_heure")
         context["compteurs"] = Compteur.objects.all()
         context["details"] = DetailsCompteur.objects.all()
         return context

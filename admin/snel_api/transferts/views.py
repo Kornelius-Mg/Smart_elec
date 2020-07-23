@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import CreateView, ListView, UpdateView, DeleteView, View
 from django.db.models import Sum
 
 from .models import Transfert
 from .forms import TransfertForm
 
 from app.views import LocalLoginRequired
+from compteur.models import Compteur
 
 # Create your views here.
 
@@ -40,6 +41,7 @@ class CreateTransfert(LocalLoginRequired, View):
             # Verification des faisabilités du transfert
             if not self.validate_transfert(transfert.expediteur, transfert.quantite):
                 error = "Erreur. le credit de l'expediteur est insuffisant pour effectuer ce transfert"
+                compteurs = Compteur.objects.all()
                 return render(request, "new-transfert.html", locals())
 
             transfert.save()
@@ -47,9 +49,10 @@ class CreateTransfert(LocalLoginRequired, View):
             return redirect("/transferts/list/")
 
         else:
+            compteurs = Compteur.objects.all()
             return render(request, "new-transfert.html", locals())
     
-    def validate_transfert(self, expediteur: Compteur, quantite: float) -> bool:
+    def validate_transfert(self, expediteur, quantite):
         """
             contient toutes les conditions de validation d'un transfert
         """

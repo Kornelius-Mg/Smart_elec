@@ -75,7 +75,6 @@ class CompteurAppartCreateView(LocalLoginRequired, CreateView):
         context["transfos"] = Transformateur.objects.all()
         return context
 
-
 class DetailsCompteurView(LocalLoginRequired, DetailView):
     model = Compteur
     template_name = "compteur.html"

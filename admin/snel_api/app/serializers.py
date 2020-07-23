@@ -1,8 +1,10 @@
 from rest_framework import serializers
-from superviseur.models import *
-from compteur.models import *
-from transfos.models import *
-from user.models import *
+from superviseur.models import Profile
+from compteur.models import Compteur, Abonnement, DetailsCompteur
+from transfos.models import Transformateur
+from user.models import Utilisateur, Appartement
+from transferts.models import Transfert
+
 
 
 class AbonnementSerializer(serializers.ModelSerializer):
@@ -32,5 +34,5 @@ class DetailsCompteurSerializer(serializers.ModelSerializer):
 
 class TransfertSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TransfertCredit
+        model = Transfert
         exclude = ()

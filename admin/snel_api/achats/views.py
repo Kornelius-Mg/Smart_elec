@@ -5,6 +5,7 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView, V
 from .models import Achat
 
 from app.views import LocalLoginRequired
+from compteur.models import Compteur
 from parametres import reglages
 
 # Create your views here.
@@ -58,4 +59,3 @@ class AchatUpdateView(LocalLoginRequired, UpdateView):
         context["compteurs"] = Compteur.objects.all()
         context["prix_par_watt"] = reglages.PRIX_PAR_WATT
         return context
-
