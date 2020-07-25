@@ -27,8 +27,10 @@
                         <div class="pull-left">
                             <h4 class="panel-title txt-dark">Administrateurs</h4>
                         </div>
-                        <div class="pull-right">
-                            <a href={% url "register" %} class="btn btn-primary">Nouvel admin</a>
+                        <div class="pull-right"> 
+                            {% if user.is_superuser %}
+                                <a href={% url "register" %} class="btn btn-primary">Nouvel admin</a>
+                            {% endif %} 
                         </div>
                         <div class="clearfix"></div>
                     </div>
@@ -44,6 +46,9 @@
                                                 <th>Email</th>
                                                 <th>Telephone</th>
                                                 <th>Etat</th>
+                                                {% if user.is_superuser %}
+                                                    <th>Actions</th>
+                                                {% endif %}   
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -53,6 +58,9 @@
                                                 <th>Email</th>
                                                 <th>Telephone</th>
                                                 <th>Etat</th>
+                                                {% if user.is_superuser %}
+                                                    <th>Actions</th>
+                                                {% endif %}
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -69,6 +77,15 @@
                                                     <span class="label label-danger">passif</span>
                                                     {% endif %}  
                                                 </td>
+                                                {% if user.is_superuser %}
+                                                <td>
+                                                    <div class="btn-group-toggle">
+                                                        <a href={% url "home" %} title="Details"><i class="ti ti-plus mr-10"></i></a>
+                                                        <a href={% url "update-other-admin" superviseur.username %} title="Editer"><i class="ti ti-pencil mr-10"></i></a>
+                                                        <a href={% url "delete-other-admin" superviseur.username %} title="Supprimer"><i class="ti ti-trash"></i></a>
+                                                    </div>
+                                                </td>
+                                                {% endif %}
                                             </tr>
                                             {% endfor %}
                                         </tbody>

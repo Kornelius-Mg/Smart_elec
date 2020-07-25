@@ -43,21 +43,24 @@ def register_form(request: HttpRequest, *args, **kwargs):
 
 @login_required
 def superviseur_update(request: HttpRequest, *args, **kwargs):
+    superviseur = request.user
+    if kwargs["pk"]:
+        superviseur = User.objects.get(username=kwargs["pk"])
     if request.method == "POST":
         form = UpdateAdminForm(request.POST, request.FILES)
         if form.is_valid():
             if form.has_changed():
-                request.user.username = form.cleaned_data["username"]
-                request.user.first_name = form.cleaned_data["firstname"]
-                request.user.last_name = form.cleaned_data["lastname"]
-                request.user.email = form.cleaned_data["email"]
+                superviseur.username = form.cleaned_data["username"]
+                superviseur.first_name = form.cleaned_data["firstname"]
+                superviseur.last_name = form.cleaned_data["lastname"]
+                superviseur.email = form.cleaned_data["email"]
                 if form.cleaned_data["password"]:
-                    request.user.set_password(form.cleaned_data["password"])
-                request.user.save()
-                request.user.profile.telephone = form.cleaned_data["telephone"]
+                    superviseur.set_password(form.cleaned_data["password"])
+                superviseur.save()
+                superviseur.profile.telephone = form.cleaned_data["telephone"]
                 if form.cleaned_data["avatar"]:
-                    request.user.profile.avatar = form.cleaned_data["avatar"]
-                request.user.profile.save()
+                    superviseur.profile.avatar = form.cleaned_data["avatar"]
+                superviseur.profile.save()
             return redirect('/superviseurs/list')
         else:
             return render(request, 'update-admin.html', locals())
@@ -75,11 +78,14 @@ def superviseur_details(request: HttpRequest, *args, **kwargs):
 @login_required
 def delete_admin(request: HttpRequest, *args, **kwargs):
     """ Vue de suppression d'un administrateur """
+    superviseur = request.user
+    if kwargs["pk"]:
+        superviseur = kwargs["pk"]
     if request.method == "POST":
-        request.user.delete()
+        superviseur.delete()
         return redirect('/login')
     else:
-        return render(request, 'whats-up.html', {})
+        return render(request, 'whats-up.html', locals())
 
 class SuperviseurList(LocalLoginRequired, ListView):
     model = User
