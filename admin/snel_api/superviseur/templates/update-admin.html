@@ -7,6 +7,8 @@
 		<!--/Preloader-->
 		
 		<div class="wrapper pa-0">
+			
+			{% comment %}
 			<header class="sp-header">
 				<div class="sp-logo-wrap pull-left">
 					<a href="{% url 'home' %}">
@@ -19,7 +21,8 @@
 					<a class="inline-block btn btn-info btn-success btn-rounded btn-outline" href="{% url 'login' %}">Se connecter</a>
 				</div>
 				<div class="clearfix"></div>
-			</header>
+			</header>	
+			{% endcomment %}
 			
 			<!-- Main Content -->
 			<div class="page-wrapper pa-0 ma-0 auth-page">
@@ -57,10 +60,13 @@
 													<label class="control-label mb-10" for="exampleInputEmail_2">Email address</label>
 													<input value = {{superviseur.email}} type="email" name="email" class="form-control" required="" id="email" placeholder="Enter email">
 												</div>
+												<div class="info">
+													<p class="txt-primary mb-10 pull-right font-14 mr-20">N'editer ce champs que si vous voulez changer de mot de passe</p>
+												</div>
 												<div class="form-group">
 													<div class="help-block with-errors" style="color: red;">{{form.errors.password}}</div>
 													<label class="pull-left control-label mb-10" for="exampleInputpwd_2">Password</label>
-													<input value = {{superviseur.password}} type="password" name="password" class="form-control" id="exampleInputpwd_2" placeholder="Mot de passe">
+													<input type="password" name="password" class="form-control" id="exampleInputpwd_2" placeholder="Mot de passe">
 												</div>
 												<div class="form-group">
 													<div class="help-block with-errors" style="color: red;">{{form.errors.conf_psw}}</div>

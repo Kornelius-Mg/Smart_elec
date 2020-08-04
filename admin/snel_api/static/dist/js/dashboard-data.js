@@ -276,7 +276,7 @@ $(document).ready(function(){
 	
 	/* Switchery Init*/
 	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-	$('#morris_switch').each(function() {
+	$('.js-switch').each(function() {
 		new Switchery($(this)[0], $(this).data());
 	});
 	var swichMorris = function() {

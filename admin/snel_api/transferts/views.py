@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, View
-from django.db.models import Sum
+from django.db.models import Sum, Q
 
 from .models import Transfert
 from .forms import TransfertForm
@@ -76,3 +76,18 @@ class TransfertUpdateView(LocalLoginRequired, UpdateView):
         context = super(CreateTransfert, self).get_context_data(**kwargs)
         context["compteurs"] = Compteur.objects.all()
         return context
+
+class TransfertsCompteurList(LocalLoginRequired, View):
+    def get(self, request, *args, **kwargs):
+        id_compteur = kwargs["pk"]
+        compteur = Compteur.objects.get(id=id_compteur)
+        transferts = Transfert.objects.filter(Q(expediteur=compteur) | Q(destinataire = compteur))
+        send = transferts.filter(Q(expediteur = compteur))
+        received = transferts.filter(Q(destinataire = compteur))
+        len_received = len(received)
+        len_send = len(send)
+        obj_nbre1 = send.aggregate(Sum('quantite'))
+        send_qte = obj_nbre1["quantite__sum"] or 0
+        obj_nbre = received.aggregate(Sum('quantite'))
+        received_qte = obj_nbre["quantite__sum"] or 0
+        return render(request, "transferts.html", locals())

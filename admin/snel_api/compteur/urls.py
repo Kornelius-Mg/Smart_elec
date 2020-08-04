@@ -1,6 +1,9 @@
 from django.conf.urls import url
 from django.urls import path
-from .views import *
+from .views import (CompteurAppartCreateView, CompteurAppartListView, CompteurCreateView, 
+                    CompteurDeleteView, CompteurListView, CompteurTransfoListView, DetailsCompteurView,
+                    CompteurUpdateView, compteur_infos, start_compteur,
+                    start_phase_compteur, stop_compteur, stop_phase_compteur)
 
 urlpatterns = [
     # Urls pour compteurs
@@ -15,5 +18,7 @@ urlpatterns = [
     url(r'^infos/(?P<pk>[0-9]+)/$', compteur_infos, name="compteur-infos"),
     url(r'^start/(?P<pk>[0-9]+)/$', start_compteur, name="start-compteur"),
     url(r'^stop/(?P<pk>[0-9]+)/$', stop_compteur, name="stop-compteur"),
+    url(r'^start-phase-compteur/(?P<cpt>[0-9]+)/(?P<ph>[0-9]+)/', start_phase_compteur, name="start-phase-compteur"),
+    url(r'^stop-phase-compteur/(?P<cpt>[0-9]+)/(?P<ph>[0-9]+)/', stop_phase_compteur, name="stop-phase-compteur"),
 
 ]

@@ -5,7 +5,7 @@ from django.views.generic import ListView, CreateView, DeleteView, UpdateView, V
 from .models import Achat
 
 from app.views import LocalLoginRequired
-from compteur.models import Compteur
+from compteur.models import Compteur, Classe
 from parametres import reglages
 
 # Create your views here.
@@ -41,6 +41,7 @@ class AchatCreateView(LocalLoginRequired, CreateView):
         context = super(AchatCreateView, self).get_context_data(**kwargs)
         context["compteurs"] = Compteur.objects.all()
         context["prix_par_watt"] = reglages.PRIX_PAR_WATT
+        context["classes"] = Classe.objects.all()
         return context
 
 class AchatDeleteView(LocalLoginRequired, DeleteView):
@@ -58,4 +59,19 @@ class AchatUpdateView(LocalLoginRequired, UpdateView):
         context = super(AchatUpdateView, self).get_context_data(**kwargs)
         context["compteurs"] = Compteur.objects.all()
         context["prix_par_watt"] = reglages.PRIX_PAR_WATT
+        context["classes"] = Classe.objects.all()
         return context
+
+class AchatCompteurListView(LocalLoginRequired, View):
+    """
+        Vue permettant d'afficher la liste des achats d'un compteur en particulier dont l'ID est representé dans le pk
+    """
+    def get(self, request, *args, **kwargs):
+        id_compteur = kwargs["pk"]
+        compteur = Compteur.objects.get(id=id_compteur)
+        achats = Achat.objects.filter(compteur=compteur)
+        nombre = len(achats)
+        obj_sum = achats.aggregate(Sum('quantite'))
+        somme_qte =  obj_sum['quantite__sum']
+        url = "achat-compteur"
+        return render(request, "achats.html", locals())

@@ -62,17 +62,17 @@
 													</tr>
 												</tfoot>
 												<tbody>
-                                                    {% for user in users %}  
+                                                    {% for utilisateur in utilisateurs %}  
 													<tr>
-														<td>{{user.nom}}</td>
-														<td>{{user.postnom}}</td>
-														<td>{{user.prenom}}</td>
-                                                        <td>{{user.telephone}}</td>
+														<td>{{utilisateur.nom}}</td>
+														<td>{{utilisateur.postnom}}</td>
+														<td>{{utilisateur.prenom}}</td>
+                                                        <td>{{utilisateur.telephone}}</td>
                                                         <td>
 															<div class="btn-group-toggle">
-																<a href={% url "user" user.id %} title="Details"><i class="ti ti-plus  mr-10"></i></a>
-																<a href={%url "update-user" user.id %} user.id %} title="Editer"><i class="ti ti-pencil  mr-10"></i></a>
-																<a href={% url "delete-user" user.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
+																<a href={% url "user" utilisateur.id %} title="Details"><i class="ti ti-plus  mr-10"></i></a>
+																<a href={%url "update-user" utilisateur.id %} title="Editer"><i class="ti ti-pencil  mr-10"></i></a>
+																<a href={% url "delete-user" utilisateur.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
 															</div>
                                                         </td>
                                                     </tr>

@@ -46,30 +46,37 @@
                                           <form action="" method="post">
                                               {% csrf_token %}
                                               <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.pays}}</div>
                                                 <label class="control-label mb-10" for="nom">Pays</label>
                                                 <input type="text" name="pays" value={{object.pays}} class="form-control" id="pays" placeholder="Pays" required>
                                               </div>
                                               <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.province}}</div>
                                                 <label class="control-label mb-10" for="postnom">Province</label>
                                                 <input type="text" name="province" value={{object.province}} class="form-control" id="province" placeholder="Province" required>
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.ville}}</div>
                                                 <label class="control-label mb-10" for="ville">Ville</label>
                                                 <input type="text" name="ville" value={{object.ville}} class="form-control" id="ville" placeholder="Ville" required>
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.commune}}</div>
                                                 <label class="control-label mb-10" for="commune">Commune</label>
                                                 <input type="text" name="commune" value={{object.commune}} class="form-control" id="commune" placeholder="Commune" required>
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.quartier}}</div>
                                                 <label class="control-label mb-10" for="quartier">Quartier</label>
                                                 <input type="text" name="quartier" value={{object.quartier}} class="form-control" id="quartier" placeholder="Quartier" required>
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.avenue}}</div>
                                                 <label class="control-label mb-10" for="avenue">Avenue</label>
                                                 <input type="text" name="avenue" value={{object.avenue}} class="form-control" id="avenue" placeholder="Avenue" required>
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.numero}}</div>
                                                 <label class="control-label mb-10" for="numero">Numero</label>
                                                 <input type="number" name="numero" value={{object.numero}} class="form-control" id="avenue" placeholder="Numero" required>
                                             </div>

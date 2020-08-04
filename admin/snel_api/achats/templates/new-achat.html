@@ -37,9 +37,6 @@
             <div class="col-offset-2 col-md-9">
                 <div class="panel panel-default vertical-align-middle card-view">
                     <div class="panel-heading">
-                        <!-- <div class="pull-left">
-                            <h4 class="panel-title txt-dark">ENREGISTRER UTILISATEUR</h4>
-                        </div> -->
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-wrapper collapse in">
@@ -55,6 +52,7 @@
                                         <form action="" method="post">
                                             {% csrf_token %}
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.compteur}}</div>
                                                 <label class="control-label mb-10" for="designation">Compteur</label>
                                                 <select class="form-control select2" name="compteur" id="appartement" required>
                                                     <option selected disabled>Select</option>
@@ -65,10 +63,19 @@
                                             </div>
                                             <div class="form-group">
                                                 <p class="txt-success block mb-10 pull-right font-14 mr-20">Quantite acheté : <span id="qte_buyed">0</span> <span>KWH</span></p>
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.prix}}</div>
                                                 <label class="control-label mb-10">Prix</label>
-                                                <div class="input-group">
-                                                    <input class="form-control" type="number" min="0" name="prix" id="prix" required />
-                                                </div>
+                                                <input class="form-control" type="number" min="0" name="prix" id="prix" required />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label mb-10">Classe d'achat</label>
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.classe}}</div>
+                                                <select class="form-control" name="classe" id="classe" required>
+                                                    <option disabled selected>Choisir</option>
+                                                    {% for classe in classes %}
+                                                    <option value={{classe.id}}>{{classe}}</option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
                                             <div class="form-group">
                                                  <input type="hidden" name="quantite" id="qte" />

@@ -121,7 +121,7 @@
                         <a href="#" class="dropdown-toggle pr-0" data-toggle="dropdown"><img src="/medias/{{user.profile.avatar}}" alt="user_auth" class="user-auth-img img-circle"/><span class="user-online-status"></span></a>
                         <ul class="dropdown-menu user-auth-dropdown" data-dropdown-in="flipInX" data-dropdown-out="flipOutX">
                             <li>
-                                <a href={% url 'superviseur' %}><i class="zmdi zmdi-account"></i><span>Profile</span></a>
+                                <a href={% url 'superviseur' user.username %}><i class="zmdi zmdi-account"></i><span>Profile</span></a>
                             </li>
                             <li>
                                 <a href={% url 'list-superviseurs' %}><i class="zmdi zmdi-card"></i><span>Superviseurs</span></a>

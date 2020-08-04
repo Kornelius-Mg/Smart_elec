@@ -11,13 +11,16 @@ class Transfert(models.Model):
     instant = models.DateTimeField(auto_now=True)
     expediteur = models.ForeignKey(Compteur, on_delete=models.CASCADE, related_name="+")
     destinataire = models.ForeignKey(Compteur, on_delete = models.CASCADE, related_name="+")
-    quantite = models.DecimalField(max_digits = 11, decimal_places = 2)
+    quantite = models.FloatField()
 
     def save(self, *args, **kwargs):
         # On soustrait d'abord la quantité du transfert à l'expediteur
-        self.expediteur.credit = F('credit') - self.quantite
+        self.expediteur.credit +=  self.quantite
 
         # on l'ajoute au destinataire
-        self.destinataire.credit = F('credit') + self.quantite
+        self.destinataire.credit += self.quantite
+
+        self.expediteur.save()
+        self.destinataire.save()
 
         return super(Transfert, self).save(*args, **kwargs)

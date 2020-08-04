@@ -47,6 +47,7 @@
                                         <form action="" method="post">
                                             {% csrf_token %}
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.modele}}</div>
                                                 <label for="designation">Modele</label>
                                                 <select class="form-control" name="modele" id="modele" required>
                                                     <option selected disabled>Choisir le modele</option>
@@ -56,6 +57,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.appartement}}</div>
                                                 <label class="control-label mb-10">Appartement</label>
                                                 <select class="form-control select2" name="appartement" id="appartement" required>
                                                     <option selected disabled>Select</option>
@@ -65,6 +67,7 @@
                                                 </select>
                                             </div>	
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.transformateur}}</div>
                                                 <label class="control-label mb-10">Transformateur</label>
                                                 <select class="form-control select2" name="transformateur" id="transformateur" required>
                                                     <option selected disabled>Select</option>
@@ -74,12 +77,13 @@
                                                 </select>
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.classe}}</div>
                                                 <label class="control-label mb-10">Classe</label>
-                                                <select class="form-control" name="active_class" id="classe" required>
+                                                <select class="form-control" name="classe" id="classe" required>
                                                     <option disabled selected>Choisir</option>
-                                                    <option value=0>Domestique</option>
-                                                    <option value=1>Semi-Industrielle</option>
-                                                    <option value=2>Industrielle</option>
+                                                    {% for classe in classes %}
+                                                    <option value={{classe.id}}>{{classe}}</option>
+                                                    {% endfor %}
                                                 </select>
                                             </div>	
                                             <div class="btn-group-toggle">

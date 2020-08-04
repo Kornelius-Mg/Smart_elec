@@ -1,16 +1,10 @@
 from rest_framework import serializers
 from superviseur.models import Profile
-from compteur.models import Compteur, Abonnement, DetailsCompteur
+from compteur.models import Compteur, DetailsCompteur
 from transfos.models import Transformateur
 from user.models import Utilisateur, Appartement
 from transferts.models import Transfert
 
-
-
-class AbonnementSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Abonnement
-        exclude = ()
     
 class UtilisateurSerializer(serializers.ModelSerializer):
     class Meta:

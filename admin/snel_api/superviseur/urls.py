@@ -11,10 +11,8 @@ urlpatterns = [
     url(r'^register/$', register_form, name="register"),
 
     path('superviseurs/list/', SuperviseurList.as_view(), name='list-superviseurs'),
-    path('superviseur/details/', superviseur_details, name='superviseur'),
-    path('superviseur/delete/', delete_admin, name="delete-admin"),
+    url(r'^superviseurs/details/(?P<pk>[a-zA-Z0-9]+)/$', superviseur_details, name='superviseur'),
     
-    url(r'^superviseur/delete/(?P<pk>[a-zA-Z0-9]+)/$',  delete_admin, name='delete-other-admin'),
-    path('superviseur/update', superviseur_update, name="update-admin"),
-    url(r'^superviseur/update/(?P<pk>[a-zA-Z0-9]+)/$', superviseur_update, name='update-other-admin'),
+    url(r'^superviseur/delete/(?P<pk>[a-zA-Z0-9]+)/$',  delete_admin, name='delete-admin'),
+    url(r'^superviseur/update/(?P<pk>[a-zA-Z0-9]+)/$', superviseur_update, name='update-admin'),
 ]

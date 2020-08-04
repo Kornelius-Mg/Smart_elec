@@ -27,7 +27,6 @@ router.register(r'users',UtilisateurViewsSet)
 router.register(r'appartement',AppartementViewsSet)
 router.register(r'compteur',CompteurViewsSet)
 router.register(r'details-compteur', DetailsCompteurViewsSet)
-router.register(r'Abonnement', AbonnementViewsSet)
 router.register(r'transfert', TransfertViewsSet)
 
 urlpatterns = [

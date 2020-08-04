@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, ListView, TemplateView
 from django.contrib.auth.decorators import login_required
 
-from .models import Compteur, DetailsCompteur
+from .models import Compteur, DetailsCompteur, Classe
 from . import compteurs_states
 
 from app.views import LocalLoginRequired
@@ -49,19 +49,20 @@ class CompteurTransfoListView(LocalLoginRequired, ListView):
 class CompteurCreateView(LocalLoginRequired, CreateView):
     model = Compteur
     template_name = "create-compteur.html"
-    fields = ("modele", "appartement", "transformateur", "active_class")
+    fields = ("modele", "appartement", "transformateur", "classe")
     success_url = "/compteurs/list/"
 
     def get_context_data(self, **kwargs):
         context = super(CompteurCreateView, self).get_context_data(**kwargs)
         context["apparts"] = Appartement.objects.all()
         context["transfos"] = Transformateur.objects.all()
+        context["classes"] = Classe.objects.all()
         return context
 
 class CompteurAppartCreateView(LocalLoginRequired, CreateView):
     model = Compteur
     template_name = "create-compteur.html"
-    fields = ("modele", "appartement", "transformateur", "active_class")
+    fields = ("modele", "appartement", "transformateur", "classe")
 
     def get(self, request, **kwargs):
         self.key = kwargs["pk"]
@@ -73,6 +74,7 @@ class CompteurAppartCreateView(LocalLoginRequired, CreateView):
         context["apparts"] = Appartement.objects.all()
         context["id_appart"] = list(context["apparts"]).index(Appartement.objects.get(id=self.key)) + 1
         context["transfos"] = Transformateur.objects.all()
+        context["classes"] = Classe.object.all()
         return context
 
 class DetailsCompteurView(LocalLoginRequired, DetailView):
@@ -107,7 +109,7 @@ class CompteurUpdateView(UpdateView):
     model = Compteur
     template_name = "update-compteur.html"
     success_url = "/compteurs/list"
-    fields = ("modele", "appartement", "transformateur", "active_class")
+    fields = ("modele", "appartement", "transformateur", "classe")
 
     def get_context_data(self, **kwargs):
         context = super(CompteurUpdateView, self).get_context_data(**kwargs)
@@ -115,6 +117,7 @@ class CompteurUpdateView(UpdateView):
         context["id_appart"] = list(context["apparts"]).index(self.object.appartement) + 1
         context["transfos"] = Transformateur.objects.all()
         context["id_transfo"] = list(context["transfos"]).index(self.object.transformateur) + 1
+        context["classes"] = Classe.objects.all()
         return context
 
 # AJAX REQUESTS
@@ -150,6 +153,26 @@ def start_compteur(request, *args, **kwargs):
             return Http404("Une erreur est survenue")
 
 @login_required
+def start_phase_compteur(request, *args, **kwargs):
+    """
+        Vue pour ajax qui pour demarrer un compteur electrique à distance
+    """
+
+    if request.method == "GET":
+        responses = compteurs_states.get_infos()
+        if responses:
+            id_c = kwargs["cpt"]
+            num_phase = kwargs["ph"]
+            compteur = Compteur.objects.get(id=id_c)
+            state = "compteur.phase" + num_phase + "_state"
+            state_phase = eval(state)
+            state_phase = "OFF"
+            compteur.save()
+            return HttpResponse("ok")
+        else:
+            return Http404("Une erreur est survenue")
+
+@login_required
 def stop_compteur(request, *args, **kwargs):
     """
         Vue pour ajax pour eteindre un compteur electrique à distance
@@ -161,6 +184,26 @@ def stop_compteur(request, *args, **kwargs):
             id_c = kwargs["pk"]
             compteur = Compteur.objects.get(id=id_c)
             compteur.global_state = "OFF"
+            compteur.save()
+            return HttpResponse("ok")
+        else:
+            return Http404("Une erreur est survenue")
+
+@login_required
+def stop_phase_compteur(request, *args, **kwargs):
+    """
+        Vue pour ajax qui pour demarrer un compteur electrique à distance
+    """
+
+    if request.method == "GET":
+        responses = compteurs_states.get_infos()
+        if responses:
+            id_c = kwargs["cpt"]
+            num_phase = kwargs["ph"]
+            compteur = Compteur.objects.get(id=id_c)
+            state = "compteur.phase" + num_phase + "_state"
+            state_phase = eval(state)
+            state_phase = "OFF"
             compteur.save()
             return HttpResponse("ok")
         else:

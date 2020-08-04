@@ -9,18 +9,18 @@
         <div class="panel panel-success contact-card card-view mt-90 mb-90">
             <div class="panel-heading">
                 <div class="pull-left">
-                    {% if not user.is_superuser %}
+                    {% if not superviseur.is_superuser %}
                     <div class="pull-left user-img-wrap mr-15">
-                        <img class="card-user-img img-circle pull-left" src="/medias/{{user.profile.avatar}}" alt="user"/>
+                        <img class="card-user-img img-circle pull-left" src="/medias/{{superviseur.profile.avatar}}" alt="user"/>
                     </div>
                     {% endif %}
                     <div class="pull-left user-detail-wrap">	
                         <span class="block card-user-name">
-                            {{user.username}} - {{user.first_name}} {{user.last_name}}
+                            {{superviseur.username}} - {{superviseur.first_name}} {{superviseur.last_name}}
                         </span>
-                        {% if user.is_superuser %}
+                        {% if superviseur.is_superuser %}
                             <span class="block card-user-desn">
-                                Administrateur
+                                Super administrateur
                             </span>
                         {% else %}
                             <span class="block card-user-desn">
@@ -30,11 +30,11 @@
                     </div>
                 </div>
                 <div class="pull-right">
-                    {% if not user.is_superuser %}
-                    <a class="pull-left inline-block mr-15" title="Editer" href={% url 'update-admin' %}>
+                    {% if not superviseur.is_superuser %}
+                    <a class="pull-left inline-block mr-15" title="Editer" href={% url 'update-admin' superviseur.username %}>
                         <i class="zmdi zmdi-edit txt-light"></i>
                     </a>
-                    <a class="pull-left inline-block mr-15" title="Supprimer mon compte" href={% url 'delete-admin' %}>
+                    <a class="pull-left inline-block mr-15" title="Supprimer mon compte" href={% url 'delete-admin' superviseur.username %}>
                         <i class="zmdi zmdi-delete txt-light"></i>
                     </a>
                     {% endif %}
@@ -53,28 +53,28 @@
                         <div class="mb-15">
                             <i class="fa fa-user inline-block mr-10"></i>
                             <span class="inline-block capitalize-font mr-5">Prenom :</span>
-                            <span class="inline-block txt-dark">{{user.first_name}}</span>
+                            <span class="inline-block txt-dark">{{superviseur.first_name}}</span>
                         </div>
                         <div class="mb-15">
                             <i class="fa fa-user inline-block mr-10"></i>
                             <span class="inline-block capitalize-font mr-5">Nom :</span>
-                            <span class="inline-block txt-dark">{{user.last_name}}</span>
+                            <span class="inline-block txt-dark">{{superviseur.last_name}}</span>
                         </div>
                         <div class="mb-15">
                             <i class="fa fa-user inline-block mr-10"></i>
                             <span class="inline-block capitalize-font mr-5">username : </span>
-                            <span class="inline-block txt-dark">{{user.username}}</span>
+                            <span class="inline-block txt-dark">{{superviseur.username}}</span>
                         </div>
                         <div class="mb-15">
                             <i class="zmdi zmdi-email inline-block mr-10"></i>
                             <span class="inline-block capitalize-font mr-5">Email : </span>
-                            <span class="inline-block txt-dark">{{user.email}}</span>
+                            <span class="inline-block txt-dark">{{superviseur.email}}</span>
                         </div>
-                        {% if not user.is_superuser %}
+                        {% if not superviseur.is_superuser %}
                         <div>
                             <i class="zmdi zmdi zmdi-phone inline-block mr-10"></i>
                             <span class="inline-block capitalize-font mr-5">telephone : </span>
-                            <span class="inline-block txt-dark">{{user.profile.telephone}}</span>
+                            <span class="inline-block txt-dark">{{superviseur.profile.telephone}}</span>
                         </div>
                         {% endif %}
                     </div>
@@ -82,7 +82,7 @@
                     <div class="emp-detail pl-15 pr-15">
                         <div class="mb-5">
                             <span class="inline-block capitalize-font mr-5">Actif:</span>
-                            <span class="txt-dark">{{user.is_active}}</span>
+                            <span class="txt-dark">{{superviseur.is_active}}</span>
                         </div>
                     </div>
                 </div>

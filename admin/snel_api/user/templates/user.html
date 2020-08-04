@@ -39,14 +39,14 @@
                                 </div>
                                 <div class="profile-info text-center">
                                     <div class="profile-img-wrap">
-                                        <img class="inline-block mb-10" src="/medias/{{user.avatar}}" alt="user"/>
+                                        <img class="inline-block mb-10" src="/medias/{{utilisateur.avatar}}" alt="user"/>
                                         <div class="fileupload btn btn-default">
                                             <span class="btn-text">edit</span>
                                             <input class="upload" type="file">
                                         </div>
                                     </div>	
-                                    <h5 class="block mt-10 mb-5 weight-500 capitalize-font txt-danger">{{user.nom}} {{user.postnom}} {{user.prenom}}</h5>
-                                    <h6 class="block capitalize-font pb-20">{{user.telephone}}</h6>
+                                    <h5 class="block mt-10 mb-5 weight-500 capitalize-font txt-danger">{{utilisateur.nom}} {{utilisateur.postnom}} {{utilisateur.prenom}}</h5>
+                                    <h6 class="block capitalize-font pb-20">{{utilisateur.telephone}}</h6>
                                 </div>	
                                 <div class="social-info">
                                     <div class="row">
@@ -59,8 +59,8 @@
                                             <span class="counts-text block">Compteurs</span>
                                         </div>
                                     </div>
-                                    <a href={% url "update-user" user.id %} class="btn btn-default btn-block btn-outline btn-anim mt-30"><i class="fa fa-pencil"></i><span class="btn-text">edit profile</span></a>
-                                    <a href={% url "new-appart" user.id %} class="btn btn-default btn-block btn-outline btn-anim mt-30"><i class="fa fa-plus"></i><span class="btn-text">Nouvel appartement</span></a>
+                                    <a href={% url "update-user" utilisateur.id %} class="btn btn-default btn-block btn-outline btn-anim mt-30"><i class="fa fa-pencil"></i><span class="btn-text">edit profile</span></a>
+                                    <a href={% url "new-appart" utilisateur.id %} class="btn btn-default btn-block btn-outline btn-anim mt-30"><i class="fa fa-plus"></i><span class="btn-text">Nouvel appartement</span></a>
                                     <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">

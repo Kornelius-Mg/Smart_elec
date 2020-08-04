@@ -44,7 +44,7 @@ def register_form(request: HttpRequest, *args, **kwargs):
 @login_required
 def superviseur_update(request: HttpRequest, *args, **kwargs):
     superviseur = request.user
-    if kwargs["pk"]:
+    if 'pk' in list(kwargs.keys()):
         superviseur = User.objects.get(username=kwargs["pk"])
     if request.method == "POST":
         form = UpdateAdminForm(request.POST, request.FILES)
@@ -72,15 +72,17 @@ def superviseur_update(request: HttpRequest, *args, **kwargs):
 def superviseur_details(request: HttpRequest, *args, **kwargs):
     contexte = dict()
     contexte['superviseur'] = request.user
-    contexte['profile'] = Profile.objects.get(user=request.user)
+    if 'pk' in list(kwargs.keys()):
+        contexte["superviseur"] = User.objects.get(username=kwargs["pk"])
+    contexte['profile'] = Profile.objects.get(user=contexte["superviseur"])
     return render(request, 'admin.html', contexte)
 
 @login_required
 def delete_admin(request: HttpRequest, *args, **kwargs):
     """ Vue de suppression d'un administrateur """
     superviseur = request.user
-    if kwargs["pk"]:
-        superviseur = kwargs["pk"]
+    if 'pk' in list(kwargs.keys()):
+        superviseur = User.objects.get(username=kwargs["pk"])
     if request.method == "POST":
         superviseur.delete()
         return redirect('/login')

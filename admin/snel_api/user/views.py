@@ -38,12 +38,12 @@ class UserDeleteView(LocalLoginRequired, DeleteView):
 class UserListView(LocalLoginRequired, ListView):
     model = Utilisateur
     template_name = "users.html"
-    context_object_name = "users"
+    context_object_name = "utilisateurs"
 
 class UserDetailView(LocalLoginRequired, DetailView):
     model = Utilisateur
     template_name='user.html'
-    context_object_name = "user"
+    context_object_name = "utilisateur"
 
     def get(self, request, *args, **kwargs):
         request.session["user"] = kwargs["pk"]

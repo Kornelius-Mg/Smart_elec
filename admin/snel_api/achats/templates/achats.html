@@ -94,14 +94,15 @@
                         </div>
                         <div class="panel-body row pa-0">
                             <div class="table-wrap">
-                                <div class="table-responsive">
-                                    <table id="tab" class="table table-hover display  pb-30" style="height:100;">
+                                <div class="">
+                                    <table id="myTable1" class="table table-hover display  pb-30" >
                                         <thead>
                                             <tr>
                                                 <th>Instant</th>
                                                 <th>ID compteur</th>
                                                 <th>Prix</th>
                                                 <th>Quantite</th>
+                                                <th>Classe</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </thead>
@@ -111,6 +112,7 @@
                                                 <th>ID compteur</th>
                                                 <th>Prix</th>
                                                 <th>Quantite</th>
+                                                <th>Classe</th>
                                                 <th>Actions</th>
                                             </tr>
                                         </tfoot>
@@ -122,6 +124,7 @@
                                                   <td><a href={% url 'compteur' compteur_id %} title="Details compteur">{{compteur_id}}</a></td>
                                                   <td>{{achat.prix}}</td>
                                                   <td>{{achat.quantite}}</td>
+                                                  <th>{{achat.classe}}</th>
                                                   <td>
                                                     <div class="btn-group-toggle">
                                                         <a href={% url "home"  %} title="Details"><i class="ti ti-plus mr-10"></i></a>

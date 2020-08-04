@@ -45,10 +45,12 @@
                                         <form action="" method="post">
                                             {% csrf_token %}
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.designation}}</div>
                                                 <label class="control-label mb-10" for="designation">Designation</label>
                                                 <input class="form-control" name="designation" id="designation" placeholder="Designation"  required/>
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.p_max}}</div>
                                                 <label class="control-label mb-10" for="p_max">Puissance active</label>
                                                 <div class="input-group">
                                                     <input class="form-control" type="number" min=0 name="p_max" id="p_max" placeholder="Puissance active maximale"  required/>
@@ -57,6 +59,7 @@
                                                 
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.q_max}}</div>
                                                 <label class="control-label mb-10" for="q_max">Puissance reactive</label>
                                                 <div class="input-group">
                                                     <input class="form-control" name="q_max" min=0 id="q_max" placeholder="Puissance réactive maximale"  required/>

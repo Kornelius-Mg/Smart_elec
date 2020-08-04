@@ -24,9 +24,9 @@
             <div class="col-sm-12">
                 <div class="panel panel-default card-view">
                     <div class="panel-heading">
-                        <div class="pull-left">
+                        <!-- <div class="pull-left">
                             <h4 class="panel-title txt-dark">Administrateurs</h4>
-                        </div>
+                        </div> -->
                         <div class="pull-right"> 
                             {% if user.is_superuser %}
                                 <a href={% url "register" %} class="btn btn-primary">Nouvel admin</a>
@@ -38,7 +38,7 @@
                         <div class="panel-body">
                             <div class="table-wrap">
                                 <div class="">
-                                    <table id="myTable1" class="table table-hover display  pb-30" >
+                                    <table id="myTable1" class="table table-hover display pb-30" >
                                         <thead>
                                             <tr>
                                                 <th>Prenom</th>
@@ -47,7 +47,7 @@
                                                 <th>Telephone</th>
                                                 <th>Etat</th>
                                                 {% if user.is_superuser %}
-                                                    <th>Actions</th>
+                                                <th>Actions</th>
                                                 {% endif %}   
                                             </tr>
                                         </thead>
@@ -59,7 +59,7 @@
                                                 <th>Telephone</th>
                                                 <th>Etat</th>
                                                 {% if user.is_superuser %}
-                                                    <th>Actions</th>
+                                                <th>Actions</th>
                                                 {% endif %}
                                             </tr>
                                         </tfoot>
@@ -74,15 +74,16 @@
                                                     {% if superviseur.is_active %}
                                                         <span class="label label-success">actif</span>
                                                     {% else %}
-                                                    <span class="label label-danger">passif</span>
+                                                        <span class="label label-danger">passif</span>
                                                     {% endif %}  
                                                 </td>
-                                                {% if user.is_superuser %}
+
+                                                {% if user.is_superuser and not superviseur.is_superuser %}
                                                 <td>
                                                     <div class="btn-group-toggle">
-                                                        <a href={% url "home" %} title="Details"><i class="ti ti-plus mr-10"></i></a>
-                                                        <a href={% url "update-other-admin" superviseur.username %} title="Editer"><i class="ti ti-pencil mr-10"></i></a>
-                                                        <a href={% url "delete-other-admin" superviseur.username %} title="Supprimer"><i class="ti ti-trash"></i></a>
+                                                        <a href={% url "superviseur" superviseur.username %} title="Details"><i class="ti ti-plus mr-10"></i></a>
+                                                        <a href={% url "update-admin" superviseur.username %} title="Editer"><i class="ti ti-pencil mr-10"></i></a>
+                                                        <a href={% url "delete-admin" superviseur.username %} title="Supprimer"><i class="ti ti-trash"></i></a>
                                                     </div>
                                                 </td>
                                                 {% endif %}

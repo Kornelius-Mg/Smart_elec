@@ -5,11 +5,11 @@ from django.views.generic import TemplateView
 from rest_framework import viewsets
 from rest_framework import permissions
 
-from .serializers import (AbonnementSerializer, UtilisateurSerializer,
+from .serializers import (UtilisateurSerializer,
                         AppartementSerializer, CompteurSerializer,
                         TransfertSerializer, DetailsCompteurSerializer)
 
-from compteur.models import Compteur, DetailsCompteur, Abonnement
+from compteur.models import Compteur, DetailsCompteur
 from transfos.models import Transformateur
 from user.models import Utilisateur, Appartement
 from transferts.models import Transfert
@@ -18,11 +18,6 @@ from transferts.models import Transfert
 
 
 # REST APIS
-
-class AbonnementViewsSet(viewsets.ModelViewSet):
-    serializer_class = AbonnementSerializer
-    queryset = Abonnement.objects.all()
-    permission_classes = (permissions.AllowAny,)
 
 class UtilisateurViewsSet(viewsets.ModelViewSet):
     serializer_class = UtilisateurSerializer
@@ -67,7 +62,6 @@ class HomeView(LocalLoginRequired, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context["utilisateurs"] = Utilisateur.objects.all()
-        context["Abonnements"] = Abonnement.objects.order_by("-date_heure")
         context["transferts"] = Transfert.objects.order_by("-date_heure")
         context["compteurs"] = Compteur.objects.all()
         context["details"] = DetailsCompteur.objects.all()

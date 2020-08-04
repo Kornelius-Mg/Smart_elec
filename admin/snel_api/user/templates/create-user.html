@@ -48,11 +48,13 @@
                                               <div class="form-group">
                                                   <label class="control-label mb-10" for="nom">Nom</label>
                                                   <div class="input-group">
+                                                    <div class="invalid-feedback" style="color: red;">{{form.errors.nom}}</div>
                                                       <div class="input-group-addon"><i class="icon-user"></i></div>
                                                       <input type="text" name="nom" class="form-control" id="nom" placeholder="Nom" required>
                                                   </div>
                                               </div>
                                               <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.postnom}}</div>
                                                 <label class="control-label mb-10" for="postnom">PostNom</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"><i class="icon-user"></i></div>
@@ -60,6 +62,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.prenom}}</div>
                                                 <label class="control-label mb-10" for="exampleInputuname_1">Prenom</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"><i class="icon-user"></i></div>
@@ -67,6 +70,7 @@
                                                 </div>
                                             </div>
                                               <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.psw}}</div>
                                                   <label class="control-label mb-10" for="exampleInputpwd_1">Mot de passe</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon"><i class="icon-lock"></i></div>
@@ -74,6 +78,7 @@
                                                   </div>
                                               </div>
                                               <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.conf_psw}}</div>
                                                   <label class="control-label mb-10" for="exampleInputpwd_2">Confirmer mot de passe</label>
                                                   <div class="input-group">
                                                       <div class="input-group-addon"><i class="icon-lock"></i></div>
@@ -81,6 +86,7 @@
                                                   </div>
                                               </div>
                                               <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.telephone}}</div>
                                                 <label class="control-label mb-10" for="exampleInputEmail_1">Telephone</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"><i class="icon-phone"></i></div>
@@ -88,6 +94,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;">{{form.errors.avatar}}</div>
                                                 <label class="control-label mb-10" for="exampleInputEmail_1">Photo</label>
                                                 <div class="input-group">
                                                     <div class="input-group-addon"><i class="fa fa-picture-o"></i></div>
