@@ -129,9 +129,7 @@
 							</div>
 							<div class="pull-right">
 								<span class="no-margin-switcher">
-									<i class="icon-power mr-10"></i>
-									<input type="checkbox" checked=true id="transfo_switch" class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>	
-									<label for="transfo_switch" class="label text-danger"><span class="text-uppercase" id="power_state"></span></label>
+									<input type="checkbox" checked=true id="morris_switch" class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>	
 								</span>
 							</div>
 						<div class="clearfix"></div>
@@ -433,7 +431,11 @@
 <script>
     var p_max = 0;
     var q_max = 0;
-    var btnSwitch = $("#transfo_switch");
+    var btnSwitch = $("#morris_switch");
+	var btnSwitch1 = $("#morris_switch1");
+	var btnSwitch2 = $("#morris_switch2");
+	var btnSwitch3 = $("#morris_switch3");
+
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -459,7 +461,7 @@
     function afficherDatasDetails(data){
         var datas = JSON.parse(data);
         var corpsTableau = document.getElementById("tbody");
-        var tableau = document.getElementById("tab");
+        var tableau = document.getElementById("myTable1");
         tableau.removeChild(corpsTableau);
         corpsTableau = document.createElement("tbody");
         corpsTableau.id = "tbody";
@@ -555,9 +557,97 @@
                 indicatePowerStateOff();
             }
             p_max = element['fields']['p_max'];
-            p_max = element['fields']['q_max'];
+			p_max = element['fields']['q_max'];
+			
+			if(state_phase1 == "ON") btnSwitch1.val("on");
+			else btnSwitch1.val("off");
+
+			if(state_phase2 == "ON") btnSwitch2.val("on");
+			else btnSwitch2.val("off");
+
+			if(state_phase3 == "ON") btnSwitch3.val("on");
+			else btnSwitch3.val("off");
         }
-    }
+	}
+	
+	btnSwitch1.change((event) => {
+		event.preventDefault();
+		if(btnSwitch1.val() == "on") {
+			$.ajax(
+				{
+					url: "{% url 'stop-phase-transfo' transfo.id 1 %}", 
+					method: 'GET',
+					success: (datas) => {
+						btnSwitch1.val("off");
+					}
+				}
+			)
+		}
+		else if(btnSwitch1.val() == "off") {
+			$.ajax(
+				{
+					url: "{% url 'start-phase-transfo' transfo.id 1 %}",
+					method: 'GET',
+					success: (datas) => {
+						btnSwitch1.val("on");
+					}
+				}
+			)
+		}
+	});
+
+	btnSwitch2.change((event) => {
+		event.preventDefault();
+		if(btnSwitch1.val() == "on") {
+			$.ajax(
+				{
+					url: "{% url 'stop-phase-transfo' transfo.id 2 %}", 
+					method: 'GET',
+					success: (datas) => {
+						btnSwitch1.val("off");
+					}
+				}
+			)
+		}
+
+		else if(btnSwitch2.val() == "off") {
+			$.ajax(
+				{
+					url: "{% url 'start-phase-transfo' transfo.id 2 %}",
+					method: 'GET',
+					success: (datas) => {
+						btnSwitch1.val("on");
+					}
+				}
+			)
+		}
+	});
+
+	btnSwitch3.change((event) => {
+		event.preventDefault();
+		if(btnSwitch1.val() == "on") {
+			$.ajax(
+				{
+					url: "{% url 'stop-phase-transfo' transfo.id 3 %}", 
+					method: 'GET',
+					success: (datas) => {
+						btnSwitch1.val("off");
+					}
+				}
+			)
+		}
+		else if(btnSwitch3.val() == "off") {
+			$.ajax(
+				{
+					url: "{% url 'start-phase-transfo' transfo.id 3 %}",
+					method: 'GET',
+					success: (datas) => {
+						btnSwitch1.val("on");
+					}
+				}
+			)
+		}
+	});
 
     $.ajaxSetup(
             {'X-CSRFToken': getCookie("csrftoken"), 'Content-type': 'json/application'}

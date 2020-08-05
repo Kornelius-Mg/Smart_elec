@@ -57,7 +57,7 @@
                                             <div class="form-group">
                                                 <div class="invalid-feedback" style="color: red;">{{form.errors.compteur}}</div>
                                                 <label class="control-label mb-10" for="designation">Compteur</label>
-                                                <select class="form-control select2" name="compteur" id="compteur" required>
+                                                <select class="form-control select2" name="compteur" id="compteur">
                                                     <option selected disabled>Select</option>
                                                     {% for compteur in compteurs %}
                                                     <option value={{compteur.id}}>{{compteur}}</option>
@@ -69,14 +69,14 @@
                                                 <div class="invalid-feedback" style="color: red;">{{form.errors.prix}}</div>
                                                 <label class="control-label mb-10">Prix</label>
                                                 <div class="input-group">
-                                                    <input class="form-control" value={{object.prix}} type="number" min="0" name="prix" id="prix" required />
-                                                    <div class="input-group-addon"><i>KWH</i></div>
+                                                    <input class="form-control" value={{object.prix}} type="number" min="0" name="prix" id="prix" />
+                                                    <div class="input-group-addon"><i>FC</i></div>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="invalid-feedback" style="color: red;">{{form.errors.classe}}</div>
                                                 <label class="control-label mb-10">Classe d'achat</label>
-                                                <select class="form-control" name="classe" id="classe" required>
+                                                <select class="form-control" name="classe" id="classe">
                                                     <option disabled selected>Choisir</option>
                                                     {% for classe in classes %}
                                                     <option value={{classe.id}}>{{classe}}</option>

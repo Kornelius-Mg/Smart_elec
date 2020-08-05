@@ -17,6 +17,9 @@ class Transformateur(models.Model):
     q_total = models.FloatField(default=0)
 
     global_state = models.CharField(max_length=10, choices = (("OFF",'OFF'), ("ON", "ON")), default="OFF")
+    phase1_state = models.CharField(max_length=10, choices=(("OFF", "Eteint"), ("ON", "Allumé")), default="OFF")
+    phase2_state = models.CharField(max_length=10, choices=(("OFF", "Eteint"), ("ON", "Allumé")), default="OFF")
+    phase3_state = models.CharField(max_length=10, choices=(("OFF", "Eteint"), ("ON", "Allumé")), default="OFF")
 
     def __str__(self):
         return "%s %.2f KVA"%(self.designation, self.p_max)

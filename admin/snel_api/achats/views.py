@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.db.models import Sum
+from django.db.models import Sum, Count
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, View
 
 from .models import Achat
@@ -25,6 +25,7 @@ class AchatsList(LocalLoginRequired, ListView):
         context["nombre"] = self.model.objects.count()
         obj_sum = self.model.objects.aggregate(Sum('quantite'))
         context["somme_qte"] =  obj_sum['quantite__sum']
+        context["len_achats"] = Achat.objects.aggregate(Count('id'))["id__count"]
         return context
 
 class AchatCreateView(LocalLoginRequired, CreateView):
@@ -33,7 +34,7 @@ class AchatCreateView(LocalLoginRequired, CreateView):
      """
 
     template_name = "new-achat.html"
-    fields = ("compteur", "prix", "quantite")
+    fields = ("compteur", "prix", "quantite", "classe")
     success_url = "/achats/list/"
     model = Achat
     
@@ -51,8 +52,8 @@ class AchatDeleteView(LocalLoginRequired, DeleteView):
 
 class AchatUpdateView(LocalLoginRequired, UpdateView):
     template_name = "update-achat.html"
-    fields = ("compteur", "prix", "quantite")
-    success_url = "/achats/list/"
+    fields = ("compteur", "prix", "quantite", "classe")
+    success_url = "/achats/list"
     model = Achat
     
     def get_context_data(self, **kwargs):

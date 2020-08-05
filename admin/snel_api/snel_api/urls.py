@@ -17,30 +17,19 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework import routers
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from app.views import *
+import api
 import superviseur, user, compteur, parametres, transfos, achats, transferts
-
-router =routers.DefaultRouter()
-router.register(r'users',UtilisateurViewsSet)
-router.register(r'appartement',AppartementViewsSet)
-router.register(r'compteur',CompteurViewsSet)
-router.register(r'details-compteur', DetailsCompteurViewsSet)
-router.register(r'transfert', TransfertViewsSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
-    path('api-token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api-token-refresh', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/', include(router.urls)),
     path('users/', include('user.urls')), 
     path('compteurs/', include('compteur.urls')),
     path('transfos/', include('transfos.urls')),
     path('reglages', include('parametres.urls')),
     path('achats/', include('achats.urls')),
     path('transferts/', include('transferts.urls')),
+    path('api/', include('api.urls')),
     path('', include('app.urls')),
     path('', include('superviseur.urls')),
 ]

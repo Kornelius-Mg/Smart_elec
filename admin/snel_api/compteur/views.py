@@ -167,6 +167,7 @@ def start_phase_compteur(request, *args, **kwargs):
             state = "compteur.phase" + num_phase + "_state"
             state_phase = eval(state)
             state_phase = "OFF"
+            compteur.global_state = "ON"
             compteur.save()
             return HttpResponse("ok")
         else:

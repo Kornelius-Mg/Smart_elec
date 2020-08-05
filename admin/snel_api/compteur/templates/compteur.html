@@ -133,9 +133,7 @@
 						</div>
 						<div class="pull-right">
 							<span class="no-margin-switcher">
-								<i class="icon-power mr-10"></i>
 								<input type="checkbox" id="morris_switch" class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>	
-								<label for="transfo_switch" class="label text-danger"><span class="text-uppercase" id="power_state"></span></label>	
 							</span>	
 						</div>
 						<div class="clearfix"></div>
@@ -277,13 +275,13 @@
 
 
 <!-- Footer -->
-<footer class="footer container-fluid pl-30 pr-30">
+<!-- <footer class="footer container-fluid pl-30 pr-30">
     <div class="row">
         <div class="col-sm-12">
             <p> 2020&copy; By Kornelius-Mg</p>
         </div>
     </div>
-</footer>
+</footer> -->
 <!-- /Footer -->
 
 </div>
@@ -468,7 +466,7 @@
     function afficherDatas(data){
         var datas = JSON.parse(data);
         var corpsTableau = document.getElementById("tbody");
-        var tableau = document.getElementById("tab");
+        var tableau = document.getElementById("myTable1");
         tableau.removeChild(corpsTableau);
         corpsTableau = document.createElement("tbody");
         corpsTableau.id = "tbody";

@@ -116,3 +116,43 @@ def stop_transfo(request, *args, **kwargs):
             return HttpResponse("ok")
         else:
             return Http404("Une erreur est survenue")
+
+@login_required
+def start_phase_transfo(request, *args, **kwargs):
+    """
+    Vue permettant de demarrer une phase particulière d'un transfo à distance
+    """
+    if request.method == "GET":
+        responses = transfos_states.get_infos()
+        if responses:
+            id_trf = kwargs["trf"]
+            num_phase = kwargs["ph"]
+            transfo = Transformateur.objects.get(id=id_trf)
+            state = "transfo.phase" + num_phase + "_state"
+            state_phase = eval(state)
+            state_phase = "ON"
+            transfo.global_state = "ON"
+
+            transfo.save()
+            return HttpResponse("ok")
+        else:
+            return Http404("Une erreur est survenue")
+
+@login_required
+def stop_phase_transfo(request, *args, **kwargs):
+    """
+    Vue permettant d'arreter une phase particulière d'un transfo à distance
+    """
+    if request.method == "GET":
+        responses = transfos_states.get_infos()
+        if responses:
+            id_trf = kwargs["trf"]
+            num_phase = kwargs["ph"]
+            transfo = Transformateur.objects.get(id=id_trf)
+            state = "transfo.phase" + num_phase + "_state"
+            state_phase = eval(state)
+            state_phase = "OFF"
+            transfo.save()
+            return HttpResponse("ok")
+        else:
+            return Http404("Une erreur est survenue")
