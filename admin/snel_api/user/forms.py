@@ -1,5 +1,6 @@
 from django import forms
 from.models import Utilisateur, Appartement
+import re
 
 class UtilisateurForm(forms.Form):
     """Form definition for Utilisateur"""
@@ -10,10 +11,10 @@ class UtilisateurForm(forms.Form):
     psw = forms.CharField(max_length=45)
     conf_psw = forms.CharField(max_length=45)
     telephone = forms.CharField(max_length=45)
-    avatar = forms.ImageField(max_length=45)
+    avatar = forms.ImageField(required=False)
 
     def clean_conf_psw(self):
-        password = self.cleaned_data["password"]
+        password = self.cleaned_data["psw"]
         conf_psw = self.cleaned_data["conf_psw"]
         if password != conf_psw:
             raise forms.ValidationError("Les deux mots de passes doivent etre semblables")

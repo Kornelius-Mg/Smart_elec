@@ -25,7 +25,7 @@ class Utilisateur(models.Model):
             models.FieldError()
         dossier = self.avatar.name[:index]
         fichier = self.avatar.name[index:]
-        if not fichier.endswith("avatar.png"):
+        if not fichier.endswith("avatar.jpg"):
             liste_name = fichier.split(".")
             extension = liste_name[-1]
             new_name = str(time()) + "." + extension

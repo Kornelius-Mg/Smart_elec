@@ -19,16 +19,38 @@ class UserCreateView(LocalLoginRequired, CreateView):
         context["action"] = "Enregistrer"
         return context
 
-class UserUpdateView(UpdateView):
-    model = Utilisateur
-    template_name = "update-user.html"
-    success_url = "/users/list"
-    fields = ("nom", "postnom", "prenom", "psw", "telephone")
+class UserUpdateView(LocalLoginRequired, View):
+    def post(self, request, *args, **kwargs):
+        form = UtilisateurForm(request.POST, request.FILES)
+        id_util = kwargs["pk"]
+        utilisateur = Utilisateur.objects.get(id=id_util)
 
-    def get_context_data(self, **kwargs):
-        context = super(UserUpdateView, self).get_context_data(**kwargs)
-        context["action"] = "Modifier"
-        return context
+        if form.is_valid():
+            utilisateur.nom = form.cleaned_data["nom"]
+            utilisateur.postnom = form.cleaned_data["postnom"]
+            utilisateur.prenom = form.cleaned_data["prenom"]
+            utilisateur.psw = form.cleaned_data["psw"]
+            utilisateur.telephone = form.cleaned_data["telephone"]
+            utilisateur.avatar = form.cleaned_data["avatar"]
+
+            if not utilisateur.avatar:
+                utilisateur.avatar = 'img/user/avatar/avatar.jpg'
+            
+            utilisateur.save()
+            return redirect('/users/list')
+        
+        else:
+            object = utilisateur
+            action = "Modifier"
+            return render(request, "update-user.html", locals())
+    
+    def get(self, request, *args, **kwargs):
+        id_util = kwargs["pk"]
+        utilisateur = Utilisateur.objects.get(id=id_util)
+        
+        object = utilisateur
+        action = "Modifier"
+        return render(request, "update-user.html", locals())
 
 class UserDeleteView(LocalLoginRequired, DeleteView):
     model = Utilisateur

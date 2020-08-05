@@ -21,7 +21,7 @@ class Compteur(models.Model):
     """
     Model qui represente un compteur électrique
     """
-    modele = models.IntegerField(choices=(("Monophasé", "Monophasé"), ("Biphasé", "Biphasé"), ("Triphasé", "Triphasé")))
+    modele = models.CharField(max_length = 20, choices=(("Monophasé", "Monophasé"), ("Biphasé", "Biphasé"), ("Triphasé", "Triphasé")))
     credit = models.FloatField(default=0)
     transformateur = models.ForeignKey(Transformateur, on_delete=models.SET_NULL, null=True, default=None)
     appartement = models.ForeignKey(Appartement, on_delete=models.SET_NULL, null=True)

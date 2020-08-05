@@ -105,7 +105,7 @@ class CompteurDeleteView(LocalLoginRequired, DeleteView):
     success_url = "/compteurs/list"
 
 
-class CompteurUpdateView(UpdateView):
+class CompteurUpdateView(LocalLoginRequired, UpdateView):
     model = Compteur
     template_name = "update-compteur.html"
     success_url = "/compteurs/list"

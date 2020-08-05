@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, Http404
-from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, ListView, TemplateView
+from django.db.models import Sum
+from django.views.generic import CreateView, DeleteView, UpdateView, DetailView, ListView, TemplateView, View
 from .models import Transformateur, DetailsTransfo
 from app.views import LocalLoginRequired
 from . import transfos_states
@@ -34,6 +35,11 @@ class TransformateurDetailView(LocalLoginRequired, DetailView):
         context = super(TransformateurDetailView, self).get_context_data(**kwargs)
         context['compteurs'] = Transformateur.objects.get(id=self.object.pk).compteur_set.all()
         context['details'] = Transformateur.objects.get(id=self.object.pk).detailstransfo_set.order_by("-instant")
+        context["nb_compteurs"] = len(context['compteurs'])
+        puissance_totale = 0
+        for compteur in context['compteurs']:
+            puissance_totale += compteur.classe.p_max
+        context["charge_rate"] = puissance_totale * 100 / self.object.p_max
         return context
 
 class TransformateurCreateView(LocalLoginRequired, CreateView):
@@ -54,6 +60,16 @@ class TransformateurDeleteView(LocalLoginRequired, DeleteView):
     model = Transformateur
     template_name = "whats-up.html"
     success_url = "/transfos/list"
+
+class TransfoCompteursListView(LocalLoginRequired, View):
+    """
+    Une vue permettant d'afficher les compteurs branchés sur un transformateur
+    """
+    def get(self, request, *args, **kwargs):
+        id_transfo = kwargs["trf"]
+        transfo = Transformateur.objects.get(id=id_transfo)
+        compteurs = transfo.compteur_set.all()
+        return render(request, "compteurs.html", locals())
 
 # AJAX REQUESTS
 

@@ -25,15 +25,101 @@
 			</div>
 			<!-- /Title -->
 		  <!-- Row -->
-			<div class="card">
-			  <div class="card-header">
-				  <div class="card-header-title">
-					  <h5 class="text-capitalize mb-20">Transformateur : {{ transfo.designation }}</h5>
-				  </div>
-			  </div>
+		  <div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+				<div class="panel panel-default card-view pa-0">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+											<span class="txt-dark block counter"><span class="font-11">{{transfo.designation}}</span></span>
+											<span class="weight-500 uppercase-font block font-13">Transformateur</span>
+										</div>
+										<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+											<i class="fa fa-cogs data-right-rep-icon txt-light-grey"></i>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-		  
-		  <!-- Row -->
+			<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+				<div class="panel panel-default card-view pa-0">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box">
+								<div class="container-fluid">
+									<a href="{% url 'compteurs-transfo' transfo.id %}" title="Voir les compteurs">
+										<div class="row">
+											<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+												<span class="txt-dark block counter"><span class="counter-anim">{{nb_compteurs}}</span></span>
+												<span class="weight-500 uppercase-font block font-13">Compteurs</span>
+											</div>
+											<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+												<i class="fa fa-cog data-right-rep-icon txt-light-grey"></i></a>
+											</div>
+										</div>
+									</a>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+				<div class="panel panel-default card-view pa-0">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+											<span class="txt-dark block counter"><span class="counter-anim">{{charge_rate|floatformat:"2"}}</span></span>
+											<span class="weight-500 uppercase-font block font-13">Taux de charge</span>
+										</div>
+										<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+											<i class="fa fa-percent data-right-rep-icon txt-light-grey"></i>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="panel panel-default card-view pa-0">
+					<div class="panel-wrapper collapse in">
+						<div class="panel-body pa-0">
+							<div class="sm-data-box">
+								<div class="container-fluid">
+									<div class="row">
+										<div class="col-xs-3 text-center pl-0 pr-0 data-wrap-left">
+											<span class="txt-dark block counter"><span>PHASES</span></span>
+											<span class="weight-500 uppercase-font block font-13">Alimentation</span>
+										</div>
+										<div class="col-xs-3 text-center  pl-0 pr-0 data-wrap-right">
+											<span class="txt-dark block">Phase 1</span><input type="checkbox" id="morris_switch1" class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>
+										</div>
+										<div class="col-xs-3 text-center  pl-0 pr-0 data-wrap-right">
+											<span class="txt-dark block">Phase 2</span><input type="checkbox" id="morris_switch2" class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>
+										</div>
+										<div class="col-xs-3 text-center  pl-0 pr-0 data-wrap-right">
+											<span class="txt-dark block">Phase 3</span><input type="checkbox" id="morris_switch3" class="js-switch" data-color="#2ecd99" data-secondary-color="#dedede" data-size="small"/><br/>
+										</div>
+									</div>	
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /Row -->
 			<div class="row">
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="panel panel-default card-view">
@@ -73,9 +159,7 @@
 						<div id="area_chart" class="morris-chart" style="height:295px;"></div>
 					</div>
 				</div>
-			</div>
-            <!-- Row -->
-			<div class="row">
+			
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="panel panel-default card-view panel-refresh">
 						<div class="refresh-container">
@@ -106,8 +190,8 @@
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body row pa-0">
 								<div class="table-wrap">
-									<div class="table-responsive">
-										<table id="tab" class="table table-hover table-bordered mb-0" style="height:100;">
+									<div class="">
+										<table id="myTable1" class="table table-hover display  pb-30">
 											<thead>
 												<tr>
 													<th rowspan="2">Instant</th>
@@ -182,91 +266,6 @@
 				</div>
 			</div>
             <!-- Row -->
-			<div class="row">
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="panel panel-default card-view panel-refresh">
-						<div class="refresh-container">
-							<div class="la-anim-1"></div>
-						</div>
-						<div class="panel-heading">
-							<div class="pull-left">
-								<h6 class="panel-title txt-dark">Compteurs associés</h6>
-							</div>
-							<div class="pull-right">
-							<a href="#" class="pull-left inline-block refresh mr-15">
-								<i class="zmdi zmdi-replay"></i>
-							</a>
-							<a href="#" class="pull-left inline-block full-screen mr-15">
-								<i class="zmdi zmdi-fullscreen"></i>
-							</a>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-					<div class="panel-wrapper collapse in">
-						<div class="panel-body row pa-0">
-							<div class="table-wrap">
-								<div class="table-responsive">
-									<table class="table table-hover mb-0">
-										<thead>
-											<tr>
-												<th>Compteur ID</th>
-												<th>Appartement</th>
-												<th>classe</th>
-												<th>modele</th>
-												<th>credit</th>
-												<th>P totale</th>
-												<th>Q totale</th>
-												<th>Etat</th>
-												<th>Actions</th>
-											</tr>
-										</thead>
-										<tfoot>
-											<tr>
-												<th>Compteur ID</th>
-												<th>Appartement</th>
-												<th>classe</th>
-												<th>modele</th>
-												<th>credit</th>
-												<th>P. totale</th>
-												<th>Q totale</th>
-												<th>Etat</th>
-												<th>Actions</th>
-											</tr>
-										</tfoot>
-										<tbody>
-											{% for compteur in compteurs %}  
-											<tr>
-												<td><a href="{% url 'compteur' compteur.id %}">{{compteur.id}}</a></td>
-												<td>{{compteur.appartement|truncatewords:5}}</td>
-												<td>{{compteur.active_class}}</td>
-												<td>{{compteur.modele}}</td>
-												<td>{{compteur.credit}}</td>
-												<td>{{compteur.p_phase1|add:compteur.p_phase2|add:compteur.p_phase3}}</td>
-												<td>{{compteur.q_phase1|add:compteur.q_phase3|add:compteur.q_phase3}}</td>
-												<td>
-													{% if compteur.global_state == 'ON' %}
-														<span class="label label-success">ON</span>
-													{% else %}
-														<span class="label label-danger">OFF</span>
-													{% endif %}  
-												</td>
-												<td>
-													<div class="btn-group-toggle">
-														<a href="" title="Details"><i class="ti ti-plus mr-10"></i></a>
-														<a href={% url "update-compteur" compteur.id %} title="Editer"><i class="ti ti-pencil mr-10"></i></a>
-														<a href={% url "delete-compteur" compteur.id %} title="Supprimer"><i class="ti ti-trash"></i></a>
-													</div>
-												</td>
-											</tr>
-											{% endfor %}
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>	
-					</div>
-				</div>
-			</div>
         </div>	
          <!-- Row -->
     </div>

@@ -1,6 +1,8 @@
 from django.conf.urls import url
 from django.urls import path
-from .views import *
+from .views import (TransformateurCreateView, TransfoCompteursListView, TransformateurDeleteView, 
+                    TransformateurDetailView, TransformateurListView, TransformateurUpdateView, 
+                    transformateur_infos, start_transfo, stop_transfo)
 
 urlpatterns = [
     # urls pour transfos
@@ -9,6 +11,7 @@ urlpatterns = [
      url(r'^update/(?P<pk>[0-9]+)/$', TransformateurUpdateView.as_view(), name="update-transfo"),
      url(r'^delete/(?P<pk>[0-9]+)/$', TransformateurDeleteView.as_view(), name="delete-transfo"),
      url(r'^(?P<pk>[0-9]+)/$', TransformateurDetailView.as_view(), name="transfo"),
+     url(r'^compteurs/(?P<trf>[0-9]+)/$', TransfoCompteursListView.as_view(), name="compteurs-transfo"),
      url(r'^infos/(?P<pk>[0-9]+)/$', transformateur_infos, name="transfo-infos"),
      url(r'^start/(?P<pk>[0-9]+)/$', start_transfo, name="start-transfo"),
      url(r'^stop/(?P<pk>[0-9]+)/$', stop_transfo, name="stop-transfo"),

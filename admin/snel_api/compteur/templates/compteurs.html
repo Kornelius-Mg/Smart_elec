@@ -40,7 +40,7 @@
                         <div class="panel-body">
                             <div class="table-wrap">
                                 <div class="">
-                                    <table id="myTable1" class="table table-hover display  pb-30" >
+                                    <table id="myTable1" class="table table-hover display pb-30" >
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -74,10 +74,10 @@
                                             <tr>
                                                 <td>{{compteur.id}}</td>
                                                 <td>{{compteur.appartement|truncatewords:5}}</td>
-                                                <td>{{compteur.classe}}</td>
+                                                <td>{{compteur.classe.designation}}</td>
                                                 <td>{{compteur.modele}}</td>
                                                 <td>{{compteur.credit}}</td>
-                                                <td>{{compteur.transformateur}}</td>
+                                                <td>{{compteur.transformateur.designation}}</td>
                                                 <td>{{compteur.p_phase1|add:compteur.p_phase2|add:compteur.p_phase3}}</td>
                                                 <td>{{compteur.q_phase1|add:compteur.q_phase3|add:compteur.q_phase3}}</td>
                                                 <td>
