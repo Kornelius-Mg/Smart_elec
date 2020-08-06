@@ -7,74 +7,35 @@
   <!-- /Right Sidebar Backdrop -->
       
   <!-- Main Content -->
-  <div class="page-wrapper">
-      <div class="container-fluid">
+<div class="page-wrapper">
+    <div class="container-fluid">
           
-          <!-- Title -->
-          <div class="row heading-bg">
-              <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                  <h4 class="txt-dark">Reglages</h4>
-              </div>
+    <!-- Title -->
+        <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h4 class="txt-dark">Reglages</h4>
+            </div>
           
-              <!-- Breadcrumb -->
-              <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
-                  <ol class="breadcrumb">
-                      <li><a href={% url "home" %}>Dashboard</a></li>
-                      <li class="active"><span>Reglages</span></li>
-                  </ol>
-              </div>
-              <!-- /Breadcrumb -->
+            <!-- Breadcrumb -->
+            <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                <ol class="breadcrumb">
+                    <li><a href={% url "home" %}>Dashboard</a></li>
+                    <li class="active"><span>Reglages</span></li>
+                </ol>
+            </div>
+            <!-- /Breadcrumb -->
           
-          </div>
-          <!-- /Title -->
+        </div>
+        <!-- /Title -->
           
-          <!-- Row -->
-          <div class="row">
-              <div class="col-offset-2 col-md-9">
-                  <div class="panel panel-default vertical-align-middle card-view">
-                      <div class="panel-heading">
-                          <div class="clearfix"></div>
-                      </div>
-                      <div class="panel-wrapper collapse in">
-                          <div class="panel-body">
-                              <div class="row">
-                                  <div class="col-sm-12 col-xs-12">
-                                      <div class="form-wrap">
-                                          <form action="" method="post">
-                                              {% csrf_token %}
-                                              <div class="form-group">
-                                                <label class="control-label mb-10" for="nom">Prix du wattheure en franc congolais</label>
-                                                <div class="invalid-feedback" style="color: red;"></div>
-                                                <input type="number" name="nom" class="form-control" id="nom" placeholder="Prix du watt en franc congolais" required>
-                                              </div>
-                                              <div class="form-group">
-                                                <div class="invalid-feedback" style="color: red;"></div>
-                                                <label class="control-label mb-10" for="postnom">Niveau d'alerte des compteurs</label>
-                                                <input type="number" name="min_alert_compteurs" class="form-control" id="postnom" placeholder="Niveau d'alerte des compteurs" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="invalid-feedback" style="color: red;"></div>
-                                                <label class="control-label mb-10" for="exampleInputuname_1">Niveau d'alerte des transformateurs</label>
-                                                <input type="number" name="prenom" class="form-control" id="exampleInputuname_1" placeholder="Niveau d'alerte des transformateurs" required>
-                                            </div>
-                                            
-                                            <button id="submit-btn" type="submit" class="btn btn-success mr-10">Sauvegarder</button>
-                                          </form>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- /Row -->	
-
-          <!-- Row -->
-          <div class="row">
+        <!-- Row -->
+        <div class="row">
             <div class="col-offset-2 col-md-9">
                 <div class="panel panel-default vertical-align-middle card-view">
                     <div class="panel-heading">
+                        <div class="pull-left">
+                            <h5>Parametres generaux</h5>
+                        </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="panel-wrapper collapse in">
@@ -82,25 +43,93 @@
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
                                     <div class="form-wrap">
-                                        <form action="" method="post">
+                                        <form>
                                             {% csrf_token %}
                                             <div class="form-group">
-                                              <label class="control-label mb-10" for="nom">Domestique</label>
-                                              <div class="invalid-feedback" style="color: red;"></div>
-                                              <input type="number" name="nom" class="form-control" id="nom" placeholder="Domestique" required>
+                                                <label class="control-label text-lowercase mb-10" for="prix_par_watt">Prix du wattheure en FC</label>
+                                                <div class="invalid-feedback" style="color: red;"></div>
+                                                <input type="number" value={{settings.prix_par_watt}} name="prix_par_watt" class="form-control" id="prix_par_watt" placeholder="Prix du wattheure en FC" required>
                                             </div>
                                             <div class="form-group">
-                                              <div class="invalid-feedback" style="color: red;"></div>
-                                              <label class="control-label mb-10" for="postnom">Semi-Industriel</label>
-                                              <input type="number" name="min_alert_compteurs" class="form-control" id="postnom" placeholder="Semi-Industriel" required>
-                                          </div>
-                                          <div class="form-group">
-                                              <div class="invalid-feedback" style="color: red;"></div>
-                                              <label class="control-label mb-10" for="exampleInputuname_1">Industriel</label>
-                                              <input type="number" name="prenom" class="form-control" id="exampleInputuname_1" placeholder="Industriel" required>
-                                          </div>
+                                                <div class="invalid-feedback" style="color: red;"></div>
+                                                <label class="control-label mb-10" for="min_alert_compteurs">Niveau d'alerte des compteurs</label>
+                                                <input type="number" value={{settings.min_alert_compteurs}} name="min_alert_compteurs" class="form-control" id="min_alert_compteurs" placeholder="Niveau d'alerte des compteurs" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;"></div>
+                                                <label class="control-label mb-10" for="min_alert_transfos">Niveau d'alerte des transformateurs</label>
+                                                <input type="number" value={{settings.min_alert_transfos}} name="min_alert_transfos" class="form-control" id="min_alert_transfos" placeholder="Niveau d'alerte des transformateurs" required>
+                                            </div>
+                                            
+                                            <button id="submit-btn1" type="submit" class="btn btn-success mr-10">Sauvegarder</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Row -->	
+
+        <!-- Row -->
+        <div class="row">
+            <div class="col-offset-2 col-md-9">
+                <div class="panel panel-default vertical-align-middle card-view">
+                    <div class="panel-heading">
+                        <div class="pull-left">
+                            <h5>Classes de consommation</h5>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-wrap">
+                                        <form>
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                                <label class="control-label mb-10" for="p_max_dom">Domestique</label>
+                                                <div class="invalid-feedback" style="color: red;"></div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">P</div>
+                                                    <input type="number" value={{classe1.p_max}} name="p_max_dom" class="form-control" id="p_max_dom" placeholder="Domestique" required>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">Q</div>
+                                                    <input type="number" value={{classe1.q_max}} name="q_max_dom" class="form-control" id="q_max_dom" placeholder="Domestique" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;"></div>
+                                                <label class="control-label mb-10" for="p_max_semi_ind">Semi-Industriel</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">P</div>
+                                                    <input type="number" value={{classe2.p_max}} name="p_max_semi_ind" class="form-control" id="p_max_semi_ind" placeholder="Semi-Industriel" required>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">Q</div>
+                                                    <input type="number" value={{classe2.q_max}} name="q_max_semi_ind" class="form-control" id="q_max_semi_ind" placeholder="Semi-Industriel" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;"></div>
+                                                <label class="control-label mb-10" for="p_max_ind">Industriel</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">P</div>
+                                                    <input type="number" value={{classe3.p_max}} name="p_max_ind" class="form-control" id="p_max_ind" placeholder="Industriel" required>
+                                                </div>
+                                                <div class="input-group">
+                                                    <div class="input-group-addon">Q</div>
+                                                    <input type="number" value={{classe3.q_max}} name="q_max_ind" class="form-control" id="q_max_ind" placeholder="Industriel" required>
+                                                </div>
+                                            </div>
                                           
-                                          <button id="submit-btn" type="submit" class="btn btn-success mr-10">Sauvegarder</button>
+                                            <button id="submit-btn2" type="submit" class="btn btn-success mr-10">Sauvegarder</button>
                                         </form>
                                     </div>
                                 </div>
@@ -111,14 +140,85 @@
         <!-- /Row -->
             </div>
       </div>
-      <script>
-          document.getElementById("link-settings").setAttribute("class", "active");
-          document.load(() => {
-            document.getElementById("submit-btn").setAttribute("disabled", "disabled");
-            var psw = document.getElementById("psw").value;
-            var conf = document.getElementById("conf-psw").value;
-            if(psw == conf) $("#submit-btn").setAttribute("disabled", false);
-          }
-          );
-      </script>
+<script>
+    document.getElementById("link-settings").setAttribute("class", "active");
+</script>
+
+{% load static %}
+
+<!-- jQuery -->
+<script src={% static "vendors/bower_components/jquery/dist/jquery.min.js" %}></script>
+
+<script>
+
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+             cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    $.ajaxSetup(
+            {'X-CSRFToken': getCookie("csrftoken"), 'Content-type': 'application/json' }
+	);
+
+    $("#submit-btn1").click((event) => {
+        event.preventDefault();
+        var prix_par_watt = $("#prix_par_watt").val();
+        var min_alert_compteurs = $("#min_alert_compteurs").val();
+        var min_alert_transfos = $("#min_alert_transfos").val();
+
+        $.ajax({
+            method: "POST",
+            url: "{% url 'general-settings' %}",
+            data: {
+                'prix_par_watt': prix_par_watt,
+                'min_alert_compteurs': min_alert_compteurs,
+                'min_alert_transfos': min_alert_transfos
+            },
+            success: (datas) => {
+                if(datas == "ok") location.reload();
+                else alert("Erreur");
+            }, 
+            error: (datas) => {
+                alert("Erreur");
+            }
+        })
+    });
+
+    $("#submit-btn2").click((event) => {
+        event.preventDefault();
+
+        $.ajax({
+            method: "POST",
+            url: "{% url 'classes-settings' %}",
+            data: {
+                'p_max_dom': $("#p_max_dom").val(),
+                'q_max_dom': $("#q_max_dom").val(),
+
+                'p_max_semi_ind': $("#p_max_semi_ind").val(),
+                'q_max_semi_ind': $("#q_max_semi_ind").val(),
+
+                'p_max_ind': $("#p_max_ind").val(),
+                'q_max_ind': $("#q_max_ind").val()
+            },
+            success: (datas) => {
+                if(datas == "ok") location.reload();
+                else alert("Erreur lors de l'enregistrement des parametres");
+            }, 
+            error: (datas) => {
+                alert("Erreur");
+            }
+        })
+    });
+</script>
 {% endblock "body" %}
