@@ -113,6 +113,10 @@
 
 <!-- JavaScripts -->
 
+<script>
+    document.getElementById("link-achats").setAttribute("class", "active");
+</script>
+
 <!-- jQuery -->
 <script src={% static "vendors/bower_components/jquery/dist/jquery.min.js" %}></script>
 
@@ -166,7 +170,6 @@
 <script src={% static "dist/js/init.js" %}></script>
 
 <script>
-    $("#link-achats").addClass("active");
     $("#prix").change(
         () => {
             var qte_total =  $("#prix").val() / {{prix_par_watt}};

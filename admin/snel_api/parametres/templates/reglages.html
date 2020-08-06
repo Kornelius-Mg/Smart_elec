@@ -2,4 +2,123 @@
 
 {% block "body" %}
 
+  <!-- Right Sidebar Backdrop -->
+  <div class="right-sidebar-backdrop"></div>
+  <!-- /Right Sidebar Backdrop -->
+      
+  <!-- Main Content -->
+  <div class="page-wrapper">
+      <div class="container-fluid">
+          
+          <!-- Title -->
+          <div class="row heading-bg">
+              <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                  <h4 class="txt-dark">Reglages</h4>
+              </div>
+          
+              <!-- Breadcrumb -->
+              <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                  <ol class="breadcrumb">
+                      <li><a href={% url "home" %}>Dashboard</a></li>
+                      <li class="active"><span>Reglages</span></li>
+                  </ol>
+              </div>
+              <!-- /Breadcrumb -->
+          
+          </div>
+          <!-- /Title -->
+          
+          <!-- Row -->
+          <div class="row">
+              <div class="col-offset-2 col-md-9">
+                  <div class="panel panel-default vertical-align-middle card-view">
+                      <div class="panel-heading">
+                          <div class="clearfix"></div>
+                      </div>
+                      <div class="panel-wrapper collapse in">
+                          <div class="panel-body">
+                              <div class="row">
+                                  <div class="col-sm-12 col-xs-12">
+                                      <div class="form-wrap">
+                                          <form action="" method="post">
+                                              {% csrf_token %}
+                                              <div class="form-group">
+                                                <label class="control-label mb-10" for="nom">Prix du wattheure en franc congolais</label>
+                                                <div class="invalid-feedback" style="color: red;"></div>
+                                                <input type="number" name="nom" class="form-control" id="nom" placeholder="Prix du watt en franc congolais" required>
+                                              </div>
+                                              <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;"></div>
+                                                <label class="control-label mb-10" for="postnom">Niveau d'alerte des compteurs</label>
+                                                <input type="number" name="min_alert_compteurs" class="form-control" id="postnom" placeholder="Niveau d'alerte des compteurs" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="invalid-feedback" style="color: red;"></div>
+                                                <label class="control-label mb-10" for="exampleInputuname_1">Niveau d'alerte des transformateurs</label>
+                                                <input type="number" name="prenom" class="form-control" id="exampleInputuname_1" placeholder="Niveau d'alerte des transformateurs" required>
+                                            </div>
+                                            
+                                            <button id="submit-btn" type="submit" class="btn btn-success mr-10">Sauvegarder</button>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- /Row -->	
+
+          <!-- Row -->
+          <div class="row">
+            <div class="col-offset-2 col-md-9">
+                <div class="panel panel-default vertical-align-middle card-view">
+                    <div class="panel-heading">
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="form-wrap">
+                                        <form action="" method="post">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                              <label class="control-label mb-10" for="nom">Domestique</label>
+                                              <div class="invalid-feedback" style="color: red;"></div>
+                                              <input type="number" name="nom" class="form-control" id="nom" placeholder="Domestique" required>
+                                            </div>
+                                            <div class="form-group">
+                                              <div class="invalid-feedback" style="color: red;"></div>
+                                              <label class="control-label mb-10" for="postnom">Semi-Industriel</label>
+                                              <input type="number" name="min_alert_compteurs" class="form-control" id="postnom" placeholder="Semi-Industriel" required>
+                                          </div>
+                                          <div class="form-group">
+                                              <div class="invalid-feedback" style="color: red;"></div>
+                                              <label class="control-label mb-10" for="exampleInputuname_1">Industriel</label>
+                                              <input type="number" name="prenom" class="form-control" id="exampleInputuname_1" placeholder="Industriel" required>
+                                          </div>
+                                          
+                                          <button id="submit-btn" type="submit" class="btn btn-success mr-10">Sauvegarder</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <!-- /Row -->
+            </div>
+      </div>
+      <script>
+          document.getElementById("link-settings").setAttribute("class", "active");
+          document.load(() => {
+            document.getElementById("submit-btn").setAttribute("disabled", "disabled");
+            var psw = document.getElementById("psw").value;
+            var conf = document.getElementById("conf-psw").value;
+            if(psw == conf) $("#submit-btn").setAttribute("disabled", false);
+          }
+          );
+      </script>
 {% endblock "body" %}

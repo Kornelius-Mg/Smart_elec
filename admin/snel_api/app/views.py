@@ -24,7 +24,9 @@ class HomeView(LocalLoginRequired, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HomeView, self).get_context_data(**kwargs)
         context["utilisateurs"] = Utilisateur.objects.all()
-        context["transferts"] = Transfert.objects.order_by("-date_heure")
+        context["transfos"] = Transformateur.objects.all()
         context["compteurs"] = Compteur.objects.all()
-        context["details"] = DetailsCompteur.objects.all()
+        context["nombre_utilisateurs"] = len(context["utilisateurs"])
+        context["nombre_compteurs"] = len(context["compteurs"])
+        context["nombre_transfos"] = len(context["transfos"])
         return context
