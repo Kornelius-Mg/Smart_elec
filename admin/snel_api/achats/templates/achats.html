@@ -24,7 +24,7 @@
 				</div>
 				<!-- /Title -->
           <!-- Row -->
-          <div class="row">
+        <div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 				<div class="panel panel-default card-view pa-0">
 					<div class="panel-wrapper collapse in">
@@ -35,8 +35,8 @@
 										<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
 											<span class="txt-dark block counter"><span>ACHATS</span></span>
 											<span class="weight-500 uppercase-font block font-13">Liste</span>
-										</div>
-										<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
+                                        </div>
+                                        <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right">
 											<i class="fa fa-cart-arrow-down data-right-rep-icon txt-light-grey"></i>
 										</div>
 									</div>	
@@ -54,12 +54,9 @@
 							<div class="sm-data-box">
 								<div class="container-fluid">
 									<div class="row">
-										<div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-											<span class="txt-dark block counter"><span class="counter-anim">{{len_achats}}</span></span>
+										<div class="col-xs-12 text-center pl-0 pr-0 data-wrap-right">
+											<span class="txt-dark block counter"><span class="counter-anim">{{nombre}}</span></span>
 											<span class="weight-500 uppercase-font block font-13">Nombre</span>
-										</div>
-										<div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-											<i class="fa fa-cart-arrow-down data-right-rep-icon txt-light-grey"></i>
 										</div>
 									</div>	
 								</div>
@@ -70,38 +67,38 @@
 			</div>
           
           <!-- Row -->
-          <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <div class="panel panel-default card-view">
-                      <div class="panel-heading">
-                          <div class="pull-left">
-                              <h6 class="panel-title txt-dark">Statistiques instantannées</h6>
-                          </div>
-                          <div class="clearfix"></div>
-                      </div>
-                      <div class="panel-wrapper collapse in">
-                        <ul class="flex-stat mb-10 ml-15">
-                            <li class="text-left auto-width mr-60">
-                                <span class="block">Nombre d'achats</span>
-                                <span class="block txt-success weight-500 font-18"><span class="counter-anim">{{nombre }}</span></span>
-                            </li>
-                            <li class="text-left auto-width mr-60">
-                                <span class="block">Puissance achetée</span>
-                                <span class="block txt-dark weight-500 font-18"><span class="counter-anim success" id="ptotal">{{ somme_qte }}</span></span>
-                            </li>
-                        </ul>
-                        <div id="area_chart" class="morris-chart" style="height:295px;"></div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="panel panel-default card-view panel-refresh">
-                    <div class="refresh-container">
-                        <div class="la-anim-1"></div>
-                    </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="panel panel-default card-view">
                     <div class="panel-heading">
                         <div class="pull-left">
+                            <h6 class="panel-title txt-dark">Statistiques instantannées</h6>
+                        </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="panel-wrapper collapse in">
+                    <ul class="flex-stat mb-10 ml-15">
+                        <li class="text-left auto-width mr-60">
+                            <span class="block">Nombre d'achats</span>
+                            <span class="block txt-success weight-500 font-18"><span class="counter-anim">{{nombre }}</span></span>
+                        </li>
+                        <li class="text-left auto-width mr-60">
+                            <span class="block">Puissance achetée</span>
+                            <span class="block txt-dark weight-500 font-18"><span class="counter-anim success" id="ptotal">{{ somme_qte }}</span></span>
+                        </li>
+                    </ul>
+                    <div id="area_chart" class="morris-chart" style="height:295px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel panel-default card-view panel-refresh">
+                <div class="refresh-container">
+                    <div class="la-anim-1"></div>
+                </div>
+                <div class="panel-heading">
+                    <div class="pull-left">
                             <h6 class="panel-title txt-dark">Details instantanés</h6>
                         </div>
                         <div class="pull-right">
