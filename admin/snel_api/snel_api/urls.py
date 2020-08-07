@@ -26,7 +26,7 @@ urlpatterns = [
     path('users/', include('user.urls')), 
     path('compteurs/', include('compteur.urls')),
     path('transfos/', include('transfos.urls')),
-    path('reglages', include('parametres.urls')),
+    path('reglages/', include('parametres.urls')),
     path('achats/', include('achats.urls')),
     path('transferts/', include('transferts.urls')),
     path('api/', include('api.urls')),

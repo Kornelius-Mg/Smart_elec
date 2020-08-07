@@ -68,7 +68,7 @@ $(function() {
             closeOnCancel: false 
         }, function(isConfirm){   
             if (isConfirm) {     
-                swal("Deleted!", "Your imaginary file has been deleted.", "success");   
+                swal("Deleted!", "Your imaginary file has been deleted.", "success"); 
             } else {     
                 swal("Cancelled", "Your imaginary file is safe :)", "error");   
             } 
